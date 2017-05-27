@@ -60,12 +60,6 @@ public class GUI extends JPanel {
 				case VK_ENTER:
 					partita.resuscitaPlayer1();
 					break;
-				case VK_UP:
-					partita.speedUpP1();
-					break;
-				case VK_DOWN:
-					partita.speedDownP1();
-					break;
 				case VK_LEFT:
 					partita.turnLeftP1();
 					break;
@@ -73,16 +67,16 @@ public class GUI extends JPanel {
 					partita.turnRightP1();
 					break;
 				case VK_W:
-					partita.speedUpP1();
+					partita.goUpP1();
 					break;
 				case VK_S:
-					partita.speedDownP1();
+					partita.goDownP1();
 					break;
 				case VK_A:
-					partita.turnLeftP1();
+					partita.goLeftP1();
 					break;
 				case VK_D:
-					partita.turnRightP1();
+					partita.goRightP1();
 					break;
 				case VK_ESCAPE:
 					partita.gameOver();

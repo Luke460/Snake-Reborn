@@ -34,7 +34,7 @@ public class Mappa {
 
 	public Mappa(String stringaDiConferma){
 		if(stringaDiConferma.equals("mappa-1")){
-			int dimensione = 6;
+			int dimensione = NUMERO_STANZE_DEFAULT;
 			this.codiceGenerazioneStanze = 0;
 			stanze = new HashMap<>();
 			

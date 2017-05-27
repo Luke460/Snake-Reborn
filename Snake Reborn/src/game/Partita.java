@@ -7,6 +7,7 @@ import serpenti.Serpente;
 import serpenti.SerpenteBotEasy;
 import serpenti.SerpenteBotHard;
 import serpenti.SerpenteGiocatore;
+import supporto.Direzione;
 import terrenoDiGioco.Mappa;
 import terrenoDiGioco.Stanza;
 import static supporto.Costanti.*;
@@ -15,9 +16,7 @@ public class Partita {
 
 	private HashMap<String,Serpente> serpenti;
 	private String nomePlayer1;
-	private String nomePlayer2;
 	private Mappa mappa;
-	private int numeroDiGiocatoriUmani;
 	private int numerettoPerSerpentiBot;
 
 	public Partita(){
@@ -28,30 +27,7 @@ public class Partita {
 	}
 
 	public void ImpostaPartita() {
-		/* non implementato
-		LP.outln("IMPOSTAZIONI:");
-		LP.out("Numero di giocatori Umani (max 2): ");
-		this.numeroDiGiocatoriUmani = 0;
-		while(this.numeroDiGiocatoriUmani<1 || this.numeroDiGiocatoriUmani>2){
-			this.numeroDiGiocatoriUmani = LP.inInt();
-		}
-		if(this.numeroDiGiocatoriUmani==1 || this.numeroDiGiocatoriUmani==2){
-			LP.out("Nome Player 1: ");
-			this.nomePlayer1=LP.inString();
-			Stanza stanzaCasuale = this.mappa.getStanzaCasualeLibera();
-			Serpente serpentePlayer1 = new SerpenteGiocatore(this.nomePlayer1, stanzaCasuale);
-			this.serpenti.put(this.nomePlayer1, serpentePlayer1);
-		}
-		if(this.numeroDiGiocatoriUmani==2){
-			LP.out("Nome Player 2: ");
-			this.nomePlayer2=LP.inString();
-			Serpente serpentePlayer2 = new SerpenteGiocatore(this.nomePlayer2, this.mappa.getStanzaCasualeLibera());
-			this.serpenti.put(this.nomePlayer2, serpentePlayer2);
-		}
-		 */
-
-		// Serpente Player 1
-
+		// un solo giocatore
 		Stanza stanzaCasuale = this.mappa.getStanzaCasualeLibera();
 		this.nomePlayer1 = NOME_PLAYER_1;
 		Serpente serpentePlayer1 = new SerpenteGiocatore(this.nomePlayer1, stanzaCasuale);
@@ -75,7 +51,8 @@ public class Partita {
 			numerettoPerSerpentiBot++;
 		}
 	}
-
+	
+	// metodi try: solo se si trova una stanza casuale che è anche libera
 	public void TryInserisciBotEasy(){
 		Stanza stanza = this.mappa.TryGetStanzaCasualeLibera();
 		if(stanza!=null){
@@ -112,45 +89,6 @@ public class Partita {
 		this.serpenti = serpenti;
 	}
 
-	public void speedUpP1() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void speedDownP1() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void turnLeftP1() {
-		this.serpenti.get(this.nomePlayer1).getDirezione().ruotaSX();
-	}
-
-	public void turnRightP1() {
-		this.serpenti.get(this.nomePlayer1).getDirezione().ruotaDX();
-
-	}
-
-	public void speedUpP2() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void speedDownP2() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void turnLeftP2() {
-		this.serpenti.get(this.nomePlayer2).getDirezione().ruotaSX();
-
-	}
-
-	public void turnRightP2() {
-		this.serpenti.get(this.nomePlayer2).getDirezione().ruotaDX();
-
-	}
-
 	public void gameOver() {
 		System.out.println("Punteggio finale: "+this.getPunteggio());
 		System.exit(-1);		
@@ -160,12 +98,8 @@ public class Partita {
 		return this.serpenti.get(this.nomePlayer1).getCasellaDiTesta().getStanza();
 	}
 
-	public Stanza getStanzaPlayer2() {
-		return this.serpenti.get(nomePlayer2).getCasellaDiTesta().getStanza();
-	}
-
 	public int getPunteggio() {
-		return this.getSerpenti().get(nomePlayer1).getHP()*10;
+		return this.getSerpenti().get(nomePlayer1).getHP()*MOLTIPLICATORE_PUNTEGGIO_CIBO;
 	}
 
 	public String getNomePlayer1() {
@@ -176,28 +110,12 @@ public class Partita {
 		this.nomePlayer1 = nomePlayer1;
 	}
 
-	public String getNomePlayer2() {
-		return nomePlayer2;
-	}
-
-	public void setNomePlayer2(String nomePlayer2) {
-		this.nomePlayer2 = nomePlayer2;
-	}
-
 	public Mappa getMappa() {
 		return mappa;
 	}
 
 	public void setMappa(Mappa mappa) {
 		this.mappa = mappa;
-	}
-
-	public int getNumetoDiGiocatoriUmani() {
-		return numeroDiGiocatoriUmani;
-	}
-
-	public void setNumetoDiGiocatoriUmani(int numetoDiGiocatoriUmani) {
-		this.numeroDiGiocatoriUmani = numetoDiGiocatoriUmani;
 	}
 
 	public void aggiungiCiboRandom() {
@@ -222,6 +140,52 @@ public class Partita {
 		Serpente p1 = this.serpenti.get(NOME_PLAYER_1);
 		punteggio += p1.getCiboPreso()*MOLTIPLICATORE_PUNTEGGIO_CIBO;
 		return punteggio;
+	}
+
+	public void goUpP1() {
+		Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
+		Direzione dir = serpente.getDirezione();
+		if(!(dir.getX()==0 && dir.getY()==1)){
+			dir.setX(0);
+			dir.setY(-1);
+		}	
+	}
+
+	public void goDownP1() {
+		Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
+		Direzione dir = serpente.getDirezione();
+		if(!(dir.getX()==0 && dir.getY()==-1)){
+			dir.setX(0);
+			dir.setY(1);
+		}	
+		
+	}
+
+	public void goLeftP1() {
+		Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
+		Direzione dir = serpente.getDirezione();
+		if(!(dir.getX()==1 && dir.getY()==0)){
+			dir.setX(-1);
+			dir.setY(0);
+		}	
+	}
+
+	public void goRightP1() {
+		Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
+		Direzione dir = serpente.getDirezione();
+		if(!(dir.getX()==-1 && dir.getY()==0)){
+			dir.setX(1);
+			dir.setY(0);
+		}		
+	}
+	
+	public void turnLeftP1() {
+		this.serpenti.get(this.nomePlayer1).getDirezione().ruotaSX();
+	}
+
+	public void turnRightP1() {
+		this.serpenti.get(this.nomePlayer1).getDirezione().ruotaDX();
+
 	}
 	
 }
