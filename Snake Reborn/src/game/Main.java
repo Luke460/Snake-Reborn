@@ -16,6 +16,7 @@ public class Main {
 	public static Suono suonoSpawn;
 	public static Suono suonoExplode;
 	public static Suono suonoTake;
+	public static Suono suonoMusic;
 
 	public static void main(String[] args) throws Exception {
 
@@ -24,6 +25,7 @@ public class Main {
 		gui = new GUI(partita);
 		gui.initControlliDaTastiera(partita);
 		inizializzaSuoni();
+		suonoMusic.loopClip();
 		cominciaIlGioco(partita);
 	}
 
@@ -32,6 +34,7 @@ public class Main {
 		suonoSpawn = new Suono("suoni\\spawn.wav");
 		suonoExplode = new Suono("suoni\\explode.wav");
 		suonoTake = new Suono("suoni\\take.wav");
+		suonoMusic = new Suono("suoni\\music.wav");
 	}
 
 	private static void cominciaIlGioco(game.Partita partita) throws AWTException {

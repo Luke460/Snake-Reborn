@@ -46,4 +46,12 @@ Carica le melodie in memoria.
 		clip.setFramePosition(0); // Riavvolgi il suono.
 		clip.start();     // Esegui il suono.
 	}
+	
+	@SuppressWarnings("static-access")
+	public void loopClip() {
+		if (clip.isRunning())
+			clip.stop();   // Ferma il suono se è ancora in esecuzione.
+		clip.setFramePosition(0); // Riavvolgi il suono.
+		clip.loop(clip.LOOP_CONTINUOUSLY);     // Esegui il suono.
+	}
 }
