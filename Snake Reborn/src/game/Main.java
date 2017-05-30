@@ -34,7 +34,7 @@ public class Main {
 		suonoSpawn = new SuonoWAV("suoni\\spawn.wav");
 		suonoExplode = new SuonoWAV("suoni\\explode.wav");
 		suonoTake = new SuonoWAV("suoni\\take.wav");
-		suonoMusic = new SuonoWAV("suoni\\musicCutted.wav");
+		suonoMusic = new SuonoWAV("suoni\\music.wav");
 	}
 
 	private static void cominciaIlGioco(game.Partita partita) throws AWTException {
