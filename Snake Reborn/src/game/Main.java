@@ -5,18 +5,18 @@ import static supporto.Costanti.*;
 import java.awt.AWTException;
 
 import LukePack.LP;
-import audio.Suono;
+import audio.SuonoWAV;
 import video.GUI;
 
 public class Main {
 
 	static Partita partita;
 	private static GUI gui;
-	public static Suono suonoSlain;
-	public static Suono suonoSpawn;
-	public static Suono suonoExplode;
-	public static Suono suonoTake;
-	public static Suono suonoMusic;
+	public static SuonoWAV suonoSlain;
+	public static SuonoWAV suonoSpawn;
+	public static SuonoWAV suonoExplode;
+	public static SuonoWAV suonoTake;
+	public static SuonoWAV suonoMusic;
 
 	public static void main(String[] args) throws Exception {
 
@@ -30,11 +30,11 @@ public class Main {
 	}
 
 	private static void inizializzaSuoni() {
-		suonoSlain = new Suono("suoni\\slain.wav");
-		suonoSpawn = new Suono("suoni\\spawn.wav");
-		suonoExplode = new Suono("suoni\\explode.wav");
-		suonoTake = new Suono("suoni\\take.wav");
-		suonoMusic = new Suono("suoni\\music.wav");
+		suonoSlain = new SuonoWAV("suoni\\slain.wav");
+		suonoSpawn = new SuonoWAV("suoni\\spawn.wav");
+		suonoExplode = new SuonoWAV("suoni\\explode.wav");
+		suonoTake = new SuonoWAV("suoni\\take.wav");
+		suonoMusic = new SuonoWAV("suoni\\musicCutted.wav");
 	}
 
 	private static void cominciaIlGioco(game.Partita partita) throws AWTException {
