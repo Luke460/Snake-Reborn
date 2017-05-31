@@ -6,6 +6,7 @@ import java.util.Iterator;
 import serpenti.Serpente;
 import serpenti.SerpenteBotEasy;
 import serpenti.SerpenteBotHard;
+import serpenti.SerpenteBotMedium;
 import serpenti.SerpenteGiocatore;
 import supporto.Direzione;
 import terrenoDiGioco.Mappa;
@@ -35,36 +36,34 @@ public class Partita {
 
 	}
 
-	public void inserisciBotEasy(){
+	public void inserisciBot(String classe){
 		Stanza stanza = this.mappa.getStanzaCasualeLibera();
 		if(stanza!=null){
-			Serpente bot = new SerpenteBotEasy("bot"+numerettoPerSerpentiBot, stanza);
-			this.serpenti.put("bot"+numerettoPerSerpentiBot, bot);
-			numerettoPerSerpentiBot++;
-		}
-	}
-	public void inserisciBotHard(){
-		Stanza stanza = this.mappa.getStanzaCasualeLibera();
-		if(stanza!=null){
-			Serpente bot = new SerpenteBotHard("bot"+numerettoPerSerpentiBot, stanza);
+			Serpente bot = null;
+			if(classe.equals(SerpenteBotEasy.class.getSimpleName())){
+				bot = new SerpenteBotEasy("bot"+numerettoPerSerpentiBot, stanza);
+			} else if(classe.equals(SerpenteBotMedium.class.getSimpleName())){
+				bot = new SerpenteBotMedium("bot"+numerettoPerSerpentiBot, stanza);
+			} else if(classe.equals(SerpenteBotHard.class.getSimpleName())){
+				bot = new SerpenteBotHard("bot"+numerettoPerSerpentiBot, stanza);
+			}
 			this.serpenti.put("bot"+numerettoPerSerpentiBot, bot);
 			numerettoPerSerpentiBot++;
 		}
 	}
 	
-	// metodi try: solo se si trova una stanza casuale che è anche libera
-	public void TryInserisciBotEasy(){
+	// metodi try: solo se si trova una stanza casuale che è anche liber
+	public void tryInserisciBot(String classe){
 		Stanza stanza = this.mappa.TryGetStanzaCasualeLibera();
 		if(stanza!=null){
-			Serpente bot = new SerpenteBotEasy("bot"+numerettoPerSerpentiBot, stanza);
-			this.serpenti.put("bot"+numerettoPerSerpentiBot, bot);
-			numerettoPerSerpentiBot++;
-		}
-	}
-	public void TryInserisciBotHard(){
-		Stanza stanza = this.mappa.TryGetStanzaCasualeLibera();
-		if(stanza!=null){
-			Serpente bot = new SerpenteBotHard("bot"+numerettoPerSerpentiBot, stanza);
+			Serpente bot = null;
+			if(classe.equals(SerpenteBotEasy.class.getSimpleName())){
+				bot = new SerpenteBotEasy("bot"+numerettoPerSerpentiBot, stanza);
+			} else if(classe.equals(SerpenteBotMedium.class.getSimpleName())){
+				bot = new SerpenteBotMedium("bot"+numerettoPerSerpentiBot, stanza);
+			} else if(classe.equals(SerpenteBotHard.class.getSimpleName())){
+				bot = new SerpenteBotHard("bot"+numerettoPerSerpentiBot, stanza);
+			}
 			this.serpenti.put("bot"+numerettoPerSerpentiBot, bot);
 			numerettoPerSerpentiBot++;
 		}
@@ -77,6 +76,8 @@ public class Partita {
 			Serpente s = iteratore.next();
 			if(!s.isMorto()){
 				s.FaiMossa();
+			} else if(!s.getClass().toString().equals(SerpenteGiocatore.class.toString())){
+				iteratore.remove();
 			}
 		}
 	}

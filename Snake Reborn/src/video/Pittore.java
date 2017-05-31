@@ -23,8 +23,8 @@ public class Pittore {
 		case CARATTERE_CASELLA_BOT_EASY:
 			return Color.green;
 			
-		case CARATTERE_CASELLA_BOT_NORMAL:
-			return Color.orange;
+		case CARATTERE_CASELLA_BOT_MEDIUM:
+			return new Color(250, 150, 0);
 			
 		case CARATTERE_CASELLA_BOT_HARD:
 			return Color.red;

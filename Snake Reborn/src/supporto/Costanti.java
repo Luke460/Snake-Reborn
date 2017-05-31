@@ -28,11 +28,13 @@ public interface Costanti {
 	public static final char CARATTERE_CASELLA_BOT_EASY = 'E';
 	public static final char CARATTERE_CASELLA_BOT_NORMAL = 'N';
 	public static final char CARATTERE_CASELLA_BOT_HARD = 'H';
+	public static final char CARATTERE_CASELLA_BOT_MEDIUM = 'M';
 	public static final char CARATTERE_CASELLA_CIBO = 'F';
 	public static final char CARATTERE_CASELLA_PORTALE = 'P';
 	
 	public static final int VITA_SERPENTE_DEFAULT = 8;
-	static final public int VITA_SERPENTE_MASSIMA = 24;
+	static final public int VITA_SERPENTE_MASSIMA = 32;
+	static final public int NUMERO_TIPOLOGIE_BOT = 3;
 	
 	static final public int TEMPO_RIPOPOLAMENTO_CIBO = 130; // 13 sec
 	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI = 30; // 3 sec

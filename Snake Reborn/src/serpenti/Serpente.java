@@ -104,6 +104,7 @@ public abstract class Serpente {
 				Casella temp = iteratore.next();
 				temp.decrementaVita(); // la testa non si tocca
 				if(temp.isMorta()){
+					temp.libera();
 					iteratore.remove();
 				}
 			}

@@ -6,6 +6,9 @@ import java.awt.AWTException;
 
 import LukePack.LP;
 import audio.SuonoWAV;
+import serpenti.SerpenteBotEasy;
+import serpenti.SerpenteBotHard;
+import serpenti.SerpenteBotMedium;
 import video.GUI;
 
 public class Main {
@@ -56,12 +59,15 @@ public class Main {
 				contaRipopolaCibo = 0;
 			}
 			if(contaRipopolaSerpenti==TEMPO_RIPOPOLAMENTO_SERPENTI){
-				int rand = (int)(Math.random()*2 + 1);
+				int rand = (int)(Math.random()*3 + 1);
 				if(rand==1) {
-					partita.TryInserisciBotEasy();
+					partita.tryInserisciBot(SerpenteBotEasy.class.getSimpleName());
 				}
 				if(rand==2) {
-					partita.TryInserisciBotHard();
+					partita.tryInserisciBot(SerpenteBotMedium.class.getSimpleName());
+				}
+				if(rand==3) {
+					partita.tryInserisciBot(SerpenteBotHard.class.getSimpleName());
 				}
 				contaRipopolaSerpenti = 0;
 			}
@@ -81,9 +87,9 @@ public class Main {
 
 	private static void creaPopoloIniziale(game.Partita partita) {
 		partita.aggiungiCiboRandom();
-		partita.inserisciBotEasy();
-		partita.inserisciBotEasy();
-		partita.inserisciBotEasy();
+		partita.inserisciBot(SerpenteBotEasy.class.getSimpleName());
+		partita.inserisciBot(SerpenteBotEasy.class.getSimpleName());
+		partita.inserisciBot(SerpenteBotEasy.class.getSimpleName());
 	}
 
 }
