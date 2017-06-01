@@ -118,14 +118,25 @@ public class GUI extends JPanel {
 		g.setColor(colore);
 		int d = dimensioneCasella;
 		int gx = x*d, gy = y*d;
-		disegnaCasellaInRilievo(g, d, gx, gy);
+		if(casella.getStato()==CARATTERE_CASELLA_PORTALE){
+			disegnaCasellaInRilievo(g, d, gx, gy);
+		} else {
+			disegnaCasellaNormale(g, d, gx, gy);
+		}
 	}
 
+	private void disegnaCasellaNormale(Graphics g, int l, int x, int y) {
+		
+		g.fill3DRect(   x,  y,   l-1, l-1, true);
+		g.fillRoundRect(x+2,y+2, l-4, l-4, 2, 2 );
+		
+	}
+	
 	private void disegnaCasellaInRilievo(Graphics g, int l, int x, int y) {
 		
 		g.fill3DRect(   x,  y,   l-1, l-1, true);
 		g.fillRoundRect(x+2,y+2, l-4, l-4, 2, 2 );
-		//g.fill3DRect(   x+2,y+2, l-5, l-5, true ); // i riquadri interni... meh
+		g.fill3DRect(   x+2,y+2, l-5, l-5, true );
 		
 	}
 

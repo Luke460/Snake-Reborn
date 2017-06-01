@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Utility {
 
-	public static Collection<? extends Character> StringaToArray(String stringa) {
+	public static Collection<? extends Character> stringaToArray(String stringa) {
 		LinkedList<Character> listaCaratteri = new LinkedList<>();
 		for(int i = 0; i<stringa.length(); i++){
 			listaCaratteri.add(stringa.charAt(i));

@@ -3,10 +3,15 @@ package terrenoDiGioco;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
+import supporto.Utility;
+
+import LukePack.LP;
+
 import static supporto.Costanti.*;
 
 public class Mappa {
-	
+
 	private HashMap<Integer,Stanza> stanze;
 	private int codiceGenerazioneStanze;
 
@@ -19,7 +24,7 @@ public class Mappa {
 			nuovaStanza.CaricaFile(this.generaNomeFile());
 		}
 	}
-	
+
 	public Mappa(int dimensione){
 		this.codiceGenerazioneStanze = 0;
 		stanze = new HashMap<>();
@@ -37,7 +42,7 @@ public class Mappa {
 			int dimensione = NUMERO_STANZE_DEFAULT;
 			this.codiceGenerazioneStanze = 0;
 			stanze = new HashMap<>();
-			
+
 			// creazione stanze
 			for(int i=0;i<dimensione;i++){
 				this.codiceGenerazioneStanze = i;
@@ -45,58 +50,61 @@ public class Mappa {
 				nuovaStanza.CaricaFile("stanze\\stanza-"+i+".txt");
 				stanze.put(codiceGenerazioneStanze, nuovaStanza);
 			}
-			
-			// collegamento stanze
-			/*
-			 *                 1--5*
-			 *                 |  |
-			 *   partenza > 0--4--3
-			 *              |  |
-			 *             *5--2
-			 * 
-			 */
-			
-			this.stanze.get(0).setCollegamenti(EST, this.stanze.get(4));
-			this.stanze.get(0).coloraPorta(EST);
-			this.stanze.get(4).setCollegamenti(OVEST, this.stanze.get(0));
-			this.stanze.get(4).coloraPorta(OVEST);
-			
-			this.stanze.get(1).setCollegamenti(SUD, this.stanze.get(4));
-			this.stanze.get(1).coloraPorta(SUD);
-			this.stanze.get(4).setCollegamenti(NORD, this.stanze.get(1));
-			this.stanze.get(4).coloraPorta(NORD);
-			
-			this.stanze.get(3).setCollegamenti(OVEST, this.stanze.get(4));
-			this.stanze.get(3).coloraPorta(OVEST);
-			this.stanze.get(4).setCollegamenti(EST, this.stanze.get(3));
-			this.stanze.get(4).coloraPorta(EST);
-			
-			this.stanze.get(2).setCollegamenti(NORD, this.stanze.get(4));
-			this.stanze.get(2).coloraPorta(NORD);
-			this.stanze.get(4).setCollegamenti(SUD, this.stanze.get(2));
-			this.stanze.get(4).coloraPorta(SUD);
-			
-			this.stanze.get(5).setCollegamenti(EST, this.stanze.get(2));
-			this.stanze.get(5).coloraPorta(EST);
-			this.stanze.get(2).setCollegamenti(OVEST, this.stanze.get(5));
-			this.stanze.get(2).coloraPorta(OVEST);
-			
-			this.stanze.get(5).setCollegamenti(NORD, this.stanze.get(0));
-			this.stanze.get(5).coloraPorta(NORD);
-			this.stanze.get(0).setCollegamenti(SUD, this.stanze.get(5));
-			this.stanze.get(0).coloraPorta(SUD);
-			
-			this.stanze.get(5).setCollegamenti(OVEST, this.stanze.get(1));
-			this.stanze.get(5).coloraPorta(OVEST);
-			this.stanze.get(1).setCollegamenti(EST, this.stanze.get(5));
-			this.stanze.get(1).coloraPorta(EST);
-			
-			this.stanze.get(5).setCollegamenti(SUD, this.stanze.get(3));
-			this.stanze.get(5).coloraPorta(SUD);
-			this.stanze.get(3).setCollegamenti(NORD, this.stanze.get(5));
-			this.stanze.get(3).coloraPorta(NORD);
-			
+
+			String strutturaMappa = LP.readFile("mappe\\"+stringaDiConferma+".txt");
+			ArrayList<Character> listaCaratteri = new ArrayList<Character>();
+			listaCaratteri.addAll(Utility.stringaToArray(strutturaMappa));
+			boolean rigaValida = false;
+			int contatore = 0;
+			int numeroStanza1 = -1;
+			int numeroStanza2 = -1;
+			String collegamento = "";
+			for(char c:listaCaratteri){
+				if(c!=CARATTERE_FINE_FILE){
+					if(c=='>' && rigaValida == true){
+						this.stanze.get(numeroStanza1).setCollegamenti(collegamento, this.stanze.get(numeroStanza2));
+						this.stanze.get(numeroStanza1).coloraPorta(collegamento);
+						this.stanze.get(numeroStanza2).setCollegamenti(getInversaCollegamento(collegamento), this.stanze.get(numeroStanza1));
+						this.stanze.get(numeroStanza2).coloraPorta(getInversaCollegamento(collegamento));
+						rigaValida = false;
+						contatore = 0;
+					}
+					if(rigaValida){
+						if(contatore==1){
+							numeroStanza1=Integer.parseInt(c+"");
+						}
+						if(contatore==2){
+							collegamento=generaCollegamento(c);
+						}
+						if(contatore==3){
+							numeroStanza2=Integer.parseInt(c+"");
+						}
+						contatore++;
+					}
+					if(c=='<'){
+						rigaValida = true;
+						contatore = 1;
+					}
+				}
+			}
 		}
+	}
+
+	private String getInversaCollegamento(String collegamento) {
+		if(collegamento.equals(NORD))return SUD;
+		if(collegamento.equals(EST))return OVEST;
+		if(collegamento.equals(SUD))return NORD;
+		if(collegamento.equals(OVEST))return EST;
+		return null;
+
+	}
+
+	private String generaCollegamento(char c) {
+		if(c=='N') return NORD;
+		if(c=='E') return EST;
+		if(c=='S') return SUD;
+		if(c=='O') return OVEST;
+		return null;
 	}
 
 	private String generaNomeFile() {
@@ -169,7 +177,7 @@ public class Mappa {
 		}
 		return null;
 	}
-	
+
 	public Stanza TryGetStanzaCasualeLibera() {
 		int nr = (int)(Math.random()*codiceGenerazioneStanze);
 		Stanza tempStanza = stanze.get(nr);

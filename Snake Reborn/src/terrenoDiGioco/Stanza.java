@@ -34,7 +34,7 @@ public class Stanza {
 		this.nome = nomeFile;
 		String testoMappa = LP.readFile(nomeFile);
 		ArrayList<Character> listaCaratteri = new ArrayList<>();
-		listaCaratteri.addAll(Utility.StringaToArray(testoMappa));
+		listaCaratteri.addAll(Utility.stringaToArray(testoMappa));
 		caselle = new HashMap<>();
 
 		boolean rigaValida=false;
@@ -66,7 +66,7 @@ public class Stanza {
 	public void CaricaFilePerTest(String nomeFile){
 		String testoMappa = LP.readFile(nomeFile);
 		ArrayList<Character> listaCaratteri = new ArrayList<>();
-		listaCaratteri.addAll(Utility.StringaToArray(testoMappa));
+		listaCaratteri.addAll(Utility.stringaToArray(testoMappa));
 		caselle = new HashMap<>();
 
 		boolean rigaValida=false;

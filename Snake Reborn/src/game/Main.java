@@ -51,7 +51,7 @@ public class Main {
 		while(true) {
 			// sistema anti-lag
 			long tempoInizioAlgoritmo = System.currentTimeMillis(); 
-			
+
 			contaRipopolaCibo++;
 			contaRipopolaSerpenti++;
 			if(contaRipopolaCibo==TEMPO_RIPOPOLAMENTO_CIBO){
@@ -71,11 +71,11 @@ public class Main {
 				}
 				contaRipopolaSerpenti = 0;
 			}
-			
+
 			partita.eseguiTurni();
 			gui.repaint(); // lo metto dopo in modo che il giocatore ha
 			//100 ms per reagire
-			
+
 			// sistema anti-lag
 			long tempoFineAlgoritmo = System.currentTimeMillis();
 			long ritardoAlgoritmo = tempoFineAlgoritmo-tempoInizioAlgoritmo;
@@ -87,9 +87,9 @@ public class Main {
 
 	private static void creaPopoloIniziale(game.Partita partita) {
 		partita.aggiungiCiboRandom();
-		partita.inserisciBot(SerpenteBotEasy.class.getSimpleName());
-		partita.inserisciBot(SerpenteBotEasy.class.getSimpleName());
-		partita.inserisciBot(SerpenteBotEasy.class.getSimpleName());
+		for(int i=0;i<(NUMERO_STANZE_DEFAULT/2);i++){
+			partita.inserisciBot(SerpenteBotEasy.class.getSimpleName());
+		}
 	}
 
 }
