@@ -131,4 +131,8 @@ public class Casella  {
 	public Casella getCasellaAdiacente(Direzione direzione) {
 		return this.stanza.getCasellaAdiacente(direzione, this);
 	}
+
+	public boolean isOccupataDaSerpente() {
+		return this.getSerpente()!=null;
+	}
 }

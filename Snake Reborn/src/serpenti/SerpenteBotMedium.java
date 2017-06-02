@@ -83,7 +83,7 @@ public class SerpenteBotMedium extends Serpente {
 			return;
 		}
 		
-		super.muori();
+		super.Sposta(direzioneDritta);
 	}
 
 }

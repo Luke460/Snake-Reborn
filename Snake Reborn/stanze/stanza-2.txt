@@ -1,11 +1,11 @@
 <WWWWWWWWWWWWWWWW        WWWWWWWWWWWWWWWW>
-<W                                      W>
-<W                                      W>
-<W                                      W>
-<W                                      W>
-<W    WWW       W        W       WWW    W>
-<W    WWW       W        W       WWW    W>
-<W    WWW       W        W       WWW    W>
+<WWWWWWWW                        WWWWWWWW>
+<WWWWWWWW                        WWWWWWWW>
+<WWWWWWWW                        WWWWWWWW>
+<WWWWWWWW                        WWWWWWWW>
+<WWWWWWWW       W        W       WWWWWWWW>
+<WWWWWWWW       W        W       WWWWWWWW>
+<WWWWWWWW       W        W       WWWWWWWW>
 <W              W        W              W>
 <W              W        W              W>
 <W              W        W              W>
@@ -30,12 +30,12 @@
 <W              W        W              W>
 <W              W        W              W>
 <W              W        W              W>
-<W    WWW       W        W       WWW    W>
-<W    WWW       W        W       WWW    W>
-<W    WWW       W        W       WWW    W>
-<W                                      W>
-<W                                      W>
-<W                                      W>
-<W                                      W>
+<WWWWWWWW       W        W       WWWWWWWW>
+<WWWWWWWW       W        W       WWWWWWWW>
+<WWWWWWWW       W        W       WWWWWWWW>
+<WWWWWWWW                        WWWWWWWW>
+<WWWWWWWW                        WWWWWWWW>
+<WWWWWWWW                        WWWWWWWW>
+<WWWWWWWW                        WWWWWWWW>
 <WWWWWWWWWWWWWWWW        WWWWWWWWWWWWWWWW>
 $

@@ -83,21 +83,20 @@ public abstract class Serpente {
 
 	public void Sposta(Direzione d){
 		this.setDirezione(d);
-		if(this.getCasellaDiTesta().getVita()<=0) return; // è morto
-		Casella NuovaCasella = this.getCasellaDiTesta().getStanza().getCasellaAdiacente(d, this.getCasellaDiTesta());
+		Casella nuovaCasella = this.getCasellaDiTesta().getStanza().getCasellaAdiacente(d, this.getCasellaDiTesta());
 
-		if(!NuovaCasella.isMortale()){
-			if(NuovaCasella.isCibo()){
+		if(!nuovaCasella.isMortale()){
+			if(nuovaCasella.isCibo()){
 				this.incrementaVitaSerpente();
-				NuovaCasella.setCasellaOccupataDalSerpente(this,this.getHP()+1,this.getCasellaDiTesta().getStato());
+				nuovaCasella.setCasellaOccupataDalSerpente(this,this.getHP()+1,this.getCasellaDiTesta().getStato());
 			} else {
-				NuovaCasella.setCasellaOccupataDalSerpente(this,this.getHP(),this.getCasellaDiTesta().getStato());
+				nuovaCasella.setCasellaOccupataDalSerpente(this,this.getHP(),this.getCasellaDiTesta().getStato());
 			}
 			int vitaSerpente = this.getHP();
 
 
-			NuovaCasella.setVita(vitaSerpente);
-			this.setCasellaDiTesta(NuovaCasella);
+			nuovaCasella.setVita(vitaSerpente);
+			this.setCasellaDiTesta(nuovaCasella);
 
 			Iterator<Casella> iteratore = this.getCaselle().iterator();
 			while(iteratore.hasNext()){
@@ -108,8 +107,14 @@ public abstract class Serpente {
 					iteratore.remove();
 				}
 			}
-			this.caselle.add(NuovaCasella);
-		} else {
+			this.caselle.add(nuovaCasella);
+		} else { // casella mortale
+			if(nuovaCasella.isOccupataDaSerpente()){
+				Serpente altroSerpente = nuovaCasella.getSerpente();
+				if(altroSerpente.getCasellaDiTesta().getPosizione().equals(nuovaCasella.getPosizione())){
+					altroSerpente.muori();
+				}
+			}
 			this.muori();
 		}
 	}
@@ -181,6 +186,11 @@ public abstract class Serpente {
 
 	public void setCiboPreso(int ciboPreso) {
 		this.ciboPreso = ciboPreso;
+	}
+	
+	@Override
+	public String toString(){
+		return this.getNome() + " \t " + this.getClass().getSimpleName() + " \t " + (this.getHP()*MOLTIPLICATORE_PUNTEGGIO_CIBO);
 	}
 
 }

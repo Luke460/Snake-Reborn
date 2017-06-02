@@ -129,7 +129,7 @@ public class SerpenteBotHard extends Serpente {
 			return;
 		}
 
-		super.muori();
+		super.Sposta(direzioneDritta);
 	}
 
 }
