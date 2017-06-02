@@ -27,23 +27,21 @@ public class SerpenteBotHard extends Serpente {
 		Direzione direzioneAlternativaSX = new Direzione(super.getDirezione().getX(),super.getDirezione().getY());
 		direzioneAlternativaSX.ruotaSX();
 
-		// se davanti c'e' un mio pezzo...
-		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).getSerpente()!=null){
-			if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).getSerpente().getNome().equals(this.getNome())){
-				//...vado nella direzione opposta all'ultima presa
-				if(this.ultimaSterzata=='d'){
-					if(!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaSX).isMortale()){
-						super.Sposta(direzioneAlternativaSX);
-						this.ultimaSterzata='s';
-						return;
-					}
+		// se davanti c'e' un ostacolo... (serve per evitare cappi)
+		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).isMortale()){
+			//...tento di andare nella direzione opposta all'ultima presa
+			if(this.ultimaSterzata=='d'){
+				if(!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaSX).isMortale()){
+					super.Sposta(direzioneAlternativaSX);
+					this.ultimaSterzata='s';
+					return;
 				}
-				if(this.ultimaSterzata=='s'){
-					if(!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).isMortale()){
-						super.Sposta(direzioneAlternativaDX);
-						this.ultimaSterzata='d';
-						return;
-					}
+			}
+			if(this.ultimaSterzata=='s'){
+				if(!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).isMortale()){
+					super.Sposta(direzioneAlternativaDX);
+					this.ultimaSterzata='d';
+					return;
 				}
 			}
 		}
@@ -67,7 +65,7 @@ public class SerpenteBotHard extends Serpente {
 			this.ultimaSterzata='d';
 			return;
 		}
-		
+
 		// se a dx di 2 caselle c'e cibo giro a dx
 		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).getCasellaAdiacente(direzioneAlternativaDX).isCibo()&&
 				!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).isMortale()){
@@ -82,7 +80,7 @@ public class SerpenteBotHard extends Serpente {
 			this.ultimaSterzata='s';
 			return;
 		}
-		
+
 		// se a sx di 2 caselle c'e cibo giro a sx
 		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaSX).getCasellaAdiacente(direzioneAlternativaSX).isCibo()&&
 				!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaSX).isMortale()){

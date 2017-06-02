@@ -5,9 +5,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="E:/Università/Programmi/LukePack/LukePack v1.2.1 Stable (Hopefully)/LukePack-1.2.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Luca/Librerie/JMF-2.1.1e/lib/customizer.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Luca/Librerie/JMF-2.1.1e/lib/jmf.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Luca/Librerie/JMF-2.1.1e/lib/mediaplayer.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Luca/Librerie/JMF-2.1.1e/lib/multiplayer.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
