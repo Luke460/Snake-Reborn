@@ -3,6 +3,7 @@ package serpenti;
 import static supporto.Costanti.*;
 
 import LukePack.LP;
+import audio.GestoreSuoni;
 import supporto.Utility;
 import terrenoDiGioco.Casella;
 import terrenoDiGioco.Stanza;
@@ -32,12 +33,12 @@ public class SerpenteGiocatore extends Serpente {
 	}
 
 	public void incrementaVitaSerpente() {
-		game.Main.suonoTake.playClip();
+		GestoreSuoni.playTakeSound();
 		super.incrementaVitaSerpente();
 	}
 	
 	public void muori(){
-		game.Main.suonoExplode.playClip();
+		GestoreSuoni.playExplodeSound();
 		String testo = LP.readFile("record.txt");
 		aggiornaFileRecord(testo);
 		for(Casella c:super.getCaselle()){

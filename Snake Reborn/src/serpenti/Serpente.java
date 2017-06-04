@@ -3,6 +3,7 @@ package serpenti;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import audio.GestoreSuoni;
 import supporto.Direzione;
 import supporto.Posizione;
 import terrenoDiGioco.Casella;
@@ -135,7 +136,7 @@ public abstract class Serpente {
 		Serpente serpenteDavanti = this.getCasellaDiTesta().getCasellaAdiacente(this.direzione).getSerpente();
 		if(serpenteDavanti!=null){
 			if(serpenteDavanti.getNome().equals(NOME_PLAYER_1)){
-				game.Main.suonoSlain.playClip();
+				GestoreSuoni.playSlainSound();
 			}
 		}
 		for(Casella c:this.caselle){

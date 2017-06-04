@@ -36,10 +36,10 @@ public class Pittore {
 			return Color.black;
 			
 		case CARATTERE_CASELLA_PORTALE:
-			return Color.cyan;
+			return Color.lightGray;
 		
 		default: // CARATTERE_CASELLA_VUOTA
-			return Color.darkGray;
+			return Color.black;
 		}	
 	}
 }

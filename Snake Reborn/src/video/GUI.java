@@ -26,18 +26,18 @@ public class GUI extends JPanel {
 	
 	final private Partita partita;
 	int dimensioneCasella;
-	final private JFrame jframe;
+	final private JFrame finestra;
 
 	public GUI(final Partita partita) {
 		this.partita = partita;
-		this.jframe = new JFrame("Snake Reborn");		
-		jframe.add(this);
-		jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.finestra = new JFrame("Snake Reborn");		
+		finestra.add(this);
+		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.dimensioneCasella = calcolaDimensioneCasellaMassima();
-		jframe.setSize((int)((DIMENSIONE_STANZA_DEFAULT+0.9)*this.dimensioneCasella), (int) ((DIMENSIONE_STANZA_DEFAULT+2.2)*dimensioneCasella));
-		jframe.setVisible(true);
+		finestra.setSize((int)((DIMENSIONE_STANZA_DEFAULT+0.9)*this.dimensioneCasella), (int) ((DIMENSIONE_STANZA_DEFAULT+2.2)*dimensioneCasella));
+		finestra.setVisible(true);
 		//jframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		jframe.setLocationRelativeTo(null);
+		finestra.setLocationRelativeTo(null);
 
 	}
 
@@ -51,7 +51,7 @@ public class GUI extends JPanel {
 	public void initControlliDaTastiera(final Partita partita) {
 
 		// Gestione eventi associati alla tastiera
-		this.jframe.addKeyListener(new KeyListener() {
+		this.finestra.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {}
 			@Override
@@ -102,7 +102,7 @@ public class GUI extends JPanel {
 
 	
 	private void riportaLivelloPunteggio(long punteggio) {
-		this.jframe.setTitle("\tPunteggio: "+punteggio);
+		this.finestra.setTitle("\tPunteggio: "+punteggio);
 	}
 	
 	private void disegnaStanza(Graphics g) {

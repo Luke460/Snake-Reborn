@@ -5,7 +5,8 @@ import static supporto.Costanti.*;
 import java.awt.AWTException;
 
 import LukePack.LP;
-import audio.SuonoWAV;
+import audio.GestoreSuoni;
+import client.Client;
 import serpenti.SerpenteBotEasy;
 import serpenti.SerpenteBotHard;
 import serpenti.SerpenteBotMedium;
@@ -15,36 +16,37 @@ public class Main {
 
 	static Partita partita;
 	private static GUI gui;
-	public static SuonoWAV suonoSlain;
-	public static SuonoWAV suonoSpawn;
-	public static SuonoWAV suonoExplode;
-	public static SuonoWAV suonoTake;
-	public static SuonoWAV suonoMusic;
+	private static String nomeUtente;
+	private static String password;
+	
+	public static void main(String[] args){
+		avviaClient();
+	}
 
-	public static void main(String[] args) throws Exception {
-
+	public static void avviaIlGioco() throws AWTException {
 		partita = new Partita();
 		partita.ImpostaPartita();
 		gui = new GUI(partita);
 		gui.initControlliDaTastiera(partita);
-		inizializzaSuoni();
-		suonoMusic.loopClip();
+		GestoreSuoni.inizzializzaSuoni();
+		
+		GestoreSuoni.playMusicaInLoop();
 		cominciaIlGioco(partita);
 	}
 
-	private static void inizializzaSuoni() {
-		suonoSlain = new SuonoWAV("suoni\\slain.wav");
-		suonoSpawn = new SuonoWAV("suoni\\spawn.wav");
-		suonoExplode = new SuonoWAV("suoni\\explode.wav");
-		suonoTake = new SuonoWAV("suoni\\take.wav");
-		suonoMusic = new SuonoWAV("suoni\\music.wav");
+	public static void avviaClient() {
+		new Client();
+		// l'utente inserisce i dati e clicca su Accedi
+		//tuttoOk = ClasseEsterna.metodoHttp(nomeUtente, password);
 	}
+
+
 
 	private static void cominciaIlGioco(game.Partita partita) throws AWTException {
 		creaPopoloIniziale(partita);
 		gui.repaint();
 		LP.waitFor(1000);
-		suonoSpawn.playClip();
+		GestoreSuoni.playSpawnSound();
 		int contaRipopolaCibo=0;
 		int contaRipopolaSerpenti=-RITARDO_INIZIALE_RIPOPOLAMENTO_SERPENTI;
 
@@ -90,6 +92,22 @@ public class Main {
 		for(int i=0;i<(NUMERO_STANZE_DEFAULT/2);i++){
 			partita.inserisciBot(SerpenteBotEasy.class.getSimpleName());
 		}
+	}
+
+	public static String getNomeUtente() {
+		return nomeUtente;
+	}
+
+	public static void setNomeUtente(String nomeUtente) {
+		Main.nomeUtente = nomeUtente;
+	}
+
+	public static String getPassword() {
+		return password;
+	}
+
+	public static void setPassword(String password) {
+		Main.password = password;
 	}
 
 }

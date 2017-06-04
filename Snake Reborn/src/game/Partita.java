@@ -3,6 +3,7 @@ package game;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import audio.GestoreSuoni;
 import serpenti.Serpente;
 import serpenti.SerpenteBotEasy;
 import serpenti.SerpenteBotHard;
@@ -19,8 +20,10 @@ public class Partita {
 	private String nomePlayer1;
 	private Mappa mappa;
 	private int numerettoPerSerpentiBot;
+	private boolean ilGiocatoreHaFattoLaMossa;
 
 	public Partita(){
+		this.ilGiocatoreHaFattoLaMossa = false;
 		this.serpenti = new HashMap<String,Serpente>();
 		this.mappa = new Mappa("mappa-1");
 		this.numerettoPerSerpentiBot = 0;
@@ -51,7 +54,7 @@ public class Partita {
 			numerettoPerSerpentiBot++;
 		}
 	}
-	
+
 	// metodi try: solo se si trova una stanza casuale che è anche liber
 	public void tryInserisciBot(String classe){
 		Stanza stanza = this.mappa.TryGetStanzaCasualeLibera();
@@ -71,7 +74,7 @@ public class Partita {
 
 	public void eseguiTurni() {
 
-		Iterator<Serpente> iteratore = this.getSerpenti().values().iterator();
+		Iterator<Serpente> iteratore = this.getSerpenti().values().iterator();	
 		while(iteratore.hasNext()){
 			Serpente s = iteratore.next();
 			if(!s.isMorto()){
@@ -80,6 +83,7 @@ public class Partita {
 				iteratore.remove();
 			}
 		}
+		ilGiocatoreHaFattoLaMossa = false;
 	}
 
 	public HashMap<String,Serpente> getSerpenti() {
@@ -91,7 +95,6 @@ public class Partita {
 	}
 
 	public void gameOver() {
-		System.out.println("Punteggio finale: "+this.getPunteggio());
 		System.exit(-1);		
 	}
 
@@ -128,7 +131,7 @@ public class Partita {
 	public void resuscitaPlayer1() {
 		Serpente p1 = this.serpenti.get(NOME_PLAYER_1);
 		if(p1.isMorto()){
-			game.Main.suonoSpawn.playClip();
+			GestoreSuoni.playSpawnSound();
 			Stanza stanzaP1 = p1.getStanza();
 			this.serpenti.remove(NOME_PLAYER_1);
 			Serpente serpenteGiocatore1 = new SerpenteGiocatore(NOME_PLAYER_1, stanzaP1);
@@ -144,49 +147,66 @@ public class Partita {
 	}
 
 	public void goUpP1() {
-		Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
-		Direzione dir = serpente.getDirezione();
-		if(!(dir.getX()==0 && dir.getY()==1)){
-			dir.setX(0);
-			dir.setY(-1);
-		}	
+		if(this.ilGiocatoreHaFattoLaMossa==false){
+			Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
+			Direzione dir = serpente.getDirezione();
+			if(!(dir.getX()==0 && dir.getY()==1)){
+				dir.setX(0);
+				dir.setY(-1);
+			}	
+		}
+		ilGiocatoreHaFattoLaMossa = true;
 	}
 
 	public void goDownP1() {
-		Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
-		Direzione dir = serpente.getDirezione();
-		if(!(dir.getX()==0 && dir.getY()==-1)){
-			dir.setX(0);
-			dir.setY(1);
-		}	
-		
+		if(this.ilGiocatoreHaFattoLaMossa==false){
+			Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
+			Direzione dir = serpente.getDirezione();
+			if(!(dir.getX()==0 && dir.getY()==-1)){
+				dir.setX(0);
+				dir.setY(1);
+			}	
+		}
+		ilGiocatoreHaFattoLaMossa = true;
+
 	}
 
 	public void goLeftP1() {
-		Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
-		Direzione dir = serpente.getDirezione();
-		if(!(dir.getX()==1 && dir.getY()==0)){
-			dir.setX(-1);
-			dir.setY(0);
-		}	
+		if(this.ilGiocatoreHaFattoLaMossa==false){
+			Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
+			Direzione dir = serpente.getDirezione();
+			if(!(dir.getX()==1 && dir.getY()==0)){
+				dir.setX(-1);
+				dir.setY(0);
+			}	
+		}
+		ilGiocatoreHaFattoLaMossa = true;
 	}
 
 	public void goRightP1() {
-		Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
-		Direzione dir = serpente.getDirezione();
-		if(!(dir.getX()==-1 && dir.getY()==0)){
-			dir.setX(1);
-			dir.setY(0);
-		}		
+		if(this.ilGiocatoreHaFattoLaMossa==false){
+			Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
+			Direzione dir = serpente.getDirezione();
+			if(!(dir.getX()==-1 && dir.getY()==0)){
+				dir.setX(1);
+				dir.setY(0);
+			}		
+		}
+		ilGiocatoreHaFattoLaMossa = true;
 	}
-	
+
 	public void turnLeftP1() {
-		this.serpenti.get(this.nomePlayer1).getDirezione().ruotaSX();
+		if(this.ilGiocatoreHaFattoLaMossa==false){
+			this.serpenti.get(this.nomePlayer1).getDirezione().ruotaSX();
+		}
+		ilGiocatoreHaFattoLaMossa = true;
 	}
 
 	public void turnRightP1() {
-		this.serpenti.get(this.nomePlayer1).getDirezione().ruotaDX();
-
+		if(this.ilGiocatoreHaFattoLaMossa==false){
+			this.serpenti.get(this.nomePlayer1).getDirezione().ruotaDX();
+		}
+		ilGiocatoreHaFattoLaMossa = true;
 	}
-	
+
 }
