@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import game.Main;
 import game.Partita;
 import supporto.Utility;
 import terrenoDiGioco.Casella;
@@ -102,7 +103,7 @@ public class GUI extends JPanel {
 
 	
 	private void riportaLivelloPunteggio(long punteggio) {
-		this.finestra.setTitle("\tPunteggio: "+punteggio);
+		this.finestra.setTitle("  Livello: " + Main.getLivello() + "        Numero avversari: " + (this.partita.getNumeroDiSerpenti()-1)+ "        Punteggio: " + punteggio);
 	}
 	
 	private void disegnaStanza(Graphics g) {

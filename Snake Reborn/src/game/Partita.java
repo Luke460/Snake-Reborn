@@ -208,5 +208,9 @@ public class Partita {
 		}
 		ilGiocatoreHaFattoLaMossa = true;
 	}
+	
+	public int getNumeroDiSerpenti(){
+		return this.serpenti.size();
+	}
 
 }

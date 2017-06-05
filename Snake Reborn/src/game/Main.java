@@ -18,7 +18,8 @@ public class Main {
 	private static GUI gui;
 	private static String nomeUtente;
 	private static String password;
-	
+	private static int livello;
+
 	public static void main(String[] args){
 		avviaClient();
 	}
@@ -29,7 +30,7 @@ public class Main {
 		gui = new GUI(partita);
 		gui.initControlliDaTastiera(partita);
 		GestoreSuoni.inizzializzaSuoni();
-		
+
 		GestoreSuoni.playMusicaInLoop();
 		cominciaIlGioco(partita);
 	}
@@ -52,7 +53,7 @@ public class Main {
 		GestoreSuoni.playSpawnSound();
 		int contaCicli=0;
 		int contaRipopolaSerpenti=-RITARDO_INIZIALE_RIPOPOLAMENTO_SERPENTI;
-		boolean hardMode = false;
+		livello = 1;
 
 		while(true) {
 			// sistema anti-lag
@@ -60,15 +61,24 @@ public class Main {
 
 			contaCicli++;
 			contaRipopolaSerpenti++;
-			
+
 			if((contaCicli%TEMPO_RIPOPOLAMENTO_CIBO)==0){
 				partita.aggiungiCiboRandom();
 			}
-			if((contaCicli%TEMPO_SPAWN_ROSSI)==0){
-				hardMode = true;
+			
+			if((contaCicli%TEMPO_CAMBIO_LIVELLO_2)==0 && livello<2){
+				GestoreSuoni.playLevelSound();
+				livello =2;
+				partita.tryInserisciBot(SerpenteBotMedium.class.getSimpleName());
 			}
+			if((contaCicli%TEMPO_CAMBIO_LIVELLO_3)==0 && livello<3){
+				GestoreSuoni.playLevelSound();
+				livello =3;
+				partita.tryInserisciBot(SerpenteBotHard.class.getSimpleName());
+			}
+
 			if(contaRipopolaSerpenti==TEMPO_RIPOPOLAMENTO_SERPENTI){
-				int rand = (int)(Math.random()*3 + 1);
+				int rand = (int)(Math.random()*livello + 1);
 				if(rand==1) {
 					partita.tryInserisciBot(SerpenteBotEasy.class.getSimpleName());
 				}
@@ -76,8 +86,7 @@ public class Main {
 					partita.tryInserisciBot(SerpenteBotMedium.class.getSimpleName());
 				}
 				if(rand==3) {
-					if(hardMode) partita.tryInserisciBot(SerpenteBotHard.class.getSimpleName());
-					else partita.tryInserisciBot(SerpenteBotMedium.class.getSimpleName());
+					partita.tryInserisciBot(SerpenteBotHard.class.getSimpleName());
 				}
 				contaRipopolaSerpenti = 0;
 			}
@@ -116,6 +125,14 @@ public class Main {
 
 	public static void setPassword(String password) {
 		Main.password = password;
+	}
+
+	public static int getLivello() {
+		return livello;
+	}
+
+	public static void setLivello(int livello) {
+		Main.livello = livello;
 	}
 
 }

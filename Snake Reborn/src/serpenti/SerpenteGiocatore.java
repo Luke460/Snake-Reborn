@@ -68,4 +68,5 @@ public class SerpenteGiocatore extends Serpente {
 			LP.writeNewFile("record.txt", nuovoRecord+"");
 		}
 	}
+
 }

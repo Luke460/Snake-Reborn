@@ -46,22 +46,48 @@ public class SerpenteBotHard extends Serpente {
 			}
 		}
 		
-		// se davanti di n caselle c'è cibo vado dritto
-		Casella PrimaCasella = this.getCasellaDiTesta();
-		int numeroDiCaselleDaControllare = 12;
-		
-		if(controllaCibo(PrimaCasella.getCasellaAdiacente(direzioneDritta), direzioneDritta, numeroDiCaselleDaControllare)){
+		// se davanti c'e' cibo vado dritto
+		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).isCibo()){
 			super.Sposta(direzioneDritta);
 			return;
 		}
 		
-		if(controllaCibo(PrimaCasella.getCasellaAdiacente(direzioneAlternativaDX), direzioneAlternativaDX,8)){
+		// se davanti di due caselle c'e' cibo vado dritto
+		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).getCasellaAdiacente(direzioneDritta).isCibo() && 
+				!this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).isMortale()){
+			super.Sposta(direzioneDritta);
+			return;
+		}
+		
+		// se a dx c'e cibo giro a dx
+		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).isCibo()){
+			super.Sposta(direzioneAlternativaDX);
+			return;
+		}
+		
+		// se a sx c'e cibo giro a sx
+		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaSX).isCibo()){
+			super.Sposta(direzioneAlternativaSX);
+			return;
+		}
+		
+		// se davanti di n caselle c'è cibo vado dritto
+		Casella PrimaCasella = this.getCasellaDiTesta();
+		int numeroDiCaselleDaControllareDritto = 40;
+		int numeroDiCaselleDaControllareLaterale = 40;
+		
+		if(controllaCibo(PrimaCasella.getCasellaAdiacente(direzioneDritta), direzioneDritta, numeroDiCaselleDaControllareDritto)){
+			super.Sposta(direzioneDritta);
+			return;
+		}
+		
+		if(controllaCibo(PrimaCasella.getCasellaAdiacente(direzioneAlternativaDX), direzioneAlternativaDX,numeroDiCaselleDaControllareLaterale)){
 			super.Sposta(direzioneAlternativaDX);
 			this.ultimaSterzata='d';
 			return;
 		}
 		
-		if(controllaCibo(PrimaCasella.getCasellaAdiacente(direzioneAlternativaSX), direzioneAlternativaSX,8)){
+		if(controllaCibo(PrimaCasella.getCasellaAdiacente(direzioneAlternativaSX), direzioneAlternativaSX,numeroDiCaselleDaControllareLaterale)){
 			super.Sposta(direzioneAlternativaSX);
 			this.ultimaSterzata='s';
 			return;
@@ -113,6 +139,7 @@ public class SerpenteBotHard extends Serpente {
 		if(primaCasella.isCibo()) return true;
 		Casella temp2 = primaCasella.getCasellaAdiacente(dir);
 		for(int i=0;i<numeroCaselle;i++){
+			if(temp1.getStanza()!=temp2.getStanza()) return false;
 			if(temp1.isMortale()) return false;
 			if(temp2.isCibo()) return true; // cibo a dritta!
 			temp1=temp2;
