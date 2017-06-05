@@ -1,17 +1,38 @@
 package supporto;
 
 public class Direzione {
-	
+
 	// +---x
 	// | +
 	// y   +
-	
+
 	private int y;
 	private int x;
-	
+
 	public Direzione(int x, int y){
 		this.x = x;
 		this.y = y;
+	}
+
+	public Direzione(){
+		int casuale = (int) ((Math.random()*4)+1); // da 1 a 4
+		if(casuale==1){
+			// destra
+			this.x = 1;
+			this.y = 0;
+		} else if (casuale==2){
+			// sinistra
+			this.x = 0;
+			this.y = 1;
+		} else if (casuale==3){
+			// sopra
+			this.x = -1;
+			this.y = 0;
+		} else if (casuale==4){
+			// sotto
+			this.x = 0;
+			this.y = -1;
+		}
 	}
 
 	public int getY() {
@@ -29,7 +50,7 @@ public class Direzione {
 	public void setX(int x) {
 		this.x = x;
 	}
-	
+
 	public void ruotaDX(){
 		if(this.getX()==0 && this.getY()==-1){
 			this.setX(1);
@@ -52,7 +73,7 @@ public class Direzione {
 			return;
 		}
 	}
-	
+
 	public void ruotaSX(){
 		if(this.getX()==0 && this.getY()==-1){
 			this.setX(-1);
@@ -79,8 +100,15 @@ public class Direzione {
 	public void Inverti() {
 		this.ruotaDX();
 		this.ruotaDX();
-	}	
+	}
 	
+	public Direzione getInversa() {
+		Direzione nuovaDirezione = new Direzione(this.getX(),this.getY());
+		nuovaDirezione.ruotaDX();
+		nuovaDirezione.ruotaDX();
+		return nuovaDirezione;
+	}
+
 	@Override
 	public String toString(){
 		return "X = " + this.getX() + "  Y = " + this.getY();

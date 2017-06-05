@@ -38,6 +38,8 @@ public interface Costanti {
 	
 	static final public int TEMPO_RIPOPOLAMENTO_CIBO = 130; // 13 sec
 	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI = 30; // 3 sec
+	static final public int TEMPO_SPAWN_ROSSI = 900; // 1 minuto e mezzo
+	static final public int NUMERO_SERPENTI_INIZIALI = 6;
 	static final public int RITARDO_INIZIALE_RIPOPOLAMENTO_SERPENTI = 270; // 27+3 sec
 	
 	static final public int MOLTIPLICATORE_PUNTEGGIO_CIBO = 10;

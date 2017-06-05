@@ -26,10 +26,10 @@ public abstract class Serpente {
 		this.ciboPreso=0;
 		// sempre al centro della stanza (20,20)
 		Posizione posizionePrimaCasella = new Posizione(DIMENSIONE_STANZA_DEFAULT/2,DIMENSIONE_STANZA_DEFAULT/2);
-		// sempre verso destra --->
-		Direzione direzioneSerpente = new Direzione(1,0);
+		// direzione casuale
+		Direzione direzioneSerpente = new Direzione();
 		this.setDirezione(direzioneSerpente);
-		Direzione direzioneCreazioneCaselle = new Direzione(-1,0);
+		Direzione direzioneCreazioneCaselle = direzioneSerpente.getInversa();
 		// creo la testa del serpente
 		this.setCaselle(new LinkedList<Casella>());
 		Casella primaCasella = stanza.getCaselle().get(posizionePrimaCasella);
