@@ -20,6 +20,8 @@ public interface Costanti {
 	public static final char CARATTERE_INIZIO_RIGA = '<';
 	public static final char CARATTERE_FINE_RIGA = '>';
 	
+	public static final String NOME_FILE_RECORD = "record.txt";
+	
 	public static final char CARATTERE_CASELLA_VUOTA = ' ';
 	public static final char CARATTERE_CASELLA_PLAYER_GENERICO = 'X';
 	public static final char CARATTERE_CASELLA_PLAYER1 = '1';
@@ -41,7 +43,6 @@ public interface Costanti {
 	static final public int TEMPO_CAMBIO_LIVELLO_2 = 600; // 60 sec da zero
 	static final public int TEMPO_CAMBIO_LIVELLO_3 = 1500; // 150 sec da zero
 	static final public int NUMERO_SERPENTI_INIZIALI = 6;
-	static final public int RITARDO_INIZIALE_RIPOPOLAMENTO_SERPENTI = 270; // 27+3 sec
 	
 	static final public int MOLTIPLICATORE_PUNTEGGIO_CIBO = 10;
 	

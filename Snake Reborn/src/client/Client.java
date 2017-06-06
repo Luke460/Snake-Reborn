@@ -2,24 +2,27 @@ package client;
 
 import java.awt.AWTException;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+
 import javax.swing.JTextField;
+
 
 import LukePack.LP;
 import audio.GestoreSuoni;
 import game.Main;
+import game.Partita;
 
 public class Client extends JFrame{
 
@@ -28,28 +31,34 @@ public class Client extends JFrame{
 	private String password;
 	private boolean premuto;
 
+	JPanel PannelloMessaggioLogin;
 	JPanel PannelloInserimentoNome;
 	JPanel PannelloInserimentoPassword;
 	JPanel PannelloInserimenti;
 	JPanel PannelloOpzioni;
 	JPanel PannelloTastiConferma;
+	JLabel messaggioLogin;
 	JLabel messaggioNome;
 	JTextField nomeInserito;
-	JLabel messaggioPassword;	
+	JLabel messaggioPassword;
+	JLabel messaggioLivello;
+	JLabel messaggioPopolazione;
 	JTextField passwordInserita;	
 	JCheckBox opzMusica;
 	JCheckBox opzEffetti;
+	JComboBox<String> selettoreLivello;
+	JComboBox<String> selettorePopolazione;
 	JButton accedi;
 	JButton ospite;
+	Partita partita;
 
-	public Client(){
+	public Client(Partita partita){
 		super("Snake Reborn");
-
+		this.partita = partita;
 		creaPannelli();
 		sistemaPannelli();
 		preimpostaPannelli();
 		aggiungiPannelliAlContainer();
-		regolaDimensioni();
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,9 +67,7 @@ public class Client extends JFrame{
 		
 		preparaLetturaPulsanti();
 		
-		// autoregola dimensione finestra e posizionala al centro
-		this.pack();
-		this.setLocationRelativeTo(null);
+		regolaFinestra();
 
 		this.premuto = false;
 		while(!premuto ){ // viene "sbloccato dal Listener"
@@ -72,7 +79,15 @@ public class Client extends JFrame{
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+	private void regolaFinestra() {
+		// autoregola dimensione finestra e posizionala al centro
+		//this.pack();
+		this.setSize(360,220);
+		this.setResizable(false);
+		// centra la finestra
+		this.setLocationRelativeTo(null);
 	}
 
 	private void preparaLetturaPulsanti() {
@@ -84,13 +99,8 @@ public class Client extends JFrame{
 	private void leggiImpostazioni() {
 		GestoreSuoni.setEffettiAbilitati(opzEffetti.isSelected());
 		GestoreSuoni.setMusicaAbilitata(opzMusica.isSelected());
-	}
-
-	private void regolaDimensioni() {
-		Dimension dim =
-				Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation((int)(dim.getWidth()-this.getWidth())/2,
-				(int)(dim.getHeight()-this.getHeight())/2);
+		partita.setLivello(selettoreLivello.getSelectedIndex()+1);
+		partita.setPopolazioneIniziale((String)selettorePopolazione.getSelectedItem());
 	}
 
 	private void aggiungiPannelliAlContainer() {
@@ -101,22 +111,33 @@ public class Client extends JFrame{
 
 	private void preimpostaPannelli() {
 		opzEffetti.setSelected(true);
-		opzMusica.setSelected(true);	
+		opzMusica.setSelected(true);
+		selettoreLivello.setSelectedIndex(2);
+		selettorePopolazione.setSelectedIndex(1);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void creaPannelli() {
 		PannelloInserimentoNome = new JPanel();
 		PannelloInserimentoPassword = new JPanel();
 		PannelloInserimenti = new JPanel();
 		PannelloOpzioni = new JPanel();
 		PannelloTastiConferma = new JPanel();
+		PannelloMessaggioLogin =  new JPanel();
+		messaggioLogin = new JLabel("Login:");
 		messaggioNome = new JLabel("Username");
 		nomeInserito = new JTextField(16);
 		messaggioPassword = new JLabel("Password");	
 		passwordInserita = new JPasswordField(16);
 		
+		messaggioLivello=new JLabel(" Livello avversari:");
+		messaggioPopolazione=new JLabel(" Popolazione serpenti:");
 		opzMusica = new JCheckBox("Musica di sottofondo");
 		opzEffetti = new JCheckBox("Effetti Sonori");
+		String[] data1 = {"basso", "medio", "alto"}; 
+		selettoreLivello = new JComboBox(data1);
+		String[] data2 = {"bassa", "alta"};
+		selettorePopolazione = new JComboBox(data2);
 
 		accedi=new JButton("Accedi e gioca");
 		ospite=new JButton("Gioca come ospite");
@@ -124,16 +145,25 @@ public class Client extends JFrame{
 	}
 
 	private void sistemaPannelli() {
+		
+		PannelloMessaggioLogin.add(messaggioLogin);
+		
 		PannelloInserimentoNome.add(messaggioNome);
 		PannelloInserimentoNome.add(nomeInserito);
 		PannelloInserimentoPassword.add(messaggioPassword);
 		PannelloInserimentoPassword.add(passwordInserita);
-		PannelloInserimenti.setLayout(new GridLayout(2,1));
+		
+		PannelloInserimenti.setLayout(new GridLayout(3,1));
+		
+		PannelloInserimenti.add(PannelloMessaggioLogin);
 		PannelloInserimenti.add(PannelloInserimentoNome);
 		PannelloInserimenti.add(PannelloInserimentoPassword);
-		PannelloOpzioni.setLayout(new GridLayout(1,2));
-		PannelloOpzioni.add(opzEffetti);
-		PannelloOpzioni.add(opzMusica);
+		
+		PannelloOpzioni.setLayout(new GridLayout(3,2));
+		PannelloOpzioni.add(messaggioLivello);
+		PannelloOpzioni.add(messaggioPopolazione);
+		PannelloOpzioni.add(selettoreLivello);
+		PannelloOpzioni.add(selettorePopolazione);
 		PannelloOpzioni.add(opzEffetti);
 		PannelloOpzioni.add(opzMusica);
 		PannelloTastiConferma.setLayout(new GridLayout(1, 2));

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import audio.GestoreSuoni;
+import gestorePunteggi.GestorePunteggi;
 import serpenti.Serpente;
 import serpenti.SerpenteBotEasy;
 import serpenti.SerpenteBotHard;
@@ -21,8 +22,11 @@ public class Partita {
 	private Mappa mappa;
 	private int numerettoPerSerpentiBot;
 	private boolean ilGiocatoreHaFattoLaMossa;
+	private int livello;
+	private String popolazioneSerpenti;
 
 	public Partita(){
+		GestorePunteggi.inizializza(this);
 		this.ilGiocatoreHaFattoLaMossa = false;
 		this.serpenti = new HashMap<String,Serpente>();
 		this.mappa = new Mappa("mappa-1");
@@ -53,6 +57,12 @@ public class Partita {
 			this.serpenti.put("bot"+numerettoPerSerpentiBot, bot);
 			numerettoPerSerpentiBot++;
 		}
+	}
+	
+	public int getLivelloGenerazioneSerpenti(){
+		if(getPopolazioneIniziale()=="bassa") return 1;
+		if(getPopolazioneIniziale()=="alta") return 2;
+		return 1000; // serve per evitare generazioni incontrollate 
 	}
 
 	// metodi try: solo se si trova una stanza casuale che è anche liber
@@ -102,10 +112,6 @@ public class Partita {
 		return this.serpenti.get(this.nomePlayer1).getCasellaDiTesta().getStanza();
 	}
 
-	public int getPunteggio() {
-		return this.getSerpenti().get(nomePlayer1).getHP()*MOLTIPLICATORE_PUNTEGGIO_CIBO;
-	}
-
 	public String getNomePlayer1() {
 		return nomePlayer1;
 	}
@@ -142,8 +148,15 @@ public class Partita {
 	public int getPunteggioPlayer1() {
 		int punteggio = 0;
 		Serpente p1 = this.serpenti.get(NOME_PLAYER_1);
-		punteggio += p1.getCiboPreso()*MOLTIPLICATORE_PUNTEGGIO_CIBO;
+		punteggio += (int) p1.getCiboPreso()*MOLTIPLICATORE_PUNTEGGIO_CIBO*getMoltiplicatorePunteggio();
 		return punteggio;
+	}
+
+	private double getMoltiplicatorePunteggio() {
+		if(this.livello==1) return 1;
+		if(this.livello==2) return 1.5;
+		if(this.livello==3) return 2;
+		return 0;
 	}
 
 	public void goUpP1() {
@@ -211,6 +224,22 @@ public class Partita {
 	
 	public int getNumeroDiSerpenti(){
 		return this.serpenti.size();
+	}
+
+	public int getLivello() {
+		return livello;
+	}
+
+	public void setLivello(int livello) {
+		this.livello = livello;
+	}
+
+	public String getPopolazioneIniziale() {
+		return popolazioneSerpenti;
+	}
+
+	public void setPopolazioneIniziale(String popolazioneIniziale) {
+		this.popolazioneSerpenti = popolazioneIniziale;
 	}
 
 }

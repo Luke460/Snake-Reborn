@@ -2,8 +2,8 @@ package serpenti;
 
 import static supporto.Costanti.*;
 
-import LukePack.LP;
 import audio.GestoreSuoni;
+import gestorePunteggi.GestorePunteggi;
 import supporto.Utility;
 import terrenoDiGioco.Casella;
 import terrenoDiGioco.Stanza;
@@ -39,8 +39,7 @@ public class SerpenteGiocatore extends Serpente {
 	
 	public void muori(){
 		GestoreSuoni.playExplodeSound();
-		String testo = LP.readFile("record.txt");
-		aggiornaFileRecord(testo);
+		GestorePunteggi.aggiornaFileRecord();
 		for(Casella c:super.getCaselle()){
 			if(Utility.isPari(c.getPosizione().getX())&&Utility.isPari(c.getPosizione().getY())) {
 				c.libera();
@@ -55,18 +54,6 @@ public class SerpenteGiocatore extends Serpente {
 		}
 		super.getCaselle().clear();
 		super.SetIsVivo(false);
-	}
-	
-	private void aggiornaFileRecord(String testo) {
-		int nuovoRecord = this.getCiboPreso()*MOLTIPLICATORE_PUNTEGGIO_CIBO;
-		if(testo!=null){
-			int vecchioRecord = Integer.parseInt(testo);
-			if(nuovoRecord>vecchioRecord){
-				LP.writeNewFile("record.txt", nuovoRecord+"");
-			}
-		} else {
-			LP.writeNewFile("record.txt", nuovoRecord+"");
-		}
 	}
 
 }
