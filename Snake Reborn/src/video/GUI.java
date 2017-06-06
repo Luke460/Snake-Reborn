@@ -97,12 +97,15 @@ public class GUI extends JPanel {
 			disegnaCasella(g, c);
 		}
 		disegnaStanza(g);
-		riportaLivelloPunteggio(this.partita.getPunteggioPlayer1());
+		riportaStatisticheSullaFinestra(this.partita.getPunteggioPlayer1());
 	}
 
 	
-	private void riportaLivelloPunteggio(long punteggio) {
-		this.finestra.setTitle("  Livello: " + partita.getLivello() + "        Numero avversari: " + (this.partita.getNumeroDiSerpenti()-1)+ "        Punteggio: " + punteggio);
+	private void riportaStatisticheSullaFinestra(long punteggio) {
+		this.finestra.setTitle("  Livello: " + partita.getLivello() + 
+				"        Numero avversari: " + (this.partita.getNumeroDiSerpenti()-1)+ 
+				"        Record: " + this.partita.getVecchioRecord() + 
+				"        Punteggio: " + punteggio);
 	}
 	
 	private void disegnaStanza(Graphics g) {

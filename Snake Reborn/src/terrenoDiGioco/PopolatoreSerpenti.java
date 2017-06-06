@@ -15,8 +15,8 @@ public class PopolatoreSerpenti {
 	public void creaPopoloIniziale() {
 		
 		int numeroSerpentiIniziali = 0;
-		if(partita.getPopolazioneIniziale()=="bassa") numeroSerpentiIniziali = NUMERO_SERPENTI_INIZIALI/2;
-		if(partita.getPopolazioneIniziale()=="alta") numeroSerpentiIniziali = NUMERO_SERPENTI_INIZIALI;
+		if(partita.getFattorePopolazione()==1) numeroSerpentiIniziali = NUMERO_SERPENTI_INIZIALI/2;
+		if(partita.getFattorePopolazione()==2) numeroSerpentiIniziali = NUMERO_SERPENTI_INIZIALI;
 
 		do {
 			int rand = (int)(Math.random()*partita.getLivello() + 1);

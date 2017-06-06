@@ -23,7 +23,8 @@ public class Partita {
 	private int numerettoPerSerpentiBot;
 	private boolean ilGiocatoreHaFattoLaMossa;
 	private int livello;
-	private String popolazioneSerpenti;
+	private int fattorePopolazione;
+	private int vecchioRecord;
 
 	public Partita(){
 		GestorePunteggi.inizializza(this);
@@ -31,6 +32,7 @@ public class Partita {
 		this.serpenti = new HashMap<String,Serpente>();
 		this.mappa = new Mappa("mappa-1");
 		this.numerettoPerSerpentiBot = 0;
+		this.vecchioRecord = GestorePunteggi.getPunteggioDaFileRecord();
 		// this.mappa.riempi();
 	}
 
@@ -57,12 +59,6 @@ public class Partita {
 			this.serpenti.put("bot"+numerettoPerSerpentiBot, bot);
 			numerettoPerSerpentiBot++;
 		}
-	}
-	
-	public int getLivelloGenerazioneSerpenti(){
-		if(getPopolazioneIniziale()=="bassa") return 1;
-		if(getPopolazioneIniziale()=="alta") return 2;
-		return 1000; // serve per evitare generazioni incontrollate 
 	}
 
 	// metodi try: solo se si trova una stanza casuale che è anche liber
@@ -154,8 +150,8 @@ public class Partita {
 
 	private double getMoltiplicatorePunteggio() {
 		if(this.livello==1) return 1;
-		if(this.livello==2) return 1.5;
-		if(this.livello==3) return 2;
+		if(this.livello==2) return 2;
+		if(this.livello==3) return 5;
 		return 0;
 	}
 
@@ -234,12 +230,19 @@ public class Partita {
 		this.livello = livello;
 	}
 
-	public String getPopolazioneIniziale() {
-		return popolazioneSerpenti;
+	public int getFattorePopolazione() {
+		return fattorePopolazione;
 	}
 
-	public void setPopolazioneIniziale(String popolazioneIniziale) {
-		this.popolazioneSerpenti = popolazioneIniziale;
+	public void setFattorePopolazione(int i) {
+		this.fattorePopolazione = i;
 	}
 
+	public int getVecchioRecord() {
+		return vecchioRecord;
+	}
+
+	public void setVecchioRecord(int vecchioRecord) {
+		this.vecchioRecord = vecchioRecord;
+	}
 }

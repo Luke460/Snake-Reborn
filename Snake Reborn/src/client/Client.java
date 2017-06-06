@@ -2,6 +2,7 @@ package client;
 
 import java.awt.AWTException;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,6 +49,7 @@ public class Client extends JFrame{
 	JCheckBox opzEffetti;
 	JComboBox<String> selettoreLivello;
 	JComboBox<String> selettorePopolazione;
+	JLabel messaggioInformativo;
 	JButton accedi;
 	JButton ospite;
 	Partita partita;
@@ -84,7 +86,7 @@ public class Client extends JFrame{
 	private void regolaFinestra() {
 		// autoregola dimensione finestra e posizionala al centro
 		//this.pack();
-		this.setSize(360,220);
+		this.setSize(360,230);
 		this.setResizable(false);
 		// centra la finestra
 		this.setLocationRelativeTo(null);
@@ -100,7 +102,7 @@ public class Client extends JFrame{
 		GestoreSuoni.setEffettiAbilitati(opzEffetti.isSelected());
 		GestoreSuoni.setMusicaAbilitata(opzMusica.isSelected());
 		partita.setLivello(selettoreLivello.getSelectedIndex()+1);
-		partita.setPopolazioneIniziale((String)selettorePopolazione.getSelectedItem());
+		partita.setFattorePopolazione(selettorePopolazione.getSelectedIndex()+1);
 	}
 
 	private void aggiungiPannelliAlContainer() {
@@ -125,6 +127,7 @@ public class Client extends JFrame{
 		PannelloTastiConferma = new JPanel();
 		PannelloMessaggioLogin =  new JPanel();
 		messaggioLogin = new JLabel("Login:");
+		messaggioLogin.setFont(new Font(messaggioLogin.getFont().getFontName(), 2, 18));
 		messaggioNome = new JLabel("Username");
 		nomeInserito = new JTextField(16);
 		messaggioPassword = new JLabel("Password");	
@@ -133,11 +136,12 @@ public class Client extends JFrame{
 		messaggioLivello=new JLabel(" Livello avversari:");
 		messaggioPopolazione=new JLabel(" Popolazione serpenti:");
 		opzMusica = new JCheckBox("Musica di sottofondo");
-		opzEffetti = new JCheckBox("Effetti Sonori");
-		String[] data1 = {"basso", "medio", "alto"}; 
+		opzEffetti = new JCheckBox("Effetti sonori");
+		String[] data1 = {"basso", "medio", "alto*"}; 
 		selettoreLivello = new JComboBox(data1);
-		String[] data2 = {"bassa", "alta"};
+		String[] data2 = {"bassa", "alta*"};
 		selettorePopolazione = new JComboBox(data2);
+		messaggioInformativo = new JLabel("*punteggio valido");
 
 		accedi=new JButton("Accedi e gioca");
 		ospite=new JButton("Gioca come ospite");
@@ -159,12 +163,13 @@ public class Client extends JFrame{
 		PannelloInserimenti.add(PannelloInserimentoNome);
 		PannelloInserimenti.add(PannelloInserimentoPassword);
 		
-		PannelloOpzioni.setLayout(new GridLayout(3,2));
+		PannelloOpzioni.setLayout(new GridLayout(4,2));
 		PannelloOpzioni.add(messaggioLivello);
 		PannelloOpzioni.add(messaggioPopolazione);
 		PannelloOpzioni.add(selettoreLivello);
 		PannelloOpzioni.add(selettorePopolazione);
 		PannelloOpzioni.add(opzEffetti);
+		PannelloOpzioni.add(messaggioInformativo);
 		PannelloOpzioni.add(opzMusica);
 		PannelloTastiConferma.setLayout(new GridLayout(1, 2));
 		PannelloTastiConferma.add(accedi);

@@ -39,6 +39,8 @@ public class Main {
 		// String errPassword = null;
 		// boolean tuttoOk;
 		// tuttoOk = ClasseEsterna.metodoHttp(nomeUtente, password, errNome, errPassword);
+		// la classe esterna fornisce metodi per leggere il record del profilo ed eventualmente
+		// inviare il nuovo
 	}
 
 
@@ -62,11 +64,11 @@ public class Main {
 				partita.aggiungiCiboRandom();
 			}
 			
-			if(partita.getLivelloGenerazioneSerpenti()==1){
+			if(partita.getFattorePopolazione()==1){
 				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI*3)==0)){ // ogni n sec
 					popolatoreSerpenti.provaAdInserireUnSerpente();
 				}
-			} else if(partita.getLivelloGenerazioneSerpenti()==2){
+			} else if(partita.getFattorePopolazione()==2){
 				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI)==0)){ // ogni 3n sec
 					popolatoreSerpenti.provaAdInserireUnSerpente();
 				}
