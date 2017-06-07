@@ -72,8 +72,8 @@ public class Client extends JFrame{
 		regolaFinestra();
 
 		this.premuto = false;
-		while(!premuto ){ // viene "sbloccato dal Listener"
-			LP.waitFor(200);
+		while(!premuto ){ // viene "sbloccato dal Listener" (busy waiting)
+			LP.waitFor(250); // 4 volte al secondo
 		}
 		leggiImpostazioni();
 		try {

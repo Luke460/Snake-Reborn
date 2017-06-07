@@ -10,7 +10,6 @@ public class GestoreSuoni {
 	private static SuonoWAV suonoExplode;
 	private static SuonoWAV suonoTake;
 	private static SuonoWAV suonoMusic;
-	private static SuonoWAV suonoLevel;
 
 	public static void inizzializzaSuoni(){
 		suonoSlain = new SuonoWAV("suoni\\slain.wav");
@@ -18,7 +17,6 @@ public class GestoreSuoni {
 		suonoExplode = new SuonoWAV("suoni\\explode.wav");
 		suonoTake = new SuonoWAV("suoni\\take.wav");
 		suonoMusic = new SuonoWAV("suoni\\music.wav");
-		suonoLevel = new SuonoWAV("suoni\\levelUp.wav");
 	}
 
 	public static void playMusicaInLoop(){
@@ -39,10 +37,6 @@ public class GestoreSuoni {
 	
 	public static void playTakeSound(){
 		if(effettiAbilitati) suonoTake.playClip();
-	}
-	
-	public static void playLevelSound(){
-		if(effettiAbilitati) suonoLevel.playClip();
 	}
 
 	public static boolean isEffettiAbilitati() {

@@ -29,6 +29,7 @@
 <W                                      W>
 <W                                      W>
 <W                                      W>
+<W                                      W>
 <WW                                    WW>
 <WWW                                  WWW>
 <WWWW                                WWWW>
@@ -36,6 +37,5 @@
 <WWWWWW                            WWWWWW>
 <WWWWWWW                          WWWWWWW>
 <WWWWWWWW                        WWWWWWWW>
-<WWWWWWWWW                      WWWWWWWWW>
 <WWWWWWWWWWWWWWWW        WWWWWWWWWWWWWWWW>
 $
