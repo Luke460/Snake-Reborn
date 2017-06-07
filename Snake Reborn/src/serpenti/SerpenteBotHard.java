@@ -62,12 +62,14 @@ public class SerpenteBotHard extends Serpente {
 		// se a dx c'e cibo giro a dx
 		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).isCibo()){
 			super.Sposta(direzioneAlternativaDX);
+			this.ultimaSterzata='d';
 			return;
 		}
 		
 		// se a sx c'e cibo giro a sx
 		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaSX).isCibo()){
 			super.Sposta(direzioneAlternativaSX);
+			this.ultimaSterzata='s';
 			return;
 		}
 		
