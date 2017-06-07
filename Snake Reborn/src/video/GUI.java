@@ -34,7 +34,7 @@ public class GUI extends JPanel {
 		finestra.add(this);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.dimensioneCasella = calcolaDimensioneCasellaMassima();
-		finestra.setSize((int)((DIMENSIONE_STANZA_DEFAULT+0.9)*this.dimensioneCasella), (int) ((DIMENSIONE_STANZA_DEFAULT+2.2)*dimensioneCasella));
+		finestra.setSize((int)(15+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (37+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
 		finestra.setVisible(true);
 		//jframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		finestra.setLocationRelativeTo(null);

@@ -82,6 +82,7 @@ public class Main {
 			// sistema anti-lag
 			long tempoFineAlgoritmo = System.currentTimeMillis();
 			long ritardoAlgoritmo = tempoFineAlgoritmo-tempoInizioAlgoritmo;
+			// if(ritardoAlgoritmo!=0) System.out.println(ritardoAlgoritmo);
 			if(TEMPO_BASE-(ritardoAlgoritmo)>0){
 				LP.waitFor(TEMPO_BASE-(ritardoAlgoritmo));
 			}
