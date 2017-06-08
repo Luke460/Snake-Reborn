@@ -19,11 +19,15 @@ public abstract class Serpente {
 	private Casella casellaDiTesta;
 	private boolean isVivo;	
 	private int ciboPreso;
+	private int numeroUccisioni;
+	private double tempoSopravvivenza;
 
 	public Serpente(String nome, Stanza stanza) {
 		this.nome=nome;
 		this.isVivo=true;
 		this.ciboPreso=0;
+		this.numeroUccisioni=0;
+		this.tempoSopravvivenza=0;
 		// sempre al centro della stanza (20,20)
 		Posizione posizionePrimaCasella = new Posizione(DIMENSIONE_STANZA_DEFAULT/2,DIMENSIONE_STANZA_DEFAULT/2);
 		// direzione casuale
@@ -135,6 +139,9 @@ public abstract class Serpente {
 		
 		Serpente serpenteDavanti = this.getCasellaDiTesta().getCasellaAdiacente(this.direzione).getSerpente();
 		if(serpenteDavanti!=null){
+			if(!serpenteDavanti.getNome().equals(this.nome)){
+				serpenteDavanti.miHaiUcciso();
+			}
 			if(serpenteDavanti.getNome().equals(NOME_PLAYER_1)){
 				GestoreSuoni.playSlainSound();
 			}
@@ -156,6 +163,10 @@ public abstract class Serpente {
 	}
 
 	abstract public void FaiMossa();
+	
+	public void incrementaTempoSopravvivenza(){
+		this.tempoSopravvivenza+=0.1;
+	}
 
 	public String getNome() {
 		return nome;
@@ -192,6 +203,26 @@ public abstract class Serpente {
 	@Override
 	public String toString(){
 		return this.getNome() + " \t " + this.getClass().getSimpleName() + " \t " + (this.getHP()*MOLTIPLICATORE_PUNTEGGIO_CIBO);
+	}
+	
+	public void miHaiUcciso(){
+		this.numeroUccisioni++;
+	}
+
+	public int getNumeroUccisioni() {
+		return numeroUccisioni;
+	}
+
+	public void setNumeroUccisioni(int numeroUccisioni) {
+		this.numeroUccisioni = numeroUccisioni;
+	}
+
+	public double getTempoSopravvissuto() {
+		return tempoSopravvivenza;
+	}
+
+	public void setTempoSopravvissuto(int tempoSopravvissuto) {
+		this.tempoSopravvivenza = tempoSopravvissuto;
 	}
 
 }

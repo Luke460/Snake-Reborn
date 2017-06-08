@@ -79,12 +79,12 @@ public class Partita {
 	}
 
 	public void eseguiTurni() {
-
 		Iterator<Serpente> iteratore = this.getSerpenti().values().iterator();	
 		while(iteratore.hasNext()){
 			Serpente s = iteratore.next();
 			if(!s.isMorto()){
 				s.FaiMossa();
+				s.incrementaTempoSopravvivenza();
 			} else if(!s.getClass().toString().equals(SerpenteGiocatore.class.toString())){
 				iteratore.remove();
 			}

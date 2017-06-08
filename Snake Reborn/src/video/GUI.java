@@ -102,10 +102,11 @@ public class GUI extends JPanel {
 
 	
 	private void riportaStatisticheSullaFinestra(long punteggio) {
-		this.finestra.setTitle("  Livello: " + partita.getLivello() + 
-				"        Numero avversari: " + (this.partita.getNumeroDiSerpenti()-1)+ 
-				"        Record: " + this.partita.getVecchioRecord() + 
-				"        Punteggio: " + punteggio);
+		this.finestra.setTitle( " Avversari: " + (this.partita.getNumeroDiSerpenti()-1)+ 
+				"       Uccisioni: " + this.partita.getSerpenti().get(NOME_PLAYER_1).getNumeroUccisioni() +
+				"       Record: " + this.partita.getVecchioRecord() + 
+				"       Punteggio: " + punteggio +
+				"       Tempo sopravvivenza: " + (int)this.partita.getSerpenti().get(NOME_PLAYER_1).getTempoSopravvissuto());
 	}
 	
 	private void disegnaStanza(Graphics g) {
