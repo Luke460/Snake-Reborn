@@ -20,7 +20,7 @@ public interface Costanti {
 	public static final char CARATTERE_INIZIO_RIGA = '<';
 	public static final char CARATTERE_FINE_RIGA = '>';
 	
-	public static final String NOME_FILE_RECORD = "record.txt";
+	public static final String NOME_FILE_RECORD = "temp.int";
 	
 	public static final char CARATTERE_CASELLA_VUOTA = ' ';
 	public static final char CARATTERE_CASELLA_PLAYER_GENERICO = 'X';
