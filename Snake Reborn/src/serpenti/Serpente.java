@@ -92,7 +92,13 @@ public abstract class Serpente {
 
 		if(!nuovaCasella.isMortale()){
 			if(nuovaCasella.isCibo()){
-				this.incrementaVitaSerpente();
+				if(nuovaCasella.isTestaDiSerpente()){
+					for(int i=1;i<=QTA_CIBO_TESTA_SERPENTE;i++){
+						this.incrementaVitaSerpente();
+					}
+				} else {
+					this.incrementaVitaSerpente();
+				}
 				nuovaCasella.setCasellaOccupataDalSerpente(this,this.getHP()+1,this.getCasellaDiTesta().getStato());
 			} else {
 				nuovaCasella.setCasellaOccupataDalSerpente(this,this.getHP(),this.getCasellaDiTesta().getStato());
@@ -223,6 +229,11 @@ public abstract class Serpente {
 
 	public void setTempoSopravvissuto(int tempoSopravvissuto) {
 		this.tempoSopravvivenza = tempoSopravvissuto;
+	}
+	
+	public boolean isTesta(Casella casella){
+		if(this.getCasellaDiTesta().equals(casella)) return true;
+		return false;
 	}
 
 }

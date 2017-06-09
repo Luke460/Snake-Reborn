@@ -33,6 +33,7 @@ public class GUI extends JPanel {
 		this.finestra = new JFrame("Snake Reborn");		
 		finestra.add(this);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		finestra.setBackground(Color.BLACK);
 		this.dimensioneCasella = calcolaDimensioneCasellaMassima();
 		finestra.setSize((int)(15+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (37+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
 		finestra.setVisible(true);
@@ -116,31 +117,43 @@ public class GUI extends JPanel {
 	}
 
 	private void disegnaCasella(Graphics g, Casella casella) {
-		final int x = casella.getPosizione().getX();
-		final int y = casella.getPosizione().getY();
+		final int posX = casella.getPosizione().getX();
+		final int posY = casella.getPosizione().getY();
 		final Color colore = Pittore.getColore(casella.getStato());
 		g.setColor(colore);
-		int d = dimensioneCasella;
-		int gx = x*d, gy = y*d;
+		int dimC = dimensioneCasella;
+		int gx = posX*dimC, gy = posY*dimC;
 		if(casella.getStato()==CARATTERE_CASELLA_PORTALE){
-			disegnaCasellaInRilievo(g, d, gx, gy);
+			disegnaCasellaInRilievo(g, dimC, gx, gy);
+		} else if(casella.isTestaDiSerpente()){
+			disegnaCasellaTesta(g, dimC, gx, gy);
 		} else {
-			disegnaCasellaNormale(g, d, gx, gy);
+			disegnaCasellaNormale(g, dimC, gx, gy);
 		}
 	}
 
-	private void disegnaCasellaNormale(Graphics g, int l, int x, int y) {
+	private void disegnaCasellaNormale(Graphics g, int dimC, int gx, int gy) {
 		
-		g.fill3DRect(   x,  y,   l-1, l-1, true);
-		g.fillRoundRect(x+2,y+2, l-4, l-4, 2, 2 );
+		g.fill3DRect(   gx,  gy,   dimC-1, dimC-1, true);
+		g.fillRoundRect(gx+2,gy+2, dimC-4, dimC-4, 2, 2 );
 		
 	}
 	
-	private void disegnaCasellaInRilievo(Graphics g, int l, int x, int y) {
+	private void disegnaCasellaInRilievo(Graphics g, int dimC, int gx, int gy) {
 		
-		g.fill3DRect(   x,  y,   l-1, l-1, true);
-		g.fillRoundRect(x+2,y+2, l-4, l-4, 2, 2 );
-		g.fill3DRect(   x+2,y+2, l-5, l-5, true );
+		g.fill3DRect(   gx,  gy,   dimC-1, dimC-1, true);
+		g.fillRoundRect(gx+2,gy+2, dimC-4, dimC-4, 2, 2 );
+		g.fill3DRect(   gx+2,gy+2, dimC-5, dimC-5, true );
+		
+	}
+	
+	private void disegnaCasellaTesta(Graphics g, int dimC, int gx, int gy) {
+		
+		g.fill3DRect(   gx,  gy,   dimC-1, dimC-1, true);
+		g.fillRoundRect(gx+2,gy+2, dimC-4, dimC-4, 2, 2 );
+		Color nuovoColore = g.getColor().darker();
+		g.setColor(nuovoColore);
+		g.fill3DRect(   gx+2,gy+2, dimC-6, dimC-6, true );
 		
 	}
 

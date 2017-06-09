@@ -135,4 +135,10 @@ public class Casella  {
 	public boolean isOccupataDaSerpente() {
 		return this.getSerpente()!=null;
 	}
+
+	public boolean isTestaDiSerpente() {
+		if(this.getSerpente()!=null){
+			return this.getSerpente().isTesta(this);
+		} else return false;
+	}
 }
