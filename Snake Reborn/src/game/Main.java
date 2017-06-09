@@ -7,6 +7,7 @@ import java.awt.AWTException;
 import LukePack.LP;
 import audio.GestoreSuoni;
 import client.Client;
+import terrenoDiGioco.PopolatoreCibo;
 import terrenoDiGioco.PopolatoreSerpenti;
 import video.GUI;
 
@@ -46,9 +47,8 @@ public class Main {
 
 
 	private static void cominciaIlGioco(Partita partita) throws AWTException {
-		PopolatoreSerpenti popolatoreSerpenti = new PopolatoreSerpenti(partita);
-		popolatoreSerpenti.creaPopoloIniziale();
-		partita.aggiungiCiboRandom();
+		PopolatoreSerpenti.creaPopoloIniziale(partita);
+		PopolatoreCibo.aggiungiCiboRandom(partita.getMappa());
 		gui.repaint();
 		LP.waitFor(1000);
 		GestoreSuoni.playSpawnSound();
@@ -61,16 +61,16 @@ public class Main {
 			contaCicli++;
 
 			if((contaCicli%TEMPO_RIPOPOLAMENTO_CIBO)==0){
-				partita.aggiungiCiboRandom();
+				PopolatoreCibo.aggiungiCiboRandom(partita.getMappa());
 			}
 			
 			if(partita.getFattorePopolazione()==1){
 				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI*3)==0)){ // ogni n sec
-					popolatoreSerpenti.provaAdInserireUnSerpente();
+					PopolatoreSerpenti.provaAdInserireUnSerpente(partita);
 				}
 			} else if(partita.getFattorePopolazione()==2){
 				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI)==0)){ // ogni 3n sec
-					popolatoreSerpenti.provaAdInserireUnSerpente();
+					PopolatoreSerpenti.provaAdInserireUnSerpente(partita);
 				}
 			}
 
@@ -82,7 +82,7 @@ public class Main {
 			// sistema anti-lag
 			long tempoFineAlgoritmo = System.currentTimeMillis();
 			long ritardoAlgoritmo = tempoFineAlgoritmo-tempoInizioAlgoritmo;
-			// if(ritardoAlgoritmo!=0) System.out.println(ritardoAlgoritmo);
+			//if(ritardoAlgoritmo!=0) System.out.println("ritardo compensato: "+ritardoAlgoritmo+"/"+TEMPO_BASE+"ms \t cpu usage: " + (int)((ritardoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
 			if(TEMPO_BASE-(ritardoAlgoritmo)>0){
 				LP.waitFor(TEMPO_BASE-(ritardoAlgoritmo));
 			}

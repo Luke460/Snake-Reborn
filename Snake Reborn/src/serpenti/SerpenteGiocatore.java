@@ -4,7 +4,6 @@ import static supporto.Costanti.*;
 
 import audio.GestoreSuoni;
 import gestorePunteggi.GestorePunteggi;
-import supporto.Utility;
 import terrenoDiGioco.Casella;
 import terrenoDiGioco.Stanza;
 
@@ -31,27 +30,17 @@ public class SerpenteGiocatore extends Serpente {
 	public void setNomeGiocatore(String nomeGiocatore) {
 		super.setNome(nomeGiocatore);
 	}
-
-	public void incrementaVitaSerpente() {
+	
+	@Override
+	public void incrementaVitaSerpente(int qta) {
 		GestoreSuoni.playTakeSound();
-		super.incrementaVitaSerpente();
+		super.incrementaVitaSerpente(qta);
 	}
 	
 	public void muori(){
 		GestoreSuoni.playExplodeSound();
 		GestorePunteggi.aggiornaFileRecord();
-		for(Casella c:super.getCaselle()){
-			if(Utility.isPari(c.getPosizione().getX())&&Utility.isPari(c.getPosizione().getY())) {
-				c.libera();
-				c.setStato(CARATTERE_CASELLA_CIBO);
-			} else if((!Utility.isPari(c.getPosizione().getX()))&&(!Utility.isPari(c.getPosizione().getY()))){
-				c.libera();
-				c.setStato(CARATTERE_CASELLA_CIBO);
-			} else {
-				c.libera();
-				c.setStato(CARATTERE_CASELLA_VUOTA);
-			}
-		}
+		super.rilasciaCibo();
 		super.getCaselle().clear();
 		super.SetIsVivo(false);
 	}

@@ -10,7 +10,6 @@ import serpenti.SerpenteBotEasy;
 import serpenti.SerpenteBotHard;
 import serpenti.SerpenteBotMedium;
 import serpenti.SerpenteGiocatore;
-import supporto.Direzione;
 import terrenoDiGioco.Mappa;
 import terrenoDiGioco.Stanza;
 import static supporto.Costanti.*;
@@ -124,17 +123,15 @@ public class Partita {
 		this.mappa = mappa;
 	}
 
-	public void aggiungiCiboRandom() {
-		for(Stanza s:this.mappa.getStanze().values()){
-			s.aggiungiCiboInPosizioneCasuale();
-		}
-	}
-
 	public void resuscitaPlayer1() {
 		Serpente p1 = this.serpenti.get(NOME_PLAYER_1);
 		if(p1.isMorto()){
 			GestoreSuoni.playSpawnSound();
 			Stanza stanzaP1 = p1.getStanza();
+			Stanza stanzaAlternativa = this.mappa.getStanzaCasualeLibera();
+			if(stanzaAlternativa!=null && !stanzaAlternativa.equals(stanzaP1)){
+				stanzaP1 = stanzaAlternativa;
+			}
 			this.serpenti.remove(NOME_PLAYER_1);
 			Serpente serpenteGiocatore1 = new SerpenteGiocatore(NOME_PLAYER_1, stanzaP1);
 			this.serpenti.put(NOME_PLAYER_1, serpenteGiocatore1);
@@ -153,69 +150,6 @@ public class Partita {
 		if(this.livello==2) return 2;
 		if(this.livello==3) return 5;
 		return 0;
-	}
-
-	public void goUpP1() {
-		if(this.ilGiocatoreHaFattoLaMossa==false){
-			Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
-			Direzione dir = serpente.getDirezione();
-			if(!(dir.getX()==0 && dir.getY()==1)){
-				dir.setX(0);
-				dir.setY(-1);
-			}	
-		}
-		ilGiocatoreHaFattoLaMossa = true;
-	}
-
-	public void goDownP1() {
-		if(this.ilGiocatoreHaFattoLaMossa==false){
-			Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
-			Direzione dir = serpente.getDirezione();
-			if(!(dir.getX()==0 && dir.getY()==-1)){
-				dir.setX(0);
-				dir.setY(1);
-			}	
-		}
-		ilGiocatoreHaFattoLaMossa = true;
-
-	}
-
-	public void goLeftP1() {
-		if(this.ilGiocatoreHaFattoLaMossa==false){
-			Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
-			Direzione dir = serpente.getDirezione();
-			if(!(dir.getX()==1 && dir.getY()==0)){
-				dir.setX(-1);
-				dir.setY(0);
-			}	
-		}
-		ilGiocatoreHaFattoLaMossa = true;
-	}
-
-	public void goRightP1() {
-		if(this.ilGiocatoreHaFattoLaMossa==false){
-			Serpente serpente = this.serpenti.get(NOME_PLAYER_1);
-			Direzione dir = serpente.getDirezione();
-			if(!(dir.getX()==-1 && dir.getY()==0)){
-				dir.setX(1);
-				dir.setY(0);
-			}		
-		}
-		ilGiocatoreHaFattoLaMossa = true;
-	}
-
-	public void turnLeftP1() {
-		if(this.ilGiocatoreHaFattoLaMossa==false){
-			this.serpenti.get(this.nomePlayer1).getDirezione().ruotaSX();
-		}
-		ilGiocatoreHaFattoLaMossa = true;
-	}
-
-	public void turnRightP1() {
-		if(this.ilGiocatoreHaFattoLaMossa==false){
-			this.serpenti.get(this.nomePlayer1).getDirezione().ruotaDX();
-		}
-		ilGiocatoreHaFattoLaMossa = true;
 	}
 	
 	public int getNumeroDiSerpenti(){
@@ -244,5 +178,13 @@ public class Partita {
 
 	public void setVecchioRecord(int vecchioRecord) {
 		this.vecchioRecord = vecchioRecord;
+	}
+
+	public boolean isIlGiocatoreHaFattoLaMossa() {
+		return ilGiocatoreHaFattoLaMossa;
+	}
+
+	public void setIlGiocatoreHaFattoLaMossa(boolean ilGiocatoreHaFattoLaMossa) {
+		this.ilGiocatoreHaFattoLaMossa = ilGiocatoreHaFattoLaMossa;
 	}
 }

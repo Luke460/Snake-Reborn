@@ -9,10 +9,8 @@ import serpenti.SerpenteBotMedium;
 
 public class PopolatoreSerpenti {
 	Partita partita;
-	public PopolatoreSerpenti(Partita partita){
-		this.partita = partita;
-	}
-	public void creaPopoloIniziale() {
+	
+	public static void creaPopoloIniziale(Partita partita) {
 		
 		int numeroSerpentiIniziali = 0;
 		if(partita.getFattorePopolazione()==1) numeroSerpentiIniziali = NUMERO_SERPENTI_INIZIALI/2;
@@ -29,10 +27,10 @@ public class PopolatoreSerpenti {
 			if(rand==3) {
 				partita.tryInserisciBot(SerpenteBotHard.class.getSimpleName());
 			}
-		} while(this.partita.getNumeroDiSerpenti() <= numeroSerpentiIniziali);
+		} while(partita.getNumeroDiSerpenti() <= numeroSerpentiIniziali);
 	}
 
-	public void provaAdInserireUnSerpente() {
+	public static void provaAdInserireUnSerpente(Partita partita) {
 		int rand = (int)(Math.random()*partita.getLivello() + 1);
 		if(rand==1) {
 			partita.tryInserisciBot(SerpenteBotEasy.class.getSimpleName());

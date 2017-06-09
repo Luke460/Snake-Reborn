@@ -3,7 +3,7 @@ package supporto;
 public interface Costanti {
 
 
-	static final public int TEMPO_BASE = 88; // 11,3 fps
+	static final public int TEMPO_BASE = 83; // 12 fps
 	static final public int RITMO = 2; // deve essere>0; 1 MAX velocita' 	
 
 	//static final public int DIM_CASELLE = 17;
@@ -38,8 +38,9 @@ public interface Costanti {
 	static final public int VITA_SERPENTE_MASSIMA = 32;
 	static final public int NUMERO_TIPOLOGIE_BOT = 3;
 	
-	static final public int QTA_CIBO_TESTA_SERPENTE = 2; // 2 unità cibo
-	static final public int TEMPO_RIPOPOLAMENTO_CIBO = 130; // 13 sec
+	static final public int QTA_CIBO_TESTA_SERPENTE = 4; // 4 unità cibo
+	static final public int QTA_CIBO_BASE = 1; // 4 unità cibo
+	static final public int TEMPO_RIPOPOLAMENTO_CIBO = 50; // 5 sec
 	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI = 30; // 3 sec
 	static final public int TEMPO_CAMBIO_LIVELLO_2 = 600; // 60 sec da zero
 	static final public int TEMPO_CAMBIO_LIVELLO_3 = 1500; // 150 sec da zero

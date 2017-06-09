@@ -34,9 +34,4 @@ public class TestStanza {
 		assertTrue(stanza1.getCollegamenti().get("ovest").equals(stanza1));
 	}
 
-	@Test
-	public void testStanza_caricaDaFile(){
-		stanza1.CaricaFilePerTest("stanza-0.txt");
-	}
-
 }

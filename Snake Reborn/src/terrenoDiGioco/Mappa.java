@@ -13,42 +13,39 @@ import static supporto.Costanti.*;
 public class Mappa {
 
 	private HashMap<Integer,Stanza> stanze;
-	private int codiceGenerazioneStanze;
+	private int codGenStanze;
 
 	public Mappa(){
-		this.codiceGenerazioneStanze = 0;
+		this.codGenStanze = 0;
 		for(int i=0;i<DIMENSIONE_STANZA_DEFAULT;i++){
-			this.codiceGenerazioneStanze = i;
-			Stanza nuovaStanza = new Stanza(this.codiceGenerazioneStanze);
+			this.codGenStanze = i;
+			Stanza nuovaStanza = new Stanza(this.codGenStanze);
 			collegaACaso(nuovaStanza);
 			nuovaStanza.CaricaFile(this.generaNomeFile());
 		}
 	}
 
 	public Mappa(int dimensione){
-		this.codiceGenerazioneStanze = 0;
+		this.codGenStanze = 0;
 		stanze = new HashMap<>();
 		for(int i=0;i<dimensione;i++){
-			this.codiceGenerazioneStanze = i;
-			Stanza nuovaStanza = new Stanza(this.codiceGenerazioneStanze);
+			this.codGenStanze = i;
+			Stanza nuovaStanza = new Stanza(this.codGenStanze);
 			collegaACaso(nuovaStanza);
 			nuovaStanza.CaricaFile(this.generaNomeFile());
-			stanze.put(codiceGenerazioneStanze, nuovaStanza);
+			stanze.put(codGenStanze, nuovaStanza);
 		}
 	}
 
 	public Mappa(String stringaDiConferma){
 		if(stringaDiConferma.equals("mappa-1")){
-			int dimensione = NUMERO_STANZE_DEFAULT;
-			this.codiceGenerazioneStanze = 0;
 			stanze = new HashMap<>();
 
 			// creazione stanze
-			for(int i=0;i<dimensione;i++){
-				this.codiceGenerazioneStanze = i;
-				Stanza nuovaStanza = new Stanza(this.codiceGenerazioneStanze);
-				nuovaStanza.CaricaFile("stanze\\stanza-"+i+".txt");
-				stanze.put(codiceGenerazioneStanze, nuovaStanza);
+			for(codGenStanze=0;codGenStanze<NUMERO_STANZE_DEFAULT;codGenStanze++){
+				Stanza nuovaStanza = new Stanza(this.codGenStanze);
+				nuovaStanza.CaricaFile("stanze\\stanza-"+codGenStanze+".txt");
+				stanze.put(codGenStanze, nuovaStanza);
 			}
 
 			String strutturaMappa = LP.readFile("mappe\\"+stringaDiConferma+".txt");
@@ -115,16 +112,16 @@ public class Mappa {
 
 	private void collegaACaso(Stanza nuovaStanza) {
 		//collega il nord
-		Stanza stanzaNord = this.stanze.get((int)Math.random()*(codiceGenerazioneStanze+1));
+		Stanza stanzaNord = this.stanze.get((int)Math.random()*(codGenStanze+1));
 		nuovaStanza.setCollegamenti(NORD,stanzaNord);
 		//collega il est
-		Stanza stanzaEst = this.stanze.get((int)Math.random()*(codiceGenerazioneStanze+1));
+		Stanza stanzaEst = this.stanze.get((int)Math.random()*(codGenStanze+1));
 		nuovaStanza.setCollegamenti(EST,stanzaEst);
 		//collega il sud
-		Stanza stanzaSud = this.stanze.get((int)Math.random()*(codiceGenerazioneStanze+1));
+		Stanza stanzaSud = this.stanze.get((int)Math.random()*(codGenStanze+1));
 		nuovaStanza.setCollegamenti(SUD,stanzaSud);
 		//collega il ovest
-		Stanza stanzaOvest = this.stanze.get((int)Math.random()*(codiceGenerazioneStanze+1));
+		Stanza stanzaOvest = this.stanze.get((int)Math.random()*(codGenStanze+1));
 		nuovaStanza.setCollegamenti(OVEST,stanzaOvest);
 	}
 
@@ -140,12 +137,12 @@ public class Mappa {
 		this.stanze = mappa;
 	}
 
-	public int getCodiceGenerazioneStanze() {
-		return codiceGenerazioneStanze;
+	public int getCodGenStanze() {
+		return codGenStanze;
 	}
 
-	public void setCodiceGenerazioneStanze(int codiceGenerazioneStanze) {
-		this.codiceGenerazioneStanze = codiceGenerazioneStanze;
+	public void setCodGenStanze(int codiceGenerazioneStanze) {
+		this.codGenStanze = codiceGenerazioneStanze;
 	}
 
 	public static String getNord() {
@@ -179,7 +176,7 @@ public class Mappa {
 	}
 
 	public Stanza TryGetStanzaCasualeLibera() {
-		int nr = (int)(Math.random()*codiceGenerazioneStanze);
+		int nr = (int)(Math.random()*codGenStanze);
 		Stanza tempStanza = stanze.get(nr);
 		if(tempStanza.isLibera()) return tempStanza;
 		return null;

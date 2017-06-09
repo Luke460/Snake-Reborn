@@ -117,10 +117,8 @@ public class Casella  {
 		return false;
 	}
 
-	public void incrementaVita() {
-		if(this.vita<VITA_SERPENTE_MASSIMA){
-			this.vita++;
-		}
+	public void incrementaVita(int qta) {
+		this.vita+=qta;
 	}
 
 	public boolean isMuro() {

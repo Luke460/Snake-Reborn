@@ -12,6 +12,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import game.GestoreComandi;
 import game.Partita;
 import supporto.Utility;
 import terrenoDiGioco.Casella;
@@ -62,22 +63,22 @@ public class GUI extends JPanel {
 					partita.resuscitaPlayer1();
 					break;
 				case VK_LEFT:
-					partita.turnLeftP1();
+					GestoreComandi.turnLeftP1(partita);
 					break;
 				case VK_RIGHT:
-					partita.turnRightP1();
+					GestoreComandi.turnRightP1(partita);
 					break;
 				case VK_W:
-					partita.goUpP1();
+					GestoreComandi.goUpP1(partita);
 					break;
 				case VK_S:
-					partita.goDownP1();
+					GestoreComandi.goDownP1(partita);
 					break;
 				case VK_A:
-					partita.goLeftP1();
+					GestoreComandi.goLeftP1(partita);
 					break;
 				case VK_D:
-					partita.goRightP1();
+					GestoreComandi.goRightP1(partita);
 					break;
 				case VK_ESCAPE:
 					partita.gameOver();

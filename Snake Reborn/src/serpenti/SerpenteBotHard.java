@@ -141,7 +141,7 @@ public class SerpenteBotHard extends Serpente {
 		if(primaCasella.isCibo()) return true;
 		Casella temp2 = primaCasella.getCasellaAdiacente(dir);
 		for(int i=0;i<numeroCaselle;i++){
-			if(temp1.getStanza()!=temp2.getStanza()) return false;
+			if(!temp1.getStanza().equals(temp2.getStanza())) return false;
 			if(temp1.isMortale()) return false;
 			if(temp2.isCibo()) return true; // cibo a dritta!
 			temp1=temp2;

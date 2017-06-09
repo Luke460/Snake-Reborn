@@ -1,26 +1,22 @@
 package terrenoDiGioco;
 import java.util.*;
-import LukePack.LP;
 import serpenti.Serpente;
 import supporto.*;
 
 import static supporto.Costanti.*;
 
-
-
 public class Stanza {
 
-	private int larghezza;
 	private byte numerettoPerHash; // 128 numeri, va bene per circa 100-200 stanze
-	private int codice;
+	private int codiceUnivocoStanza;
 	private HashMap<Posizione,Casella> caselle;
 	private HashMap<String,Stanza> collegamenti;
 	private String nome;
 
 	public Stanza(int codice){
 		this.numerettoPerHash = (byte) (Math.random()*128);
-		this.codice = codice;
-		this.larghezza=0;
+		this.codiceUnivocoStanza = codice;
+		this.caselle = new HashMap<>();
 		this.nome = "Stanza non inizializzata";
 		this.collegamenti=new HashMap<>();
 		// collegamenti di default
@@ -31,78 +27,7 @@ public class Stanza {
 	}
 
 	public void CaricaFile(String nomeFile){
-		this.nome = nomeFile;
-		String testoMappa = LP.readFile(nomeFile);
-		ArrayList<Character> listaCaratteri = new ArrayList<>();
-		listaCaratteri.addAll(Utility.stringaToArray(testoMappa));
-		caselle = new HashMap<>();
-
-		boolean rigaValida=false;
-		int riga = 0;
-		int colonna = 0;
-
-		for(char c:listaCaratteri){
-			if (c!=CARATTERE_FINE_FILE){ // finche' il file non è finito...
-				// controllo
-				if(c==CARATTERE_INIZIO_RIGA){
-					rigaValida=true;
-				}
-				if(c==CARATTERE_FINE_RIGA){
-					rigaValida=false;
-					riga++;
-					this.larghezza=max(colonna+1,this.larghezza);
-					colonna=0;
-				}
-				// fine controllo
-				if(rigaValida && (c!=CARATTERE_INIZIO_RIGA && c!=CARATTERE_FINE_RIGA)){
-					Posizione p = new Posizione(colonna,riga);
-					caselle.put(p,new Casella(this,p, c));
-					colonna++;
-				}
-			}
-		}
-	}
-	
-	public void CaricaFilePerTest(String nomeFile){
-		String testoMappa = LP.readFile(nomeFile);
-		ArrayList<Character> listaCaratteri = new ArrayList<>();
-		listaCaratteri.addAll(Utility.stringaToArray(testoMappa));
-		caselle = new HashMap<>();
-
-		boolean rigaValida=false;
-		int riga = 0;
-		int colonna = 0;
-		for(char c:listaCaratteri){
-			if (c!=CARATTERE_FINE_FILE){ // finche' il file non è finito...
-				// controllo
-				if(c==CARATTERE_INIZIO_RIGA){
-					rigaValida=true;
-				}
-				if(c==CARATTERE_FINE_RIGA){
-					rigaValida=false;
-					riga++;
-					this.larghezza=max(colonna+1,this.larghezza);
-					colonna=0;
-					LP.outln("");
-				}
-				// fine controllo
-				if(rigaValida && (c!=CARATTERE_INIZIO_RIGA && c!=CARATTERE_FINE_RIGA)){
-					Posizione p = new Posizione(colonna,riga);
-					caselle.put(p,new Casella(this,p, c));
-					LP.out(""+c);
-					colonna++;
-				}
-			}
-		}
-	}
-
-	private int max(int i, int n) {
-		if(i>n) return i;
-		return n;
-	}
-
-	public void setLarghezza(int larghezza) {
-		this.larghezza = larghezza;
+		CaricatoreStanza.CaricaFile(nomeFile, this);
 	}
 
 	public HashMap<Posizione, Casella> getCaselle() {
@@ -121,12 +46,8 @@ public class Stanza {
 		this.numerettoPerHash = numerettoPerHash;
 	}
 
-	public int getCodice() {
-		return codice;
-	}
-
-	public void setCodice(int codice) {
-		this.codice = codice;
+	public int getCodiceUnivocoStanza() {
+		return codiceUnivocoStanza;
 	}
 
 	public HashMap<String, Stanza> getCollegamenti() {
@@ -145,7 +66,7 @@ public class Stanza {
 	@Override
 	public boolean equals(Object o){
 		Stanza that = (Stanza)o;
-		return this.getCodice()==that.getCodice();
+		return this.getCodiceUnivocoStanza()==that.getCodiceUnivocoStanza();
 	}
 
 	public void coloraPorta(String orientamentoPorta) {
@@ -165,20 +86,20 @@ public class Stanza {
 			this.caselle.get(new Posizione(0,15)).setStato(CARATTERE_CASELLA_PORTALE);
 			this.caselle.get(new Posizione(0,24)).setStato(CARATTERE_CASELLA_PORTALE);
 		}
-		
-		
+
+
 	}
 
 	public Casella getCasellaAdiacente(Direzione d, Casella casella) {
 		Posizione posizioneNuovaCasella = new Posizione(casella.getPosizione().getX()+d.getX(),casella.getPosizione().getY()+d.getY());
-		
-		
+
+
 		//controllo out of stanza
 		if(posizioneNuovaCasella.getX()>=DIMENSIONE_STANZA_DEFAULT){
 			posizioneNuovaCasella = new Posizione(0,posizioneNuovaCasella.getY()); 
 			return this.collegamenti.get(EST).getCaselle().get(posizioneNuovaCasella);
 		}
-		
+
 		if(posizioneNuovaCasella.getX()<0){
 			posizioneNuovaCasella = new Posizione(DIMENSIONE_STANZA_DEFAULT-1,posizioneNuovaCasella.getY()); 
 			return this.collegamenti.get(OVEST).getCaselle().get(posizioneNuovaCasella);
@@ -192,10 +113,10 @@ public class Stanza {
 			posizioneNuovaCasella = new Posizione(posizioneNuovaCasella.getX(),DIMENSIONE_STANZA_DEFAULT-1); 
 			return this.collegamenti.get(NORD).getCaselle().get(posizioneNuovaCasella);
 		}
-		
+
 		// stiamo nei confini della stanza
 		return  this.caselle.get(posizioneNuovaCasella);
-		
+
 	}
 
 
@@ -208,26 +129,20 @@ public class Stanza {
 		return this.nome;
 	}
 
-	public void aggiungiCiboInPosizioneCasuale() {
-		int posX = (int)(Math.random() * DIMENSIONE_STANZA_DEFAULT) ;     // da 0 a N-1 compresi
-		int posY = (int)(Math.random() * DIMENSIONE_STANZA_DEFAULT) ;
-		Posizione pos = new Posizione(posX, posY);
-		Casella c = this.getCaselle().get(pos);
-		if (c.isVuota()){
-			this.getCaselle().get(new Posizione(posX, posY)).setStato(CARATTERE_CASELLA_CIBO);
-		}
-	}
-
 	public boolean isLibera() {
 		for(Casella c:this.getCaselle().values()){
+			// non è libera se è diversa da
 			if(c.getStato()!=CARATTERE_CASELLA_VUOTA &&
-			   c.getStato()!=CARATTERE_CASELLA_CIBO &&
-			   c.getStato()!=CARATTERE_CASELLA_MURO &&
-			   c.getStato()!=CARATTERE_CASELLA_PORTALE){
-					return false;
+					c.getStato()!=CARATTERE_CASELLA_CIBO &&
+					c.getStato()!=CARATTERE_CASELLA_MURO &&
+					c.getStato()!=CARATTERE_CASELLA_PORTALE){
+				return false;
 			}
 		}
 		return true;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

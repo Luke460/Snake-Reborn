@@ -7,9 +7,9 @@ import audio.GestoreSuoni;
 import supporto.Direzione;
 import supporto.Posizione;
 import terrenoDiGioco.Casella;
+import terrenoDiGioco.PopolatoreCibo;
 import terrenoDiGioco.Stanza;
 import static supporto.Costanti.*;
-import supporto.Utility;
 
 public abstract class Serpente {
 
@@ -33,7 +33,6 @@ public abstract class Serpente {
 		// direzione casuale
 		Direzione direzioneSerpente = new Direzione();
 		this.setDirezione(direzioneSerpente);
-		Direzione direzioneCreazioneCaselle = direzioneSerpente.getInversa();
 		// creo la testa del serpente
 		this.setCaselle(new LinkedList<Casella>());
 		Casella primaCasella = stanza.getCaselle().get(posizionePrimaCasella);
@@ -43,19 +42,6 @@ public abstract class Serpente {
 		int vitaCasella = VITA_SERPENTE_DEFAULT;
 		primaCasella.setVita(vitaCasella);
 		this.getCaselle().add(primaCasella);
-
-		// creo le altre caselle del serpente
-
-		Casella casellaPrecedente = primaCasella;
-		for(int i=0; i<VITA_SERPENTE_DEFAULT-1; i++){
-			Casella casella = stanza.getCasellaAdiacente(direzioneCreazioneCaselle, casellaPrecedente);
-			casella.setStato(CARATTERE_CASELLA_PLAYER1);
-			casella.setSerpente(this);
-			vitaCasella--;
-			casella.setVita(vitaCasella);
-			this.getCaselle().add(casella);
-			casellaPrecedente = casella;
-		}
 	}
 
 	public Stanza getStanzaCorrente() {
@@ -93,11 +79,9 @@ public abstract class Serpente {
 		if(!nuovaCasella.isMortale()){
 			if(nuovaCasella.isCibo()){
 				if(nuovaCasella.isTestaDiSerpente()){
-					for(int i=1;i<=QTA_CIBO_TESTA_SERPENTE;i++){
-						this.incrementaVitaSerpente();
-					}
+					this.incrementaVitaSerpente(QTA_CIBO_TESTA_SERPENTE);
 				} else {
-					this.incrementaVitaSerpente();
+					this.incrementaVitaSerpente(QTA_CIBO_BASE);
 				}
 				nuovaCasella.setCasellaOccupataDalSerpente(this,this.getHP()+1,this.getCasellaDiTesta().getStato());
 			} else {
@@ -130,10 +114,14 @@ public abstract class Serpente {
 		}
 	}
 
-	public void incrementaVitaSerpente() {
-		this.ciboPreso++;
+	public void incrementaVitaSerpente(int qta) {
+		this.ciboPreso+=qta;
 		for(Casella c : this.getCaselle()){
-			c.incrementaVita();
+			if(c.getVita()+qta<=VITA_SERPENTE_MASSIMA){
+				c.incrementaVita(qta);
+			} else {
+				c.setVita(VITA_SERPENTE_MASSIMA);
+			}
 		}
 	}
 
@@ -142,7 +130,7 @@ public abstract class Serpente {
 	}
 
 	public void muori(){
-		
+
 		Serpente serpenteDavanti = this.getCasellaDiTesta().getCasellaAdiacente(this.direzione).getSerpente();
 		if(serpenteDavanti!=null){
 			if(!serpenteDavanti.getNome().equals(this.nome)){
@@ -152,24 +140,17 @@ public abstract class Serpente {
 				GestoreSuoni.playSlainSound();
 			}
 		}
-		for(Casella c:this.caselle){
-			if(Utility.isPari(c.getPosizione().getX())&&Utility.isPari(c.getPosizione().getY())) {
-				c.libera();
-				c.setStato(CARATTERE_CASELLA_CIBO);
-			} else if((!Utility.isPari(c.getPosizione().getX()))&&(!Utility.isPari(c.getPosizione().getY()))){
-				c.libera();
-				c.setStato(CARATTERE_CASELLA_CIBO);
-			} else {
-				c.libera();
-				c.setStato(CARATTERE_CASELLA_VUOTA);
-			}
-		}
-		this.caselle.clear();
+		rilasciaCibo();
 		this.isVivo = false;
 	}
 
+	protected void rilasciaCibo() {
+		PopolatoreCibo.rilasciaCiboNelleCaselle(this.caselle);
+		this.caselle.clear();
+	}
+
 	abstract public void FaiMossa();
-	
+
 	public void incrementaTempoSopravvivenza(){
 		this.tempoSopravvivenza+=0.1;
 	}
@@ -205,12 +186,12 @@ public abstract class Serpente {
 	public void setCiboPreso(int ciboPreso) {
 		this.ciboPreso = ciboPreso;
 	}
-	
+
 	@Override
 	public String toString(){
 		return this.getNome() + " \t " + this.getClass().getSimpleName() + " \t " + (this.getHP()*MOLTIPLICATORE_PUNTEGGIO_CIBO);
 	}
-	
+
 	public void miHaiUcciso(){
 		this.numeroUccisioni++;
 	}
@@ -230,7 +211,7 @@ public abstract class Serpente {
 	public void setTempoSopravvissuto(int tempoSopravvissuto) {
 		this.tempoSopravvivenza = tempoSopravvissuto;
 	}
-	
+
 	public boolean isTesta(Casella casella){
 		if(this.getCasellaDiTesta().equals(casella)) return true;
 		return false;
