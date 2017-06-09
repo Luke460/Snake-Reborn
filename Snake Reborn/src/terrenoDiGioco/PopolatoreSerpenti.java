@@ -16,7 +16,7 @@ public class PopolatoreSerpenti {
 		if(partita.getFattorePopolazione()==1) numeroSerpentiIniziali = NUMERO_SERPENTI_INIZIALI/2;
 		if(partita.getFattorePopolazione()==2) numeroSerpentiIniziali = NUMERO_SERPENTI_INIZIALI;
 
-		do {
+		while (partita.getNumeroDiSerpenti() <= numeroSerpentiIniziali){
 			int rand = (int)(Math.random()*partita.getLivello() + 1);
 			if(rand==1) {
 				partita.tryInserisciBot(SerpenteBotEasy.class.getSimpleName());
@@ -27,7 +27,7 @@ public class PopolatoreSerpenti {
 			if(rand==3) {
 				partita.tryInserisciBot(SerpenteBotHard.class.getSimpleName());
 			}
-		} while(partita.getNumeroDiSerpenti() <= numeroSerpentiIniziali);
+		}
 	}
 
 	public static void provaAdInserireUnSerpente(Partita partita) {

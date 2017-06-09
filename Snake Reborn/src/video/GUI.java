@@ -36,6 +36,7 @@ public class GUI extends JPanel {
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		finestra.setBackground(Color.BLACK);
 		this.dimensioneCasella = calcolaDimensioneCasellaMassima();
+		// AGGIUNTE LE DIMENSIONI DEI BORDI DELLE FINESRE
 		finestra.setSize((int)(15+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (37+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
 		finestra.setVisible(true);
 		//jframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -105,10 +106,10 @@ public class GUI extends JPanel {
 	
 	private void riportaStatisticheSullaFinestra(long punteggio) {
 		this.finestra.setTitle( " Avversari: " + (this.partita.getNumeroDiSerpenti()-1)+ 
-				"       Uccisioni: " + this.partita.getSerpenti().get(NOME_PLAYER_1).getNumeroUccisioni() +
-				"       Record: " + this.partita.getVecchioRecord() + 
-				"       Punteggio: " + punteggio +
-				"       Tempo sopravvivenza: " + (int)this.partita.getSerpenti().get(NOME_PLAYER_1).getTempoSopravvissuto());
+				"        Uccisioni: " + this.partita.getSerpenti().get(NOME_PLAYER_1).getNumeroUccisioni() +
+				"        Record: " + this.partita.getVecchioRecord() + 
+				"        Punteggio: " + punteggio +
+				"        Tempo: " + (int)(this.partita.getSerpenti().get(NOME_PLAYER_1).getTempoSopravvissuto()/1000));
 	}
 	
 	private void disegnaStanza(Graphics g) {

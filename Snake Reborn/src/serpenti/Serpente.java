@@ -20,19 +20,21 @@ public abstract class Serpente {
 	private boolean isVivo;	
 	private int ciboPreso;
 	private int numeroUccisioni;
-	private double tempoSopravvivenza;
+	private long istanteDiNascita;
+	private long tempoSopravvivenza;
 
 	public Serpente(String nome, Stanza stanza) {
 		this.nome=nome;
 		this.isVivo=true;
 		this.ciboPreso=0;
 		this.numeroUccisioni=0;
-		this.tempoSopravvivenza=0;
+		this.istanteDiNascita = System.currentTimeMillis();
 		// sempre al centro della stanza (20,20)
 		Posizione posizionePrimaCasella = new Posizione(DIMENSIONE_STANZA_DEFAULT/2,DIMENSIONE_STANZA_DEFAULT/2);
 		// direzione casuale
 		Direzione direzioneSerpente = new Direzione();
 		this.setDirezione(direzioneSerpente);
+		Direzione direzioneCreazioneCaselle = direzioneSerpente.getInversa();
 		// creo la testa del serpente
 		this.setCaselle(new LinkedList<Casella>());
 		Casella primaCasella = stanza.getCaselle().get(posizionePrimaCasella);
@@ -42,6 +44,19 @@ public abstract class Serpente {
 		int vitaCasella = VITA_SERPENTE_DEFAULT;
 		primaCasella.setVita(vitaCasella);
 		this.getCaselle().add(primaCasella);
+
+		// creo le altre caselle del serpente
+
+		Casella casellaPrecedente = primaCasella;
+		for(int i=0; i<VITA_SERPENTE_DEFAULT-1; i++){
+			Casella casella = stanza.getCasellaAdiacente(direzioneCreazioneCaselle, casellaPrecedente);
+			casella.setStato(CARATTERE_CASELLA_PLAYER1);
+			casella.setSerpente(this);
+			vitaCasella--;
+			casella.setVita(vitaCasella);
+			this.getCaselle().add(casella);
+			casellaPrecedente = casella;
+		}
 	}
 
 	public Stanza getStanzaCorrente() {
@@ -151,10 +166,6 @@ public abstract class Serpente {
 
 	abstract public void FaiMossa();
 
-	public void incrementaTempoSopravvivenza(){
-		this.tempoSopravvivenza+=0.1;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -205,11 +216,12 @@ public abstract class Serpente {
 	}
 
 	public double getTempoSopravvissuto() {
-		return tempoSopravvivenza;
-	}
-
-	public void setTempoSopravvissuto(int tempoSopravvissuto) {
-		this.tempoSopravvivenza = tempoSopravvissuto;
+		if(this.isVivo){
+			this.tempoSopravvivenza = System.currentTimeMillis()-this.istanteDiNascita;
+			return tempoSopravvivenza;
+		} else {
+			return this.tempoSopravvivenza;
+		}
 	}
 
 	public boolean isTesta(Casella casella){

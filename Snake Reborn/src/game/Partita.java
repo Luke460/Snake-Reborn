@@ -83,8 +83,8 @@ public class Partita {
 			Serpente s = iteratore.next();
 			if(!s.isMorto()){
 				s.FaiMossa();
-				s.incrementaTempoSopravvivenza();
-			} else if(!s.getClass().toString().equals(SerpenteGiocatore.class.toString())){
+			} else if(!s.getClass().getSimpleName().equals(SerpenteGiocatore.class.getSimpleName())){
+				// rimuove tutti tranne il giocatore 1 (la sua stanza deve essere comunque visualizzata)
 				iteratore.remove();
 			}
 		}

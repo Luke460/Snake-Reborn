@@ -82,7 +82,7 @@ public class Main {
 			// sistema anti-lag
 			long tempoFineAlgoritmo = System.currentTimeMillis();
 			long ritardoAlgoritmo = tempoFineAlgoritmo-tempoInizioAlgoritmo;
-			//if(ritardoAlgoritmo!=0) System.out.println("ritardo compensato: "+ritardoAlgoritmo+"/"+TEMPO_BASE+"ms \t cpu usage: " + (int)((ritardoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
+			//if(ritardoAlgoritmo>1) System.out.println("ritardo compensato: "+ritardoAlgoritmo+"/"+TEMPO_BASE+"ms \t cpu usage: " + (int)((ritardoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
 			if(TEMPO_BASE-(ritardoAlgoritmo)>0){
 				LP.waitFor(TEMPO_BASE-(ritardoAlgoritmo));
 			}
