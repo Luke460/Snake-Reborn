@@ -19,7 +19,7 @@ public class GestorePunteggi {
 		int vecchioRecord = partita.getVecchioRecord();
 		if(nuovoRecord>vecchioRecord){
 			ScriviPunteggio scrittore = new ScriviPunteggio(NOME_FILE_RECORD, nuovoRecord+"");
-			scrittore.run();
+			scrittore.start();
 			partita.setVecchioRecord(nuovoRecord);
 		}
 	}
