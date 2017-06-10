@@ -96,6 +96,22 @@ public class Direzione {
 			return;
 		}
 	}
+	
+	public Direzione getDirezioneDX(){
+		Direzione ritorno = new Direzione();
+		ritorno.setX(this.getX());
+		ritorno.setY(this.getY());
+		ritorno.ruotaDX();
+		return ritorno;
+	}
+	
+	public Direzione getDirezioneSX(){
+		Direzione ritorno = new Direzione();
+		ritorno.setX(this.getX());
+		ritorno.setY(this.getY());
+		ritorno.ruotaSX();
+		return ritorno;
+	}
 
 	public void Inverti() {
 		this.ruotaDX();

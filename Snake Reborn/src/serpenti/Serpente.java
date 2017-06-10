@@ -1,5 +1,6 @@
 package serpenti;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -145,18 +146,32 @@ public abstract class Serpente {
 	}
 
 	public void muori(){
-
-		Serpente serpenteDavanti = this.getCasellaDiTesta().getCasellaAdiacente(this.direzione).getSerpente();
-		if(serpenteDavanti!=null){
-			if(!serpenteDavanti.getNome().equals(this.nome)){
-				serpenteDavanti.miHaiUcciso();
-			}
-			if(serpenteDavanti.getNome().equals(NOME_PLAYER_1)){
-				GestoreSuoni.playSlainSound();
-			}
-		}
+		controllaUccisione();
 		rilasciaCibo();
 		this.isVivo = false;
+	}
+
+	private void controllaUccisione() {
+		Serpente serpenteDavanti = this.getCasellaDiTesta().getCasellaAdiacente(this.direzione).getSerpente();
+		Serpente serpenteAdestra = this.getCasellaDiTesta().getCasellaAdiacente(this.direzione.getDirezioneDX()).getSerpente();
+		Serpente serpenteAsinistra = this.getCasellaDiTesta().getCasellaAdiacente(this.direzione.getDirezioneSX()).getSerpente();
+		ArrayList<Serpente> serpentiPerControllo = new ArrayList<Serpente>();
+		serpentiPerControllo.add(serpenteDavanti);
+		serpentiPerControllo.add(serpenteAdestra);
+		serpentiPerControllo.add(serpenteAsinistra);
+		
+		boolean uccisione = false;
+		int i=0;
+		while (i<3 && uccisione == false){ // 0,1,2
+			Serpente s = serpentiPerControllo.get(i);
+			if(s!=null){
+				if(!s.getNome().equals(this.nome)){
+					s.miHaiUcciso();
+					uccisione = true;
+				}
+			}
+			i++;
+		}
 	}
 
 	protected void rilasciaCibo() {
@@ -205,6 +220,9 @@ public abstract class Serpente {
 
 	public void miHaiUcciso(){
 		this.numeroUccisioni++;
+		if(this.getNome().equals(NOME_PLAYER_1)){
+			GestoreSuoni.playSlainSound();
+		}
 	}
 
 	public int getNumeroUccisioni() {
