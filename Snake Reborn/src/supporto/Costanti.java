@@ -41,7 +41,8 @@ public interface Costanti {
 	static final public int QTA_CIBO_TESTA_SERPENTE = 4; // 4 unità cibo
 	static final public int QTA_CIBO_BASE = 1; // 4 unità cibo
 	static final public int TEMPO_RIPOPOLAMENTO_CIBO = 50; // 5 sec
-	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI = 30; // 3 sec
+	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI_ALTO = 20; // 2 sec
+	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI_BASSO = 100; // 10 sec
 	static final public int TEMPO_CAMBIO_LIVELLO_2 = 600; // 60 sec da zero
 	static final public int TEMPO_CAMBIO_LIVELLO_3 = 1500; // 150 sec da zero
 	static final public int NUMERO_SERPENTI_INIZIALI = 6;
