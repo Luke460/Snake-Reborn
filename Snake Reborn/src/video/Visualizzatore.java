@@ -6,20 +6,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import game.GestoreComandi;
 import game.Partita;
 import supporto.Utility;
 import terrenoDiGioco.Casella;
 
 import static supporto.Costanti.*;
 
-public class GUI extends JPanel {
+public class Visualizzatore extends JPanel {
 
 	static final private long serialVersionUID = 0L;
 
@@ -29,7 +26,7 @@ public class GUI extends JPanel {
 	int dimensioneCasella;
 	final private JFrame finestra;
 
-	public GUI(final Partita partita) {
+	public Visualizzatore(final Partita partita) {
 		this.partita = partita;
 		this.finestra = new JFrame("Snake Reborn");		
 		finestra.add(this);
@@ -49,47 +46,6 @@ public class GUI extends JPanel {
 		int larghezza = (int) screenSize.getWidth();
 		int altezza = (int) screenSize.getHeight();
 		return (int) ((Utility.minimoTra(larghezza,altezza)/(DIMENSIONE_STANZA_DEFAULT))*RAPPORTO_DIMENSIONE_SCHERMO);
-	}
-
-	public void initControlliDaTastiera(final Partita partita) {
-
-		// Gestione eventi associati alla tastiera
-		this.finestra.addKeyListener(new KeyListener() {
-			@Override
-			public void keyTyped(KeyEvent e) {}
-			@Override
-			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-				case VK_ENTER:
-					partita.resuscitaPlayer1();
-					break;
-				case VK_LEFT:
-					GestoreComandi.turnLeftP1(partita);
-					break;
-				case VK_RIGHT:
-					GestoreComandi.turnRightP1(partita);
-					break;
-				case VK_W:
-					GestoreComandi.goUpP1(partita);
-					break;
-				case VK_S:
-					GestoreComandi.goDownP1(partita);
-					break;
-				case VK_A:
-					GestoreComandi.goLeftP1(partita);
-					break;
-				case VK_D:
-					GestoreComandi.goRightP1(partita);
-					break;
-				case VK_ESCAPE:
-					partita.gameOver();
-					break;
-				}
-				repaint();
-			}
-			@Override
-			public void keyReleased(KeyEvent e) {}
-		});
 	}
 
 	@Override
@@ -145,7 +101,7 @@ public class GUI extends JPanel {
 		
 		g.fill3DRect(   gx,  gy,   dimC-1, dimC-1, true);
 		g.fillRoundRect(gx+2,gy+2, dimC-4, dimC-4, 2, 2 );
-		g.fill3DRect(   gx+2,gy+2, dimC-5, dimC-5, true );
+		g.fill3DRect(   gx+3,gy+3, dimC-7, dimC-7, true );
 		
 	}
 	
@@ -157,6 +113,14 @@ public class GUI extends JPanel {
 		g.setColor(nuovoColore);
 		g.fill3DRect(   gx+2,gy+2, dimC-6, dimC-6, true );
 		
+	}
+
+	public Partita getPartita() {
+		return partita;
+	}
+
+	public JFrame getFinestra() {
+		return finestra;
 	}
 
 }

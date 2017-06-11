@@ -7,14 +7,15 @@ import java.awt.AWTException;
 import LukePack.LP;
 import audio.GestoreSuoni;
 import client.Client;
-import terrenoDiGioco.PopolatoreCibo;
-import terrenoDiGioco.PopolatoreSerpenti;
-import video.GUI;
+import gestoreComandi.LettoreComandi;
+import popolatori.PopolatoreCibo;
+import popolatori.PopolatoreSerpenti;
+import video.Visualizzatore;
 
 public class Main {
 
 	static Partita partita;
-	private static GUI gui;
+	private static Visualizzatore visualizzatore;
 	private static String nomeUtente;
 	private static String password;
 
@@ -25,8 +26,8 @@ public class Main {
 
 	public static void avviaIlGioco() throws AWTException {
 		partita.ImpostaPartita();
-		gui = new GUI(partita);
-		gui.initControlliDaTastiera(partita);
+		visualizzatore = new Visualizzatore(partita);
+		LettoreComandi.initControlliDaTastiera(visualizzatore);
 		GestoreSuoni.inizzializzaSuoni();
 
 		GestoreSuoni.playMusicaInLoop();
@@ -49,7 +50,7 @@ public class Main {
 	private static void cominciaIlGioco(Partita partita) throws AWTException {
 		PopolatoreSerpenti.creaPopoloIniziale(partita);
 		PopolatoreCibo.aggiungiCiboRandom(partita.getMappa());
-		gui.repaint();
+		visualizzatore.repaint();
 		LP.waitFor(1000);
 		GestoreSuoni.playSpawnSound();
 		int contaCicli=0;
@@ -76,7 +77,7 @@ public class Main {
 
 
 			partita.eseguiTurni();
-			gui.repaint(); // lo metto dopo in modo che il giocatore ha
+			visualizzatore.repaint(); // lo metto dopo in modo che il giocatore ha
 			//100 ms per reagire
 
 			// sistema anti-lag

@@ -1,4 +1,4 @@
-package terrenoDiGioco;
+package popolatori;
 
 import static supporto.Costanti.CARATTERE_CASELLA_CIBO;
 import static supporto.Costanti.CARATTERE_CASELLA_VUOTA;
@@ -8,6 +8,9 @@ import java.util.List;
 
 import supporto.Posizione;
 import supporto.Utility;
+import terrenoDiGioco.Casella;
+import terrenoDiGioco.Mappa;
+import terrenoDiGioco.Stanza;
 
 public class PopolatoreCibo {
 	

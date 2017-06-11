@@ -1,4 +1,4 @@
-package terrenoDiGioco;
+package popolatori;
 
 import static supporto.Costanti.NUMERO_SERPENTI_INIZIALI;
 

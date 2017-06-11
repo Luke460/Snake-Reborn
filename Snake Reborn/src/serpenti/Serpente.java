@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import audio.GestoreSuoni;
+import popolatori.PopolatoreCibo;
 import supporto.Direzione;
 import supporto.Posizione;
 import terrenoDiGioco.Casella;
-import terrenoDiGioco.PopolatoreCibo;
 import terrenoDiGioco.Stanza;
 import static supporto.Costanti.*;
 

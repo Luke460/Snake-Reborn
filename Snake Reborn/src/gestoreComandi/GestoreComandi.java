@@ -1,7 +1,8 @@
-package game;
+package gestoreComandi;
 
 import static supporto.Costanti.NOME_PLAYER_1;
 
+import game.Partita;
 import serpenti.Serpente;
 import supporto.Direzione;
 
@@ -68,6 +69,14 @@ public class GestoreComandi {
 			partita.getSerpenti().get(partita.getNomePlayer1()).getDirezione().ruotaDX();
 		}
 		partita.setIlGiocatoreHaFattoLaMossa(true);
+	}
+
+	public static void resuscitaPlayer1(Partita partita) {
+		partita.resuscitaPlayer1();		
+	}
+
+	public static void gameOver(Partita partita) {
+		partita.gameOver();
 	}
 
 }
