@@ -17,7 +17,6 @@ public class SerpenteBotEasy extends Serpente {
 
 	@Override
 	public void FaiMossa() {
-		int numeroCasuale = (int)((Math.random() * 40)+1);
 		Direzione direzioneDritta = new Direzione(super.getDirezione().getX(),super.getDirezione().getY());
 		Direzione direzioneAlternativaDX = new Direzione(super.getDirezione().getX(),super.getDirezione().getY());
 		direzioneAlternativaDX.ruotaDX();
@@ -49,14 +48,14 @@ public class SerpenteBotEasy extends Serpente {
 			return;
 		}
 		
-		// caso: vado dritto
-		if((numeroCasuale!=4 && numeroCasuale!=5 && !this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).isMuro())){
+		// caso: vado dritto, ma ogni tanto giro lo stesso
+		if((Utility.veroAl(95) && !this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).isMuro())){
 			super.Sposta(direzioneDritta);
 			return;
 		}
 		
 		// priorità dx
-		if(Utility.isPari(numeroCasuale)){
+		if(Utility.veroAl(50)){
 			
 			if(!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).isMortale()){
 				super.Sposta(direzioneAlternativaDX);

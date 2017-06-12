@@ -27,5 +27,13 @@ public class Utility {
 		if(a<b)return a;
 		return b;
 	}
+	
+	public static boolean veroAl(int percentuale){
+		if(percentuale<0||percentuale>100) 
+			throw new IllegalArgumentException("La percentuale deve avere un valore da 0 a 100 (estremi inclusi)!");
+		int casuale = (int) ((Math.random()*100)+1);
+		if(casuale<=percentuale) return true;
+		return false;
+	}
 
 }
