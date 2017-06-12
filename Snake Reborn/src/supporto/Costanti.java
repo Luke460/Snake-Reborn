@@ -2,11 +2,8 @@ package supporto;
 
 public interface Costanti {
 
+	static final public int TEMPO_BASE = 83; // 12 fps	
 
-	static final public int TEMPO_BASE = 83; // 12 fps
-	static final public int RITMO = 2; // deve essere>0; 1 MAX velocita' 	
-
-	//static final public int DIM_CASELLE = 17;
 	public static final int DIMENSIONE_STANZA_DEFAULT = 40;
 	public static final int NUMERO_STANZE_DEFAULT = 8;
 	public static final double RAPPORTO_DIMENSIONE_SCHERMO = 0.9; // 90% del lato minimo
@@ -36,18 +33,18 @@ public interface Costanti {
 	
 	public static final int VITA_SERPENTE_DEFAULT = 8;
 	static final public int VITA_SERPENTE_MASSIMA = 32;
-	static final public int NUMERO_TIPOLOGIE_BOT = 3;
 	
 	static final public int QTA_CIBO_TESTA_SERPENTE = 4; // 4 unità cibo
-	static final public int QTA_CIBO_BASE = 1; // 4 unità cibo
-	static final public int TEMPO_RIPOPOLAMENTO_CIBO = 50; // 5 sec
-	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI_ALTO = 20; // 2 sec
-	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI_BASSO = 100; // 10 sec
-	static final public int TEMPO_CAMBIO_LIVELLO_2 = 600; // 60 sec da zero
-	static final public int TEMPO_CAMBIO_LIVELLO_3 = 1500; // 150 sec da zero
-	static final public int NUMERO_SERPENTI_INIZIALI = 6;
-	
+	static final public int QTA_CIBO_BASE = 1; // 1 unità cibo
 	static final public int MOLTIPLICATORE_PUNTEGGIO_CIBO = 10;
+	static final public int TEMPO_RIPOPOLAMENTO_CIBO = 50; // 5 sec
+	
+	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI_ALTO = 30; // 3 sec
+	static final public int TEMPO_RIPOPOLAMENTO_SERPENTI_BASSO = 60; // 6 sec
+	static final public int NUMERO_SERPENTI_INIZIALI_ALTO = 6;
+	static final public int NUMERO_SERPENTI_INIZIALI_BASSO = 3;
+	static final public int LIMITE_SERPENTI_BASSO = 5;
+	static final public int LIMITE_SERPENTI_ALTO = 9;
 	
 	static final public String NOME_PLAYER_1 = "Giocatore 1";
 	

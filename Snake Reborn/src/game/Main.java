@@ -66,11 +66,11 @@ public class Main {
 			}
 			
 			if(partita.getFattorePopolazione()==1){
-				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI_BASSO)==0)){
+				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI_BASSO)==0) && partita.getNumeroDiSerpenti()<=LIMITE_SERPENTI_BASSO){
 					PopolatoreSerpenti.provaAdInserireUnSerpente(partita);
 				}
 			} else if(partita.getFattorePopolazione()==2){
-				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI_ALTO)==0)){
+				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI_ALTO)==0) && partita.getNumeroDiSerpenti()<=LIMITE_SERPENTI_ALTO){
 					PopolatoreSerpenti.provaAdInserireUnSerpente(partita);
 				}
 			}

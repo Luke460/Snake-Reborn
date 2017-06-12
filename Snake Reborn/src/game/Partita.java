@@ -129,7 +129,7 @@ public class Partita {
 			GestoreSuoni.playSpawnSound();
 			Stanza stanzaP1 = p1.getStanza();
 			Stanza stanzaAlternativa = this.mappa.getStanzaCasualeLibera();
-			if(stanzaAlternativa!=null && !stanzaAlternativa.equals(stanzaP1)){
+			if(stanzaAlternativa!=null){
 				stanzaP1 = stanzaAlternativa;
 			}
 			this.serpenti.remove(NOME_PLAYER_1);
