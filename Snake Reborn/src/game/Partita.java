@@ -37,15 +37,15 @@ public class Partita {
 
 	public void ImpostaPartita() {
 		// un solo giocatore
-		Stanza stanzaCasuale = this.mappa.getStanzaCasualeLibera();
+		Stanza stanzaCasuale = this.mappa.getStanzaCasualeLibera_controlloSuTutteLeStanze();
 		this.nomePlayer1 = NOME_PLAYER_1;
 		Serpente serpentePlayer1 = new SerpenteGiocatore(this.nomePlayer1, stanzaCasuale);
 		this.serpenti.put(this.nomePlayer1, serpentePlayer1);
 
 	}
 
-	public void inserisciBot(String classe){
-		Stanza stanza = this.mappa.getStanzaCasualeLibera();
+	public void inserisciBotAccurato(String classe){
+		Stanza stanza = this.mappa.getStanzaCasualeLibera_controlloSuTutteLeStanze();
 		if(stanza!=null){
 			Serpente bot = null;
 			if(classe.equals(SerpenteBotEasy.class.getSimpleName())){
@@ -60,9 +60,9 @@ public class Partita {
 		}
 	}
 
-	// metodi try: solo se si trova una stanza casuale che è anche liber
-	public void tryInserisciBot(String classe){
-		Stanza stanza = this.mappa.TryGetStanzaCasualeLibera();
+	// metodi try: solo se si trova una stanza casuale che è anche libera
+	public void inserisciBotVeloce(String classe){
+		Stanza stanza = this.mappa.getStanzaCasualeLibera_controlloSuStanzaSingolaCasuale();
 		if(stanza!=null){
 			Serpente bot = null;
 			if(classe.equals(SerpenteBotEasy.class.getSimpleName())){
@@ -128,7 +128,7 @@ public class Partita {
 		if(p1.isMorto()){
 			GestoreSuoni.playSpawnSound();
 			Stanza stanzaP1 = p1.getStanza();
-			Stanza stanzaAlternativa = this.mappa.getStanzaCasualeLibera();
+			Stanza stanzaAlternativa = this.mappa.getStanzaCasualeLibera_controlloSuTutteLeStanze();
 			if(stanzaAlternativa!=null){
 				stanzaP1 = stanzaAlternativa;
 			}

@@ -19,13 +19,13 @@ public class PopolatoreSerpenti {
 		while (partita.getNumeroDiSerpenti() <= numeroSerpentiIniziali){
 			int rand = (int)(Math.random()*partita.getLivello() + 1);
 			if(rand==1) {
-				partita.tryInserisciBot(SerpenteBotEasy.class.getSimpleName());
+				partita.inserisciBotAccurato(SerpenteBotEasy.class.getSimpleName());
 			}
 			if(rand==2) {
-				partita.tryInserisciBot(SerpenteBotMedium.class.getSimpleName());
+				partita.inserisciBotAccurato(SerpenteBotMedium.class.getSimpleName());
 			}
 			if(rand==3) {
-				partita.tryInserisciBot(SerpenteBotHard.class.getSimpleName());
+				partita.inserisciBotAccurato(SerpenteBotHard.class.getSimpleName());
 			}
 		}
 	}
@@ -33,13 +33,13 @@ public class PopolatoreSerpenti {
 	public static void provaAdInserireUnSerpente(Partita partita) {
 		int rand = (int)(Math.random()*partita.getLivello() + 1);
 		if(rand==1) {
-			partita.tryInserisciBot(SerpenteBotEasy.class.getSimpleName());
+			partita.inserisciBotVeloce(SerpenteBotEasy.class.getSimpleName());
 		}
 		if(rand==2) {
-			partita.tryInserisciBot(SerpenteBotMedium.class.getSimpleName());
+			partita.inserisciBotVeloce(SerpenteBotMedium.class.getSimpleName());
 		}
 		if(rand==3) {
-			partita.tryInserisciBot(SerpenteBotHard.class.getSimpleName());
+			partita.inserisciBotVeloce(SerpenteBotHard.class.getSimpleName());
 		}
 	}
 	

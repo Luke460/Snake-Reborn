@@ -165,7 +165,8 @@ public class Mappa {
 		return DIMENSIONE_STANZA_DEFAULT;
 	}
 
-	public Stanza getStanzaCasualeLibera() {
+	// controlla tutte le stanze e ritornami una stanza libera (se possibile)
+	public Stanza getStanzaCasualeLibera_controlloSuTutteLeStanze() {
 		ArrayList<Stanza> stanzeMischiate = new ArrayList<Stanza>();
 		stanzeMischiate.addAll(this.getStanze().values());
 		Collections.shuffle(stanzeMischiate);
@@ -175,7 +176,8 @@ public class Mappa {
 		return null;
 	}
 
-	public Stanza TryGetStanzaCasualeLibera() {
+	// prendi una stanza casuale e ritornamela se è libera
+	public Stanza getStanzaCasualeLibera_controlloSuStanzaSingolaCasuale() {
 		int nr = (int)(Math.random()*codGenStanze);
 		Stanza tempStanza = stanze.get(nr);
 		if(tempStanza.isLibera()) return tempStanza;

@@ -18,7 +18,7 @@ public class GestorePunteggi {
 		int nuovoRecord = partita.getPunteggioPlayer1();
 		int vecchioRecord = partita.getVecchioRecord();
 		if(nuovoRecord>vecchioRecord){
-			ScriviPunteggio scrittore = new ScriviPunteggio(NOME_FILE_RECORD, nuovoRecord+"");
+			ScriviPunteggio scrittore = new ScriviPunteggio(NOME_FILE_RECORD, String.valueOf(nuovoRecord));
 			scrittore.start();
 			partita.setVecchioRecord(nuovoRecord);
 		}
@@ -26,7 +26,7 @@ public class GestorePunteggi {
 
 	public static int getPunteggioDaFileRecord() { // sistemare
 		String testoFileVecchioRecord = LP.readFile(NOME_FILE_RECORD);
-		if(testoFileVecchioRecord!=null){
+		if(testoFileVecchioRecord!=null && testoFileVecchioRecord!=""){
 			int record = Integer.parseInt(testoFileVecchioRecord);
 			return record;
 		} else {
