@@ -16,8 +16,6 @@ public class Main {
 
 	static Partita partita;
 	private static Visualizzatore visualizzatore;
-	private static String nomeUtente;
-	private static String password;
 
 	public static void main(String[] args){
 		partita = new Partita();
@@ -88,22 +86,6 @@ public class Main {
 				LP.waitFor(TEMPO_BASE-(ritardoAlgoritmo));
 			}
 		}
-	}
-
-	public static String getNomeUtente() {
-		return nomeUtente;
-	}
-
-	public static void setNomeUtente(String nomeUtente) {
-		Main.nomeUtente = nomeUtente;
-	}
-
-	public static String getPassword() {
-		return password;
-	}
-
-	public static void setPassword(String password) {
-		Main.password = password;
 	}
 
 }

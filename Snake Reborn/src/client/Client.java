@@ -12,7 +12,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -24,6 +23,7 @@ import LukePack.LP;
 import audio.GestoreSuoni;
 import game.Main;
 import game.Partita;
+import game.Utente;
 
 public class Client extends JFrame{
 
@@ -65,8 +65,6 @@ public class Client extends JFrame{
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		leggiImpostazioni();
-		
 		preparaLetturaPulsanti();
 		
 		regolaFinestra();
@@ -75,7 +73,9 @@ public class Client extends JFrame{
 		while(!premuto ){ // viene "sbloccato dal Listener" (busy waiting)
 			LP.waitFor(250); // 4 volte al secondo
 		}
+		
 		leggiImpostazioni();
+		
 		try {
 			Main.avviaIlGioco();
 		} catch (AWTException e) {
@@ -194,8 +194,18 @@ public class Client extends JFrame{
 			if (src == accedi){
 				JOptionPane.showMessageDialog(null, 
 						"Funzione non ancora implementata");
-				Main.setNomeUtente(nomeInserito.getText());
-				Main.setPassword(passwordInserita.getText());
+				Utente utente = new Utente();
+				utente.setNomeUtente(nomeInserito.getText());
+				utente.setPassword(passwordInserita.getText());
+				partita.setUtente(utente);
+				// faccio l'autenticazione (utente.username , utente.password)
+				// se l'autenticazione va a buon fine > setPremuto(true)
+				/*
+				else {
+					JOptionPane.showMessageDialog(null, 
+							"Combinazione username e password non riconosciuta");
+				}
+				*/
 			}
 			if (src == ospite){
 				setPremuto(true);

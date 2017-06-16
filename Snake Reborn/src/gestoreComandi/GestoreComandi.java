@@ -59,14 +59,14 @@ public class GestoreComandi {
 
 	public static void turnLeftP1(Partita partita) {
 		if(partita.isIlGiocatoreHaFattoLaMossa()==false){
-			partita.getSerpenti().get(partita.getNomePlayer1()).getDirezione().ruotaSX();
+			partita.getSerpentePlayer1().getDirezione().ruotaSX();
 		}
 		partita.setIlGiocatoreHaFattoLaMossa(true);
 	}
 
 	public static void turnRightP1(Partita partita) {
 		if(partita.isIlGiocatoreHaFattoLaMossa()==false){
-			partita.getSerpenti().get(partita.getNomePlayer1()).getDirezione().ruotaDX();
+			partita.getSerpentePlayer1().getDirezione().ruotaDX();
 		}
 		partita.setIlGiocatoreHaFattoLaMossa(true);
 	}

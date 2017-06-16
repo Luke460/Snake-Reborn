@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import game.Partita;
+import gestorePunteggi.GestorePunteggi;
 import supporto.Utility;
 import terrenoDiGioco.Casella;
 
@@ -52,11 +53,11 @@ public class Visualizzatore extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella);
-		for (Casella c : this.partita.getStanzaPlayer1().getCaselle().values()) {
+		for (Casella c : this.partita.getSerpentePlayer1().getCasellaDiTesta().getStanza().getCaselle().values()) {
 			disegnaCasella(g, c);
 		}
 		disegnaStanza(g);
-		riportaStatisticheSullaFinestra(this.partita.getPunteggioPlayer1());
+		riportaStatisticheSullaFinestra(GestorePunteggi.getPunteggioPlayer1());
 	}
 
 	
@@ -69,7 +70,7 @@ public class Visualizzatore extends JPanel {
 	}
 	
 	private void disegnaStanza(Graphics g) {
-		for (Casella c : this.partita.getStanzaPlayer1().getCaselle().values()) {
+		for (Casella c : this.partita.getSerpentePlayer1().getCasellaDiTesta().getStanza().getCaselle().values()) {
 			disegnaCasella(g, c);
 		}
 	}

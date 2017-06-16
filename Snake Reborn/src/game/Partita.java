@@ -24,6 +24,7 @@ public class Partita {
 	private int livello;
 	private int fattorePopolazione;
 	private int vecchioRecord;
+	private Utente utente;
 
 	public Partita(){
 		GestorePunteggi.inizializza(this);
@@ -90,6 +91,10 @@ public class Partita {
 		}
 		ilGiocatoreHaFattoLaMossa = false;
 	}
+	
+	public Serpente getSerpentePlayer1(){
+		return this.serpenti.get(NOME_PLAYER_1);
+	}
 
 	public HashMap<String,Serpente> getSerpenti() {
 		return serpenti;
@@ -101,18 +106,6 @@ public class Partita {
 
 	public void gameOver() {
 		System.exit(-1);		
-	}
-
-	public Stanza getStanzaPlayer1() {
-		return this.serpenti.get(this.nomePlayer1).getCasellaDiTesta().getStanza();
-	}
-
-	public String getNomePlayer1() {
-		return nomePlayer1;
-	}
-
-	public void setNomePlayer1(String nomePlayer1) {
-		this.nomePlayer1 = nomePlayer1;
 	}
 
 	public Mappa getMappa() {
@@ -136,20 +129,6 @@ public class Partita {
 			Serpente serpenteGiocatore1 = new SerpenteGiocatore(NOME_PLAYER_1, stanzaP1);
 			this.serpenti.put(NOME_PLAYER_1, serpenteGiocatore1);
 		}
-	}
-
-	public int getPunteggioPlayer1() {
-		int punteggio = 0;
-		Serpente p1 = this.serpenti.get(NOME_PLAYER_1);
-		punteggio += (int) p1.getCiboPreso()*MOLTIPLICATORE_PUNTEGGIO_CIBO*getMoltiplicatorePunteggio();
-		return punteggio;
-	}
-
-	private double getMoltiplicatorePunteggio() {
-		if(this.livello==1) return 1;
-		if(this.livello==2) return 2;
-		if(this.livello==3) return 5;
-		return 0;
 	}
 	
 	public int getNumeroDiSerpenti(){
@@ -186,5 +165,13 @@ public class Partita {
 
 	public void setIlGiocatoreHaFattoLaMossa(boolean ilGiocatoreHaFattoLaMossa) {
 		this.ilGiocatoreHaFattoLaMossa = ilGiocatoreHaFattoLaMossa;
+	}
+
+	public Utente getUtente() {
+		return utente;
+	}
+
+	public void setUtente(Utente utente) {
+		this.utente = utente;
 	}
 }

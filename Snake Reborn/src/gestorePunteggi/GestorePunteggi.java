@@ -2,6 +2,7 @@ package gestorePunteggi;
 
 import LukePack.LP;
 import game.Partita;
+import serpenti.Serpente;
 
 import static supporto.Costanti.*;
 
@@ -15,7 +16,7 @@ public class GestorePunteggi {
 
 	public static void aggiornaFileRecord() {
 		if(!punteggioValido()) return;
-		int nuovoRecord = partita.getPunteggioPlayer1();
+		int nuovoRecord = getPunteggioPlayer1();
 		int vecchioRecord = partita.getVecchioRecord();
 		if(nuovoRecord>vecchioRecord){
 			ScriviPunteggio scrittore = new ScriviPunteggio(NOME_FILE_RECORD, String.valueOf(nuovoRecord));
@@ -43,4 +44,32 @@ public class GestorePunteggi {
 			return false;
 		}
 	}
+	
+	public static int getPunteggioPlayer1() {
+		int punteggio = 0;
+		Serpente p1 = partita.getSerpentePlayer1();
+		punteggio += (int) p1.getCiboPreso()*MOLTIPLICATORE_PUNTEGGIO_CIBO*getMoltiplicatorePunteggio();
+		return punteggio;
+	}	
+
+	private static double getMoltiplicatorePunteggio() {
+		if(partita.getLivello()==1) return 1;
+		if(partita.getLivello()==2) return 2;
+		if(partita.getLivello()==3) return 5;
+		return 0;
+	}
+	/*
+	public static void inviaPunteggio() {
+		Comunicatore.pushMatch(partita.getUtente().getNomeUtente(),
+							   partita.getUtente().getPassword(),
+							   getPunteggioPlayer1(),
+							   partita.getSerpentePlayer1().getTempoSopravvissuto(),
+						       partita.getSerpentePlayer1().getNumeroUccisioni());
+	}
+	
+	public static int getRecord() {
+		Comunicatore.getRecord(partita.getUtente().getNomeUtente(),
+							   partita.getUtente().getPassword());
+	}
+	*/
 }
