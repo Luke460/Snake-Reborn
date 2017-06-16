@@ -61,21 +61,21 @@ public class Client extends JFrame{
 		sistemaPannelli();
 		preimpostaPannelli();
 		aggiungiPannelliAlContainer();
-		
+
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		preparaLetturaPulsanti();
-		
+
 		regolaFinestra();
 
 		this.premuto = false;
 		while(!premuto ){ // viene "sbloccato dal Listener" (busy waiting)
 			LP.waitFor(250); // 4 volte al secondo
 		}
-		
+
 		leggiImpostazioni();
-		
+
 		try {
 			Main.avviaIlGioco();
 		} catch (AWTException e) {
@@ -132,7 +132,7 @@ public class Client extends JFrame{
 		nomeInserito = new JTextField(16);
 		messaggioPassword = new JLabel("Password");	
 		passwordInserita = new JPasswordField(16);
-		
+
 		messaggioLivello=new JLabel(" Livello avversari:");
 		messaggioPopolazione=new JLabel(" Popolazione serpenti:");
 		opzMusica = new JCheckBox("Musica di sottofondo");
@@ -145,24 +145,24 @@ public class Client extends JFrame{
 
 		accedi=new JButton("Accedi e gioca");
 		ospite=new JButton("Gioca come ospite");
-		
+
 	}
 
 	private void sistemaPannelli() {
-		
+
 		PannelloMessaggioLogin.add(messaggioLogin);
-		
+
 		PannelloInserimentoNome.add(messaggioNome);
 		PannelloInserimentoNome.add(nomeInserito);
 		PannelloInserimentoPassword.add(messaggioPassword);
 		PannelloInserimentoPassword.add(passwordInserita);
-		
+
 		PannelloInserimenti.setLayout(new GridLayout(3,1));
-		
+
 		PannelloInserimenti.add(PannelloMessaggioLogin);
 		PannelloInserimenti.add(PannelloInserimentoNome);
 		PannelloInserimenti.add(PannelloInserimentoPassword);
-		
+
 		PannelloOpzioni.setLayout(new GridLayout(4,2));
 		PannelloOpzioni.add(messaggioLivello);
 		PannelloOpzioni.add(messaggioPopolazione);
@@ -192,20 +192,26 @@ public class Client extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			Object src = e.getSource();
 			if (src == accedi){
-				JOptionPane.showMessageDialog(null, 
-						"Funzione non ancora implementata");
-				Utente utente = new Utente();
-				utente.setNomeUtente(nomeInserito.getText());
-				utente.setPassword(passwordInserita.getText());
-				partita.setUtente(utente);
-				// faccio l'autenticazione (utente.username , utente.password)
-				// se l'autenticazione va a buon fine > setPremuto(true)
-				/*
-				else {
+				if(nomeInserito.getText().equals("")||passwordInserita.getText().equals("")){
 					JOptionPane.showMessageDialog(null, 
-							"Combinazione username e password non riconosciuta");
+							"                    Inserisci Username e Password! "
+						+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!"
+						+ "\n                           www.SnakeReborn.com");
+				} else {
+					Utente utente = new Utente();
+					utente.setNomeUtente(nomeInserito.getText());
+					utente.setPassword(passwordInserita.getText());
+					partita.setUtente(utente);
+					// faccio l'autenticazione (utente.username , utente.password)
+					// se l'autenticazione va a buon fine > setPremuto(true)
+					// else{
+					JOptionPane.showMessageDialog(null, 
+							"           Combinazione Username/Password errata! "
+									+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!"
+									+ "\n                           www.SnakeReborn.com");
+					// }
 				}
-				*/
+
 			}
 			if (src == ospite){
 				setPremuto(true);
