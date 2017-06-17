@@ -1,18 +1,18 @@
 package game;
 
-public class Utente {
+public class UserLocal {
 	private String nomeUtente;
 	private String password;
 	
-	public Utente(){
+	public UserLocal(){
 		
 	}
 
-	public String getNomeUtente() {
+	public String getUsername() {
 		return this.nomeUtente;
 	}
 
-	public void setNomeUtente(String nomeUtente) {
+	public void setUsername(String nomeUtente) {
 		this.nomeUtente = nomeUtente;
 	}	
 

@@ -1,4 +1,4 @@
-package client;
+package visualizzatoreClient;
 
 import java.awt.AWTException;
 import java.awt.BorderLayout;
@@ -23,9 +23,10 @@ import LukePack.LP;
 import audio.GestoreSuoni;
 import game.Main;
 import game.Partita;
-import game.Utente;
+import game.UserLocal;
+import server.client.Client;
 
-public class Client extends JFrame{
+public class VisualizzatoreClient extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private String nomeUtente;
@@ -53,10 +54,12 @@ public class Client extends JFrame{
 	JButton accedi;
 	JButton ospite;
 	Partita partita;
+	Client client;
 
-	public Client(Partita partita){
+	public VisualizzatoreClient(Partita partita){
 		super("Snake Reborn");
 		this.partita = partita;
+		client = new Client();
 		creaPannelli();
 		sistemaPannelli();
 		preimpostaPannelli();
@@ -175,6 +178,14 @@ public class Client extends JFrame{
 		PannelloTastiConferma.add(accedi);
 		PannelloTastiConferma.add(ospite);
 	}
+	
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client c) {
+		client = c;
+	}
 
 	public String getNomeUtente() {
 		return this.nomeUtente;
@@ -195,21 +206,21 @@ public class Client extends JFrame{
 				if(nomeInserito.getText().equals("")||passwordInserita.getText().equals("")){
 					JOptionPane.showMessageDialog(null, 
 							"                    Inserisci Username e Password! "
-						+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!"
-						+ "\n                           www.SnakeReborn.com");
-				} else {
-					Utente utente = new Utente();
-					utente.setNomeUtente(nomeInserito.getText());
-					utente.setPassword(passwordInserita.getText());
-					partita.setUtente(utente);
-					// faccio l'autenticazione (utente.username , utente.password)
-					// se l'autenticazione va a buon fine > setPremuto(true)
-					// else{
-					JOptionPane.showMessageDialog(null, 
-							"           Combinazione Username/Password errata! "
 									+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!"
 									+ "\n                           www.SnakeReborn.com");
-					// }
+				} else {
+					UserLocal userLocal = new UserLocal();
+					userLocal.setUsername(nomeInserito.getText());
+					userLocal.setPassword(passwordInserita.getText());
+					partita.setUtente(userLocal);
+					if(getClient().logUser(userLocal.getUsername() , userLocal.getPassword())){
+						setPremuto(true);
+					} else {
+						JOptionPane.showMessageDialog(null, 
+								"           Combinazione Username/Password errata! "
+										+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!"
+										+ "\n                           www.SnakeReborn.com");
+					}
 				}
 
 			}

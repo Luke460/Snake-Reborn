@@ -58,6 +58,7 @@ public class GestorePunteggi {
 		if(partita.getLivello()==3) return 5;
 		return 0;
 	}
+
 	/*
 	public static void inviaPunteggio() {
 		Comunicatore.pushMatch(partita.getUtente().getNomeUtente(),

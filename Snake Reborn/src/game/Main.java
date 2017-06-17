@@ -6,11 +6,11 @@ import java.awt.AWTException;
 
 import LukePack.LP;
 import audio.GestoreSuoni;
-import client.Client;
 import gestoreComandi.LettoreComandi;
 import popolatori.PopolatoreCibo;
 import popolatori.PopolatoreSerpenti;
 import video.Visualizzatore;
+import visualizzatoreClient.VisualizzatoreClient;
 
 public class Main {
 
@@ -33,7 +33,7 @@ public class Main {
 	}
 
 	public static void avviaClient(Partita partita) {
-		new Client(partita);
+		new VisualizzatoreClient(partita);
 		// l'utente inserisce i dati e clicca su Accedi
 		// String errNome = null;
 		// String errPassword = null;

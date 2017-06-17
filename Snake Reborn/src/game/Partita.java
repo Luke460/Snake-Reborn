@@ -24,7 +24,7 @@ public class Partita {
 	private int livello;
 	private int fattorePopolazione;
 	private int vecchioRecord;
-	private Utente utente;
+	private UserLocal userLocal;
 
 	public Partita(){
 		GestorePunteggi.inizializza(this);
@@ -167,11 +167,11 @@ public class Partita {
 		this.ilGiocatoreHaFattoLaMossa = ilGiocatoreHaFattoLaMossa;
 	}
 
-	public Utente getUtente() {
-		return utente;
+	public UserLocal getUtente() {
+		return userLocal;
 	}
 
-	public void setUtente(Utente utente) {
-		this.utente = utente;
+	public void setUtente(UserLocal userLocal) {
+		this.userLocal = userLocal;
 	}
 }
