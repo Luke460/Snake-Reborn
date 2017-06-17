@@ -25,6 +25,7 @@ public class Partita {
 	private int fattorePopolazione;
 	private int vecchioRecord;
 	private UserLocal userLocal;
+	private boolean ospite;
 
 	public Partita(){
 		GestorePunteggi.inizializza(this);
@@ -173,5 +174,13 @@ public class Partita {
 
 	public void setUtente(UserLocal userLocal) {
 		this.userLocal = userLocal;
+	}
+
+	public boolean isOspite() {
+		return ospite;
+	}
+
+	public void setOspite(boolean ospite) {
+		this.ospite = ospite;
 	}
 }

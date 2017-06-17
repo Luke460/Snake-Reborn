@@ -1,5 +1,6 @@
 package server.client;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.ws.rs.core.MediaType;
@@ -9,6 +10,7 @@ import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -22,82 +24,79 @@ import server.model.Match;
 import server.model.User;
 
 public class Client {
-	
+
 	private JsonService jsonService;
 	private HttpClientContext httpClientContext;
 	private User userLogged;
-	
+
 	public Client() {
 		this.jsonService = new JsonService();
 		this.httpClientContext = new HttpClientContext();
 	}
 
-	public User addMatch(Match match) {
-		
+	public User addMatch(Match match) throws ClientProtocolException, IOException {
+
 		String matchJson = jsonService.match2Json(match);
-		
+
 		String playerJson = this.sendHttp("/client/addMatch", matchJson);
-	
+
 		return jsonService.json2Player(playerJson);
 	}
-	
-	public User logUser(Credentials credentials) {
-		
+
+	public User logUser(Credentials credentials) throws ClientProtocolException, IOException {
+
 		String credentialsJson = jsonService.credentials2Json(credentials);
-		
+
 		String playerJson = this.sendHttp("/client/logPlayer", credentialsJson);
-	
+
 		return jsonService.json2Player(playerJson);
 	}
-	
-	public boolean logUser(String username, String password) {
+
+	public boolean logUser(String username, String password) throws ClientProtocolException, IOException {
 		Credentials credentials = new Credentials(username, password);
-		
+
 		this.userLogged = this.logUser(credentials);
-		
+
 		if(this.userLogged != null) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public User getUser() {
 		return this.userLogged;
 	}
-	
-	private String sendHttp(String function, String json) {
-		
+
+	private String sendHttp(String function, String json) throws ClientProtocolException, IOException {
+
 		String host = "localhost";
 		int port = 8080;
-		
+
 		UsernamePasswordCredentials credentialsClient = new UsernamePasswordCredentials("SnakeReborn", "Snake123");		
 		AuthScope authScope = new AuthScope(host, port);
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(authScope, credentialsClient);
-		
+
 		HttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
-		
+
 		String responseGSon = null;
 
-		try {
-			
-		    HttpPost request = new HttpPost("http://" + host + ":" + port + function);
-		    request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-		    
-		    StringEntity entity = new StringEntity(json);
-		    entity.setContentType(MediaType.APPLICATION_JSON);
-		    
-		    request.setEntity(entity);
-		    HttpResponse response = httpClient.execute(request, this.httpClientContext);
-		    
-		    InputStream is = response.getEntity().getContent();	    
-		    responseGSon = IOUtils.toString(is, "UTF-8");
-		    
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		
+
+		HttpPost request = new HttpPost("http://" + host + ":" + port + function);
+		request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+
+		StringEntity entity = new StringEntity(json);
+		entity.setContentType(MediaType.APPLICATION_JSON);
+
+		request.setEntity(entity);
+		HttpResponse response = httpClient.execute(request, this.httpClientContext);
+
+		InputStream is = response.getEntity().getContent();	    
+		responseGSon = IOUtils.toString(is, "UTF-8");
+
+
+
 		return responseGSon;
 	}
 }
