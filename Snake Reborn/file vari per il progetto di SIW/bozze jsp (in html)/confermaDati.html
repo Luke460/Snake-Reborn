@@ -1,0 +1,56 @@
+<% @page import model.Utente %>
+<!DOCTYPE html>
+<html lang="it">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="stile.css">
+		<title>Conferma Dati</title>
+		</head>
+
+	<body>
+
+		<h1 align="center">
+			<img src="Snake%20Reborn.png" alt="logo" height="100" width="800">
+		</h1>
+		<br>
+		<h2> 
+			<strong>Dati inseriti:</strong> 
+		</h2>
+			<div align="center">
+				<table>
+					<tbody class="testoPiccolo">
+						<tr>
+							<td class="testo" style="text-align: right;">
+								Nome utente:
+							</td>
+							<td class="testo">
+								${user.nome}
+							</td>
+						</tr>
+						<tr>
+							<td class="testo" style="text-align: right;">
+								E-mail:
+							</td>
+							<td class="testo">
+								${user.email}
+							</td>
+						</tr>
+						<tr>
+							<td class="testo" style="text-align: right;">
+								Password:
+							</td>
+							<td class="testo">
+								${user.password}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					<input class="pulsanteVerde" value="Conferma" type="submit">&nbsp; 
+					<input class="pulsanteRosso" value="Indietro" type="submit">
+				</p>
+			</div>
+		<br>
+	</body>
+</html>

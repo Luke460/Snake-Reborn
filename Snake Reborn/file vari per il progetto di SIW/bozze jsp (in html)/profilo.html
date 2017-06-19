@@ -1,0 +1,90 @@
+<% @page model.User %>
+<!DOCTYPE html>
+<html lang="it">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="stile.css">
+		<title>Home Page Profilo</title>
+		</head>
+
+	<body>
+
+		<h1 align="center">
+			<img src="Snake%20Reborn.png" alt="logo" height="100" width="800">
+		</h1>
+
+		<h2> 
+			<strong>Profilo: ${user.username}</strong> 
+		</h2>
+		<h3 class="testoGrandeRosso">
+			<strong>Classifica top 10</strong> 
+		</h3>
+		<div align="center">
+		<table class="tabellaSparsa">
+		<tbody class="testoPiccolo">
+			<tr>
+				<th> Posizione </th>
+				<th> Username </th>
+				<th> Punteggio </th>
+				<th> Uccisioni </th>
+				<th> Tempo </th>
+			</tr>
+			<c:forEach var="p" items="${topTen}">
+			<tr>
+				<td style="text-align: center;">
+					${p.position}
+				</td>
+				<td style="text-align: center;">
+					${p.username}
+				</td>
+				<td style="text-align: center;">
+					${p.score}
+				</td>
+				<td style="text-align: center;">
+					${p.kills}
+				</td>
+				<td style="text-align: center;">
+					${p.time}
+				</td>
+			</tr>
+			</c:forEach>
+			<tr>
+				<td style="text-align: center;">
+					${user.bestMatch.position}
+				</td>
+				<td style="text-align: center;">
+					${user.username}
+				</td>
+				<td style="text-align: center;">
+					${user.bestMatch.score}
+				</td>
+				<td style="text-align: center;">
+					${user.bestMatch.kills}
+				</td>
+				<td style="text-align: center;">
+					${user.bestMatch.time}
+				</td>
+			</tr>
+			</tbody>
+			</table>
+			</div>	
+		<br>
+		<br>
+		<input class="pulsanteRosso" value="elimina Profilo" type="submit"">
+		<input class="pulsanteGiallo" value="modifica Profilo" type="submit"">
+		<input class="pulsanteVerde" value="esci" type="submit"">
+		<br>
+		<br>
+		<p>
+			<a href="https://github.com/Luke460/Snake-Reborn/releases">
+				<img src="demo.gif" alt="demo" >
+			</a>
+		</p>
+		<p>
+			<a class="link" href="https://github.com/Luke460/Snake-Reborn/releases">
+				Scarica il gioco
+			</a>
+		</p>
+	</body>
+</html>

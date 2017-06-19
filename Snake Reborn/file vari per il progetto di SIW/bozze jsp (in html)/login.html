@@ -1,0 +1,64 @@
+<% @page model.User %>
+<!DOCTYPE html>
+<html lang="it">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="stile.css">
+		<title class="testoGrande">Login</title>
+		</head>
+
+	<body>
+
+		<h1 align="center">
+			<img src="Snake%20Reborn.png" alt="logo" height="100" width="800">
+		</h1>
+
+		<h2> 
+			<strong>Login:</strong> 
+		</h2>
+
+		<form action="login" method="get">
+			<div align="center">
+				<table class="testoPiccolo">
+					<tbody>
+						<tr>
+							<td style="text-align: right;">
+								Nome utente:
+							</td>
+							<td>
+								<input class="campoTesto" name="nome" autofocus="autofocus" type="text" value="${User.username}"> 
+
+							</td>
+						</tr>
+						<tr> <td colspan="2" style="text-align: center";>${errUsername}</td> </tr>
+						<tr>
+							<td style="text-align: right;">
+								Password:
+							</td>
+							<td>
+								<input class="campoTesto" name="password" size="20" placeholder="******" type="password">
+							</td>
+						</tr>
+						<tr> <td colspan="2" style="text-align: center";>${errPassword}</td> </tr>
+					</tbody>
+				</table>
+				<p>
+					<input class="pulsanteVerde" value="Accedi" type="submit">&nbsp; 
+					<input class="pulsanteRosso" value="Registrati" type="submit">
+				</p>
+			</div>
+		</form>
+		<br>
+		<p>
+			<a href="https://github.com/Luke460/Snake-Reborn/releases">
+				<img src="demo.gif" alt="demo" >
+			</a>
+		</p>
+		<p>
+			<a class="link" href="https://github.com/Luke460/Snake-Reborn/releases">
+				Scarica il gioco
+			</a>
+		</p>
+	</body>
+</html>

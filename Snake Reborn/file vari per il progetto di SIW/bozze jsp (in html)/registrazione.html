@@ -1,0 +1,61 @@
+<% @page model.User %>
+<!DOCTYPE html>
+<html lang="it">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="stile.css">
+		<title>Registrazione</title>
+		</head>
+
+	<body>
+
+		<h1 align="center">
+			<img src="Snake%20Reborn.png" alt="logo" height="100" width="800">
+		</h1>
+		<br>
+		<h2 class="testoGrande"> 
+			<strong>Registrazione:</strong> 
+		</h2>
+
+		<form action="registrazione" method="post">
+			<div align="center">
+				<table class="testoPiccolo">
+					<tbody>
+						<tr>
+							<td style="text-align: right;">
+								Nome utente:
+							</td>
+							<td>
+								<input class="campoTesto" name="nome" size="20" autofocus="autofocus" type="text" value="${User.username}"> 
+							</td>
+						</tr>
+						<tr> <td colspan="2" style="text-align: center";>${errUsername}</td> </tr>
+						<tr>
+							<td style="text-align: right;">
+								E-mail:
+							</td>
+							<td>
+								<input class="campoTesto" name="email" size="20" autofocus="autofocus" type="text" value="${User.email}"> 
+							</td>
+						</tr>
+						<tr> <td colspan="2" style="text-align: center";>${errEmail}</td> </tr>
+						<tr>
+							<td style="text-align: right;">
+								Password:
+							</td>
+							<td>
+								<input class="campoTesto" name="password" size="20" placeholder="password" type="text" value="${User.password}">
+							</td>
+						</tr>
+						<tr> <td colspan="2" style="text-align: center";>${errPassword}</td> </tr>
+					</tbody>
+				</table>
+				<p>
+					<input class="pulsanteVerde" value="Avanti" type="submit">&nbsp;
+					<input  class="pulsanteRosso" value="Indietro" type="submit">
+				</p>
+			</div>
+		</form>	
+	</body>
+</html>
