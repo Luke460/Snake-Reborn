@@ -218,8 +218,7 @@ public class VisualizzatoreClient extends JFrame{
 				if(nomeInserito.getText().equals("")||passwordInserita.getText().equals("")){
 					JOptionPane.showMessageDialog(null, 
 							"                   Inserisci Username e Password."
-									+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!"
-									+ "\n                           www.SnakeReborn.com");
+									+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!");
 				} else {
 					UserLocal userLocal = new UserLocal();
 					userLocal.setUsername(nomeInserito.getText());
@@ -231,8 +230,7 @@ public class VisualizzatoreClient extends JFrame{
 						if(!connesso){
 							JOptionPane.showMessageDialog(null, 
 									"           Combinazione Username/Password errata. "
-											+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!"
-											+ "\n                           www.SnakeReborn.com");
+											+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!");
 						}
 					} catch (Exception e3){
 						connesso = false;
