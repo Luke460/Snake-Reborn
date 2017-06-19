@@ -1,6 +1,6 @@
 package video;
 
-import static java.awt.event.KeyEvent.*;
+import static java.awt.event.KeyEvent.VK_SHIFT;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import game.Partita;
-import gestorePunteggi.GestorePunteggi;
 import supporto.Utility;
 import terrenoDiGioco.Casella;
 
@@ -57,7 +56,7 @@ public class Visualizzatore extends JPanel {
 			disegnaCasella(g, c);
 		}
 		disegnaStanza(g);
-		riportaStatisticheSullaFinestra(GestorePunteggi.getPunteggioPlayer1());
+		riportaStatisticheSullaFinestra(partita.getPunteggioPlayer1());
 	}
 
 	

@@ -10,6 +10,7 @@ import serpenti.SerpenteBotEasy;
 import serpenti.SerpenteBotHard;
 import serpenti.SerpenteBotMedium;
 import serpenti.SerpenteGiocatore;
+import server.client.Client;
 import terrenoDiGioco.Mappa;
 import terrenoDiGioco.Stanza;
 import static supporto.Costanti.*;
@@ -26,6 +27,7 @@ public class Partita {
 	private int vecchioRecord;
 	private UserLocal userLocal;
 	private boolean ospite;
+	private Client client;
 
 	public Partita(){
 		GestorePunteggi.inizializza(this);
@@ -33,7 +35,7 @@ public class Partita {
 		this.serpenti = new HashMap<String,Serpente>();
 		this.mappa = new Mappa("mappa-1");
 		this.numerettoPerSerpentiBot = 0;
-		this.vecchioRecord = GestorePunteggi.getPunteggioDaFileRecord();
+		this.vecchioRecord = GestorePunteggi.getRecord();
 		// this.mappa.riempi();
 	}
 
@@ -132,6 +134,13 @@ public class Partita {
 		}
 	}
 	
+	public int getPunteggioPlayer1() {
+		int punteggio = 0;
+		Serpente p1 = this.getSerpentePlayer1();
+		punteggio += (int) p1.getCiboPreso()*MOLTIPLICATORE_PUNTEGGIO_CIBO*GestorePunteggi.getMoltiplicatorePunteggio();
+		return punteggio;
+	}
+	
 	public int getNumeroDiSerpenti(){
 		return this.serpenti.size();
 	}
@@ -182,5 +191,13 @@ public class Partita {
 
 	public void setOspite(boolean ospite) {
 		this.ospite = ospite;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }

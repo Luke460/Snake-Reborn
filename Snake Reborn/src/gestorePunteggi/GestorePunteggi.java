@@ -1,10 +1,6 @@
 package gestorePunteggi;
-
-import LukePack.LP;
 import game.Partita;
-import serpenti.Serpente;
-
-import static supporto.Costanti.*;
+import server.client.Client;
 
 public class GestorePunteggi {
 
@@ -13,7 +9,7 @@ public class GestorePunteggi {
 	public static void inizializza(Partita p){
 		partita=p;
 	}
-
+	/*
 	public static void aggiornaFileRecord() {
 		if(!punteggioValido()) return;
 		int nuovoRecord = getPunteggioPlayer1();
@@ -36,6 +32,7 @@ public class GestorePunteggi {
 			return 0;	
 		}
 	}
+	*/
 
 	private static boolean punteggioValido() {
 		if(partita.getLivello()==3 && partita.getFattorePopolazione()==2){
@@ -43,34 +40,33 @@ public class GestorePunteggi {
 		} else {
 			return false;
 		}
-	}
-	
-	public static int getPunteggioPlayer1() {
-		int punteggio = 0;
-		Serpente p1 = partita.getSerpentePlayer1();
-		punteggio += (int) p1.getCiboPreso()*MOLTIPLICATORE_PUNTEGGIO_CIBO*getMoltiplicatorePunteggio();
-		return punteggio;
 	}	
 
-	private static double getMoltiplicatorePunteggio() {
+	public static double getMoltiplicatorePunteggio() {
 		if(partita.getLivello()==1) return 1;
 		if(partita.getLivello()==2) return 2;
 		if(partita.getLivello()==3) return 5;
 		return 0;
 	}
 
-	/*
+	
 	public static void inviaPunteggio() {
-		Comunicatore.pushMatch(partita.getUtente().getNomeUtente(),
-							   partita.getUtente().getPassword(),
-							   getPunteggioPlayer1(),
-							   partita.getSerpentePlayer1().getTempoSopravvissuto(),
-						       partita.getSerpentePlayer1().getNumeroUccisioni());
+		if(!punteggioValido()) return;
+		int nuovoRecord = partita.getPunteggioPlayer1();
+		int vecchioRecord = partita.getVecchioRecord();
+		if(nuovoRecord>vecchioRecord){
+			InviaPunteggio inviatore = new InviaPunteggio(partita);
+			inviatore.start();
+		}
+
 	}
 	
 	public static int getRecord() {
-		Comunicatore.getRecord(partita.getUtente().getNomeUtente(),
-							   partita.getUtente().getPassword());
+		try{
+			Client c = partita.getClient();
+		return c.getRecord();
+		} catch (Exception e4){
+			return 0;
+		}
 	}
-	*/
 }

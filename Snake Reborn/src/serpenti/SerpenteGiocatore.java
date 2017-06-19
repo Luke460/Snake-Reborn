@@ -39,7 +39,7 @@ public class SerpenteGiocatore extends Serpente {
 	
 	public void muori(){
 		GestoreSuoni.playExplodeSound();
-		GestorePunteggi.aggiornaFileRecord();
+		GestorePunteggi.inviaPunteggio();
 		super.rilasciaCibo();
 		super.getCaselle().clear();
 		super.SetIsVivo(false);

@@ -59,6 +59,7 @@ public class VisualizzatoreClient extends JFrame{
 		super("Snake Reborn");
 		this.partita = partita;
 		client = new Client();
+		partita.setClient(client);
 		creaPannelli();
 		sistemaPannelli();
 		preimpostaPannelli();

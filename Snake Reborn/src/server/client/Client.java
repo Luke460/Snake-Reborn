@@ -67,6 +67,10 @@ public class Client {
 	public User getUser() {
 		return this.userLogged;
 	}
+	
+	public int getRecord() {
+		return this.userLogged.getHighScore();
+	}
 
 	private String sendHttp(String function, String json) throws ClientProtocolException, IOException {
 

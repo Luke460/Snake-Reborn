@@ -32,7 +32,7 @@ public interface Costanti {
 	public static final char CARATTERE_CASELLA_PORTALE = 'P';
 	
 	public static final int VITA_SERPENTE_DEFAULT = 8;
-	static final public int VITA_SERPENTE_MASSIMA = 32;
+	static final public int VITA_SERPENTE_MASSIMA = 40;
 	
 	static final public int QTA_CIBO_TESTA_SERPENTE = 4; // 4 unità cibo
 	static final public int QTA_CIBO_BASE = 1; // 1 unità cibo

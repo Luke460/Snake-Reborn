@@ -1,6 +1,12 @@
 package game;
 
-import static supporto.Costanti.*;
+//import static supporto.Costanti.*;
+import static supporto.Costanti.TEMPO_RIPOPOLAMENTO_CIBO;
+import static supporto.Costanti.TEMPO_RIPOPOLAMENTO_SERPENTI_BASSO;
+import static supporto.Costanti.TEMPO_RIPOPOLAMENTO_SERPENTI_ALTO;
+import static supporto.Costanti.LIMITE_SERPENTI_BASSO;
+import static supporto.Costanti.LIMITE_SERPENTI_ALTO;
+import static supporto.Costanti.TEMPO_BASE;
 
 import java.awt.AWTException;
 
