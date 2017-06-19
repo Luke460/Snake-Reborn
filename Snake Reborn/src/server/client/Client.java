@@ -2,6 +2,7 @@ package server.client;
 
 import java.io.IOException;
 import java.io.InputStream;
+import static supporto.Costanti.NOME_FILE_INDIRIZZO_SERVER;
 
 import javax.ws.rs.core.MediaType;
 
@@ -19,6 +20,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClients;
 
+import LukePack.LP;
+import game.Partita;
 import server.model.Credentials;
 import server.model.Match;
 import server.model.User;
@@ -47,17 +50,16 @@ public class Client {
 
 		String credentialsJson = jsonService.credentials2Json(credentials);
 
-		String playerJson = this.sendHttp("/client/logPlayer", credentialsJson);
+		String playerJson = this.sendHttp("/client/logUser", credentialsJson);
 
 		return jsonService.json2Player(playerJson);
 	}
 
-	public boolean logUser(String username, String password) throws ClientProtocolException, IOException {
+	public boolean logUser(String username, String password, Partita partita) throws ClientProtocolException, IOException {
 		Credentials credentials = new Credentials(username, password);
 
 		this.userLogged = this.logUser(credentials);
-
-		if(this.userLogged != null) {
+		if(this.userLogged!=null && this.userLogged.getUsername().equals(partita.getUtente().getUsername())) {
 			return true;
 		} else {
 			return false;
@@ -74,7 +76,8 @@ public class Client {
 
 	private String sendHttp(String function, String json) throws ClientProtocolException, IOException {
 
-		String host = "localhost";
+		String host = LP.readFile(NOME_FILE_INDIRIZZO_SERVER);
+		
 		int port = 8080;
 
 		UsernamePasswordCredentials credentialsClient = new UsernamePasswordCredentials("SnakeReborn", "Snake123");		

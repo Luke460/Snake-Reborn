@@ -35,12 +35,12 @@ public class Partita {
 		this.serpenti = new HashMap<String,Serpente>();
 		this.mappa = new Mappa("mappa-1");
 		this.numerettoPerSerpentiBot = 0;
-		this.vecchioRecord = GestorePunteggi.getRecord();
 		// this.mappa.riempi();
 	}
 
 	public void ImpostaPartita() {
 		// un solo giocatore
+		if(!ospite)this.vecchioRecord = GestorePunteggi.getRecord();
 		Stanza stanzaCasuale = this.mappa.getStanzaCasualeLibera_controlloSuTutteLeStanze();
 		this.nomePlayer1 = NOME_PLAYER_1;
 		Serpente serpentePlayer1 = new SerpenteGiocatore(this.nomePlayer1, stanzaCasuale);

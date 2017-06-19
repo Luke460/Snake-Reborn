@@ -1,5 +1,7 @@
 package gestorePunteggi;
 
+import javax.swing.JOptionPane;
+
 import game.Partita;
 import server.model.Match;
 
@@ -20,6 +22,8 @@ public class InviaPunteggio extends Thread {
 			Match match = mf.buildMatch(partita);
 			partita.getClient().addMatch(match);
 		} catch (Exception e4){
+			JOptionPane.showMessageDialog(null, 
+					"Non è possibile contattare il server, controlla la tua connessione.");
 			return;
 		}
 

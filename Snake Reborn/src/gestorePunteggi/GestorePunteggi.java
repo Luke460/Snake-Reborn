@@ -1,4 +1,6 @@
 package gestorePunteggi;
+import javax.swing.JOptionPane;
+
 import game.Partita;
 import server.client.Client;
 
@@ -51,12 +53,13 @@ public class GestorePunteggi {
 
 	
 	public static void inviaPunteggio() {
-		if(!punteggioValido()) return;
+		if(!punteggioValido()||partita.isOspite()) return;
 		int nuovoRecord = partita.getPunteggioPlayer1();
 		int vecchioRecord = partita.getVecchioRecord();
 		if(nuovoRecord>vecchioRecord){
 			InviaPunteggio inviatore = new InviaPunteggio(partita);
 			inviatore.start();
+			partita.setVecchioRecord(nuovoRecord);
 		}
 
 	}
@@ -66,6 +69,8 @@ public class GestorePunteggi {
 			Client c = partita.getClient();
 		return c.getRecord();
 		} catch (Exception e4){
+			JOptionPane.showMessageDialog(null, 
+					"Non è possibile contattare il server, controlla la tua connessione.");
 			return 0;
 		}
 	}

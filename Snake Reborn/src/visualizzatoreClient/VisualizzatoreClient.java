@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static supporto.Costanti.NOME_FILE_USERNAME_TEMPORANEO;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -133,6 +134,8 @@ public class VisualizzatoreClient extends JFrame{
 		messaggioLogin.setFont(new Font(messaggioLogin.getFont().getFontName(), 2, 18));
 		messaggioNome = new JLabel("Username");
 		nomeInserito = new JTextField(16);
+		String ultimoUsername = LP.readFile(NOME_FILE_USERNAME_TEMPORANEO);
+		if(ultimoUsername!=null) nomeInserito.setText(ultimoUsername);
 		messaggioPassword = new JLabel("Password");	
 		passwordInserita = new JPasswordField(16);
 
@@ -211,6 +214,7 @@ public class VisualizzatoreClient extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			Object src = e.getSource();
 			if (src == accedi){
+				LP.writeNewFile(NOME_FILE_USERNAME_TEMPORANEO, nomeInserito.getText());
 				if(nomeInserito.getText().equals("")||passwordInserita.getText().equals("")){
 					JOptionPane.showMessageDialog(null, 
 							"                   Inserisci Username e Password."
@@ -223,7 +227,7 @@ public class VisualizzatoreClient extends JFrame{
 					partita.setUtente(userLocal);
 					boolean connesso = false;
 					try{
-						connesso = (getClient().logUser(userLocal.getUsername() , userLocal.getPassword()));
+						connesso = getClient().logUser(userLocal.getUsername() , userLocal.getPassword(),partita);		
 						if(!connesso){
 							JOptionPane.showMessageDialog(null, 
 									"           Combinazione Username/Password errata. "
