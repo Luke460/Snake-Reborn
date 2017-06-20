@@ -3,6 +3,7 @@ package server.client;
 import java.io.IOException;
 import java.io.InputStream;
 import static supporto.Costanti.NOME_FILE_INDIRIZZO_SERVER;
+import static supporto.Costanti.FILE_NOME_SERVER;
 
 import javax.ws.rs.core.MediaType;
 
@@ -89,8 +90,9 @@ public class Client {
 
 		String responseGSon = null;
 
-
-		HttpPost request = new HttpPost("http://" + host + ":" + port + function);
+		String nomeServer = LP.readFile(FILE_NOME_SERVER);
+		String stringRequest = ("http://" + host + ":" + port + nomeServer + function);
+		HttpPost request = new HttpPost(stringRequest);
 		request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
 		StringEntity entity = new StringEntity(json);

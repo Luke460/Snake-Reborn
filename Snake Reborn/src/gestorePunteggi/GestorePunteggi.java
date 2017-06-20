@@ -34,7 +34,7 @@ public class GestorePunteggi {
 			return 0;	
 		}
 	}
-	*/
+	 */
 
 	private static boolean punteggioValido() {
 		if(partita.getLivello()==3 && partita.getFattorePopolazione()==2){
@@ -51,23 +51,19 @@ public class GestorePunteggi {
 		return 0;
 	}
 
-	
+
 	public static void inviaPunteggio() {
 		if(!punteggioValido()||partita.isOspite()) return;
 		int nuovoRecord = partita.getPunteggioPlayer1();
-		int vecchioRecord = partita.getVecchioRecord();
-		if(nuovoRecord>vecchioRecord){
-			InviaPunteggio inviatore = new InviaPunteggio(partita);
-			inviatore.start();
-			partita.setVecchioRecord(nuovoRecord);
-		}
-
+		InviaPunteggio inviatore = new InviaPunteggio(partita);
+		inviatore.start();
+		partita.setVecchioRecord(nuovoRecord);
 	}
-	
+
 	public static int getRecord() {
 		try{
 			Client c = partita.getClient();
-		return c.getRecord();
+			return c.getRecord();
 		} catch (Exception e4){
 			JOptionPane.showMessageDialog(null, 
 					"Non è possibile contattare il server, controlla la tua connessione.");

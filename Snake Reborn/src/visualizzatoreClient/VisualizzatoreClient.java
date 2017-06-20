@@ -224,25 +224,28 @@ public class VisualizzatoreClient extends JFrame{
 					userLocal.setUsername(nomeInserito.getText());
 					userLocal.setPassword(passwordInserita.getText());
 					partita.setUtente(userLocal);
-					boolean connesso = false;
+					boolean autenticato = false;
 					try{
-						connesso = getClient().logUser(userLocal.getUsername() , userLocal.getPassword(),partita);		
-						if(!connesso){
+						autenticato = getClient().logUser(userLocal.getUsername() , userLocal.getPassword(),partita);
+
+						if(!autenticato){
 							JOptionPane.showMessageDialog(null, 
 									"           Combinazione Username/Password errata. "
 											+ "\nNon sei registrato? Registrati gratuitamente sul sito ufficiale!");
+						} else { // successo, sono autenticato
+							partita.setOspite(false);
+							setPremuto(true);
 						}
 					} catch (Exception e3){
-						connesso = false;
+						autenticato = false;
 						JOptionPane.showMessageDialog(null, 
 								"Non è possibile contattare il server, controlla la tua connessione.");
 					}
-					setPremuto(connesso);
-					partita.setOspite(false);
+
 				}
 			} else if(src == ospite){
-				setPremuto(true);
 				partita.setOspite(true);
+				setPremuto(true);
 			}
 		}
 	}
