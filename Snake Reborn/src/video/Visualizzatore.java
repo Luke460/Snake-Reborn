@@ -34,7 +34,7 @@ public class Visualizzatore extends JPanel {
 		finestra.setBackground(Color.BLACK);
 		this.dimensioneCasella = calcolaDimensioneCasellaMassima();
 		// AGGIUNTE LE DIMENSIONI DEI BORDI DELLE FINESRE
-		finestra.setSize((int)(15+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (37+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
+		finestra.setSize((int)(6+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (32+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
 		finestra.setVisible(true);
 		//jframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		finestra.setLocationRelativeTo(null);

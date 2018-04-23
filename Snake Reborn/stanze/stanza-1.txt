@@ -1,7 +1,7 @@
 <WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW>
 <W                                      W>
 <W                                      W>
-<W  WWWWWWWWWWWWW        W        WWWW  W>
+<W  WWWWWWWWWWWWWWWWWWWWWW        WWWW  W>
 <W  W                    W        WWWW  W>
 <W  W                    W        WWWW  W>
 <W  W                    W        WWWW  W>
@@ -22,19 +22,19 @@
 <                                        >
 <                                        >
 <                                        >
-<W  WWWWWWWWWWWWW        WWWW        W  W>
-<W              W        WWWW        W  W>
-<W              W        WWWW        W  W>
-<W              W        WWWW        W  W>
+<W  WWWWWWWWWWWWW        WWWW     WWWW  W>
+<W  W           W        WWWW        W  W>
+<W  W           W        WWWW        W  W>
+<W  W           W        WWWW        W  W>
 <W              W                    W  W>
 <W              W                    W  W>
 <W              W                    W  W>
 <W              W                    W  W>
 <W              W                    W  W>
-<W  WWWW        W                    W  W>
-<W  WWWW        W                    W  W>
-<W  WWWW        W                    W  W>
-<W  WWWW        W        WWWWWWWWWWWWW  W>
+<W  WWWW        W        W           W  W>
+<W  WWWW        W        W           W  W>
+<W  WWWW        W        W           W  W>
+<W  WWWW     WWWW        WWWWWWWWWWWWW  W>
 <W                                      W>
 <W                                      W>
 <WWWWWWWWWWWWWWWW        WWWWWWWWWWWWWWWW>

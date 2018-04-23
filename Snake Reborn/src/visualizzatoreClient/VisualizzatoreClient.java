@@ -89,9 +89,9 @@ public class VisualizzatoreClient extends JFrame{
 
 	private void regolaFinestra() {
 		// autoregola dimensione finestra e posizionala al centro
-		//this.pack();
+		this.pack();
 		this.setSize(360,230);
-		this.setResizable(false);
+		this.setResizable(true);
 		// centra la finestra
 		this.setLocationRelativeTo(null);
 	}
@@ -239,7 +239,7 @@ public class VisualizzatoreClient extends JFrame{
 					} catch (Exception e3){
 						autenticato = false;
 						JOptionPane.showMessageDialog(null, 
-								"Non è possibile contattare il server, controlla la tua connessione.");
+								"Non e' possibile contattare il server, controlla la tua connessione.");
 					}
 
 				}

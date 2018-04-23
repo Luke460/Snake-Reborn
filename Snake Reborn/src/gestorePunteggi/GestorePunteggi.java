@@ -66,7 +66,7 @@ public class GestorePunteggi {
 			return c.getRecord();
 		} catch (Exception e4){
 			JOptionPane.showMessageDialog(null, 
-					"Non è possibile contattare il server, controlla la tua connessione.");
+					"Non e' possibile contattare il server, controlla la tua connessione.");
 			return 0;
 		}
 	}

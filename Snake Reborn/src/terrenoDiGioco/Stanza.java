@@ -1,5 +1,8 @@
 package terrenoDiGioco;
 import java.util.*;
+
+import org.hibernate.tuple.entity.EntityMetamodel.GenerationStrategyPair;
+
 import serpenti.Serpente;
 import supporto.*;
 
@@ -131,11 +134,16 @@ public class Stanza {
 
 	public boolean isLibera() {
 		for(Casella c:this.getCaselle().values()){
-			// non è libera se è diversa da
+			// non ï¿½ libera se ï¿½ diversa da
 			if(c.getStato()!=CARATTERE_CASELLA_VUOTA &&
 					c.getStato()!=CARATTERE_CASELLA_CIBO &&
 					c.getStato()!=CARATTERE_CASELLA_MURO &&
 					c.getStato()!=CARATTERE_CASELLA_PORTALE){
+				return false;
+			}
+			Posizione posizioneCentrale = new Posizione(DIMENSIONE_STANZA_DEFAULT/2,DIMENSIONE_STANZA_DEFAULT/2);
+			Casella casellaCentrale = this.getCaselle().get(posizioneCentrale);
+			if(casellaCentrale.getStato()!=CARATTERE_CASELLA_VUOTA && casellaCentrale.getStato()!=CARATTERE_CASELLA_CIBO) {
 				return false;
 			}
 		}

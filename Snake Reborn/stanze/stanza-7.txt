@@ -1,41 +1,41 @@
 <WWWWWWWWWWWWWWWW        WWWWWWWWWWWWWWWW>
-<WWWWWWWWW                          WWWWW>
-<WWWWWWWWW                          WWWWW>
-<WWWWWWWWW                          WWWWW>
-<WWWWWWWWW                          WWWWW>
-<WWWWWWWWW                              W>
-<WWWWWWWWW                              W>
-<WWWWWWWWW                              W>
-<WWWWWWWWW                              W>
+<WWWWWW      WW                    WWWWWW>
+<WWWWWW      WW                    WWWWWW>
+<WWWWWW  WW  WW                    WWWWWW>
+<WWWWWW  WW  WW                    WWWWWW>
+<WWWWWW  WW  WW                    WWWWWW>
+<W       WW  WW                         W>
+<W       WW  WW                         W>
+<W  WWWWWWW  WW                         W>
+<W  WWWWWWW  WW                         W>
 <W                                      W>
 <W                                      W>
+<WWWWWWWWWW  WW                         W>
+<WWWWWWWWWW  WW                         W>
 <W                                      W>
 <W                                      W>
+<                                        >
+<                                        >
+<                                        >
+<                                        >
+<                                        >
+<                                        >
+<                                        >
+<                                        >
 <W                                      W>
 <W                                      W>
-<W                                      W>
-<                                       W>
-<                                       W>
-<                                       W>
-<                                       W>
-<                                       W>
-<                                       W>
-<                                       W>
-<                                       W>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<W                       WWWWWWWWWWWWWWWW>
-<WWWWW                   WWWWWWWWWWWWWWWW>
-<WWWWW                   WWWWWWWWWWWWWWWW>
-<WWWWW                   WWWWWWWWWWWWWWWW>
-<WWWWW                   WWWWWWWWWWWWWWWW>
+<W                         WW  WWWWWWW  W>
+<W                         WW  WWWWWWW  W>
+<W                             WW       W>
+<W                             WW       W>
+<W                         WWWWWW  WWWWWW>
+<W                         WWWWWW  WWWWWW>
+<W                         WWWWWW  WWWWWW>
+<W                             WW       W>
+<WWWWWW                        WW       W>
+<WWWWWW                    WW  WWWWWWW  W>
+<WWWWWW                    WW  WWWWWWW  W>
+<WWWWWW                    WW           W>
+<WWWWWW                    WW           W>
 <WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW>
 $

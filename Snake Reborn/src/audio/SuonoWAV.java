@@ -3,6 +3,8 @@ package audio;
 import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.*;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -14,21 +16,31 @@ public class SuonoWAV{
 	/**
 Carica le melodie in memoria.
 	 */
-	public SuonoWAV(String nomeFile) {
+	public SuonoWAV(String filePath) {
 		try {
 			// Usa URL (invece di File) per leggere dal disco.
-			File fileSuono = new File(nomeFile);
+			File filePathRelativo = new File(filePath);
+			File filePathAssoluto = new File(filePathRelativo.getAbsolutePath());
+			//URL url = getClass().getResource(fileSuono.getAbsolutePath());
+ 			//File fileSuono = new File(filePath);
 			// Crea uno stream d'input audio dal file del suono.
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(fileSuono);
+			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(filePathAssoluto);
 			// Ottieni il clip.
-			clip = AudioSystem.getClip();
+			
+			AudioFormat af = audioInputStream.getFormat();
+	        DataLine.Info info = new DataLine.Info(Clip.class, af);
+	        this.clip = (Clip)AudioSystem.getLine(info);
+			if(this.clip==null) throw new Exception("Clip is null");
+			//clip = AudioSystem.getClip();
 			// Apri l'audio del clip.
-			clip.open(audioInputStream);
+			this.clip.open(audioInputStream);
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -41,19 +53,25 @@ Carica le melodie in memoria.
 	 * Esegui il suono
 	 */
 	public void playClip() {
-		if (clip==null)return;
-		if (clip.isRunning())
-			clip.stop();   // Ferma il suono se è ancora in esecuzione.
-		clip.setFramePosition(0); // Riavvolgi il suono.
-		clip.start();     // Esegui il suono.
+		if (this.clip==null) {
+			//System.out.println("clip is null");
+			return;
+		}
+		//if (this.clip.isRunning()) {
+			this.clip.stop();   // Ferma il suono se e' ancora in esecuzione.
+			//System.out.println("clip was stopped");
+		//}
+		this.clip.setFramePosition(0); // Riavvolgi il suono.
+		this.clip.start();     // Esegui il suono.
+		//System.out.println("clip restarted");
 	}
 	
 	@SuppressWarnings("static-access")
 	public void loopClip() {
-		if (clip==null)return;
-		if (clip.isRunning())
-			clip.stop();   // Ferma il suono se è ancora in esecuzione.
-		clip.setFramePosition(0); // Riavvolgi il suono.
-		clip.loop(clip.LOOP_CONTINUOUSLY);     // Esegui il suono.
+		if (this.clip==null)return;
+		//if (this.clip.isRunning())
+		this.clip.stop();   // Ferma il suono se e' ancora in esecuzione.
+		this.clip.setFramePosition(0); // Riavvolgi il suono.
+		this.clip.loop(clip.LOOP_CONTINUOUSLY);     // Esegui il suono.
 	}
 }

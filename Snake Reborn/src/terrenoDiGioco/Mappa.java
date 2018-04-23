@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import supporto.PathSeparator;
 import supporto.Utility;
 
 import LukePack.LP;
@@ -14,7 +15,8 @@ public class Mappa {
 
 	private HashMap<Integer,Stanza> stanze;
 	private int codGenStanze;
-
+	private int dimensione;
+/*
 	public Mappa(){
 		this.codGenStanze = 0;
 		for(int i=0;i<DIMENSIONE_STANZA_DEFAULT;i++){
@@ -36,55 +38,112 @@ public class Mappa {
 			stanze.put(codGenStanze, nuovaStanza);
 		}
 	}
+*/
+	public Mappa(String nomeMappa){
+		//if(nomeMappa.equals("mappa-1")){
+		stanze = new HashMap<>();
 
-	public Mappa(String stringaDiConferma){
-		if(stringaDiConferma.equals("mappa-1")){
-			stanze = new HashMap<>();
-
-			// creazione stanze
-			for(codGenStanze=0;codGenStanze<NUMERO_STANZE_DEFAULT;codGenStanze++){
-				Stanza nuovaStanza = new Stanza(this.codGenStanze);
-				nuovaStanza.CaricaFile("stanze\\stanza-"+codGenStanze+".txt");
-				stanze.put(codGenStanze, nuovaStanza);
+		// creazione stanze
+		boolean continua=true;
+		codGenStanze=0;
+		while(continua) {
+			Stanza nuovaStanza = new Stanza(this.codGenStanze);
+			try {
+			nuovaStanza.CaricaFile("stanze"+PathSeparator.get()+"stanza-"+codGenStanze+".txt");
+			stanze.put(codGenStanze, nuovaStanza);
+			codGenStanze++;
+			}catch (Exception e) {
+				continua=false;
 			}
+		}
+		this.dimensione = codGenStanze;
+		//System.out.println(dimensione);
+		
+		for(codGenStanze=0;codGenStanze<this.dimensione;codGenStanze++){
+			Stanza nuovaStanza = new Stanza(this.codGenStanze);
+			nuovaStanza.CaricaFile("stanze"+PathSeparator.get()+"stanza-"+codGenStanze+".txt");
+			stanze.put(codGenStanze, nuovaStanza);
+		}
 
-			String strutturaMappa = LP.readFile("mappe\\"+stringaDiConferma+".txt");
-			ArrayList<Character> listaCaratteri = new ArrayList<Character>();
-			listaCaratteri.addAll(Utility.stringaToArray(strutturaMappa));
-			boolean rigaValida = false;
-			int contatore = 0;
-			int numeroStanza1 = -1;
-			int numeroStanza2 = -1;
-			String collegamento = "";
-			for(char c:listaCaratteri){
-				if(c!=CARATTERE_FINE_FILE){
-					if(c=='>' && rigaValida == true){
-						this.stanze.get(numeroStanza1).setCollegamenti(collegamento, this.stanze.get(numeroStanza2));
-						this.stanze.get(numeroStanza1).coloraPorta(collegamento);
-						this.stanze.get(numeroStanza2).setCollegamenti(getInversaCollegamento(collegamento), this.stanze.get(numeroStanza1));
-						this.stanze.get(numeroStanza2).coloraPorta(getInversaCollegamento(collegamento));
-						rigaValida = false;
-						contatore = 0;
+		String strutturaMappa = LP.readFile("mappe"+PathSeparator.get()+nomeMappa+".txt");
+		ArrayList<Character> listaCaratteri = new ArrayList<Character>();
+		listaCaratteri.addAll(Utility.stringaToArray(strutturaMappa));
+		boolean rigaInLettura = false;
+		int contatore = 0;
+		int numeroStanza1 = -1;
+		int numeroStanza2 = -1;
+		String collegamento = "";
+		for(char c:listaCaratteri){
+			if(c!=CARATTERE_FINE_FILE){
+				if(c=='>' && rigaInLettura == true){
+					//fine riga
+					this.stanze.get(numeroStanza1).setCollegamenti(collegamento, this.stanze.get(numeroStanza2));
+					this.stanze.get(numeroStanza1).coloraPorta(collegamento);
+					this.stanze.get(numeroStanza2).setCollegamenti(getInversaCollegamento(collegamento), this.stanze.get(numeroStanza1));
+					this.stanze.get(numeroStanza2).coloraPorta(getInversaCollegamento(collegamento));
+					rigaInLettura = false;
+					contatore = 0;
+				}
+				if(rigaInLettura){
+					if(contatore==1){
+						numeroStanza1=getNumber(c);
 					}
-					if(rigaValida){
-						if(contatore==1){
-							numeroStanza1=Integer.parseInt(c+"");
-						}
-						if(contatore==2){
-							collegamento=generaCollegamento(c);
-						}
-						if(contatore==3){
-							numeroStanza2=Integer.parseInt(c+"");
-						}
-						contatore++;
+					if(contatore==2){
+						collegamento=generaCollegamento(c);
 					}
-					if(c=='<'){
-						rigaValida = true;
-						contatore = 1;
+					if(contatore==3){
+						numeroStanza2=getNumber(c);
 					}
+					contatore++;
+				}
+				if(c=='<'){
+					//inizio riga
+					rigaInLettura = true;
+					contatore = 1;
 				}
 			}
 		}
+
+	}
+	
+	public int getNumber(char c) {
+		if(c=='0') return 0;
+		if(c=='1') return 1;
+		if(c=='2') return 2;
+		if(c=='3') return 3;
+		if(c=='4') return 4;
+		if(c=='5') return 5;
+		if(c=='6') return 6;
+		if(c=='7') return 7;
+		if(c=='8') return 8;
+		if(c=='9') return 9;
+		if(c=='a') return 10;
+		if(c=='b') return 11;
+		if(c=='c') return 12;
+		if(c=='d') return 13;
+		if(c=='e') return 14;
+		if(c=='f') return 15;
+		if(c=='g') return 16;
+		if(c=='h') return 17;
+		if(c=='i') return 18;
+		if(c=='j') return 19;
+		if(c=='k') return 20;
+		if(c=='l') return 21;
+		if(c=='m') return 22;
+		if(c=='n') return 23;
+		if(c=='o') return 24;
+		if(c=='p') return 25;
+		if(c=='q') return 26;
+		if(c=='r') return 27;
+		if(c=='s') return 28;
+		if(c=='t') return 29;
+		if(c=='u') return 30;
+		if(c=='v') return 31;
+		if(c=='w') return 32;
+		if(c=='x') return 33;
+		if(c=='y') return 34;
+		if(c=='z') return 35;
+		return 36;
 	}
 
 	private String getInversaCollegamento(String collegamento) {
@@ -176,7 +235,7 @@ public class Mappa {
 		return null;
 	}
 
-	// prendi una stanza casuale e ritornamela se è libera
+	// prendi una stanza casuale e ritornamela se ï¿½ libera
 	public Stanza getStanzaCasualeLibera_controlloSuStanzaSingolaCasuale() {
 		int nr = (int)(Math.random()*codGenStanze);
 		Stanza tempStanza = stanze.get(nr);

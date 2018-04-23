@@ -5,7 +5,7 @@ public interface Costanti {
 	static final public int TEMPO_BASE = 83; // 12 fps	
 
 	public static final int DIMENSIONE_STANZA_DEFAULT = 40;
-	public static final int NUMERO_STANZE_DEFAULT = 8;
+	//public static final int NUMERO_STANZE_DEFAULT = 8;
 	public static final double RAPPORTO_DIMENSIONE_SCHERMO = 0.9; // 90% del lato minimo
 	
 	public static final String EST = "est";
@@ -37,8 +37,8 @@ public interface Costanti {
 	public static final int VITA_SERPENTE_DEFAULT = 8;
 	static final public int VITA_SERPENTE_MASSIMA = 40;
 	
-	static final public int QTA_CIBO_TESTA_SERPENTE = 4; // 4 unità cibo
-	static final public int QTA_CIBO_BASE = 1; // 1 unità cibo
+	static final public int QTA_CIBO_TESTA_SERPENTE = 4; // 4 unitï¿½ cibo
+	static final public int QTA_CIBO_BASE = 1; // 1 unitï¿½ cibo
 	static final public int MOLTIPLICATORE_PUNTEGGIO_CIBO = 10;
 	static final public int TEMPO_RIPOPOLAMENTO_CIBO = 50; // 5 sec
 	
