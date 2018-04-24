@@ -67,6 +67,7 @@ public class Main {
 		long tempoKernel;
 		long tempoInizioAlgoritmo = System.currentTimeMillis(); 
 		long oraDiRipresa = tempoInizioAlgoritmo;
+		long tempoPreScheduler;
 
 		while(true) {
 			// sistema anti-lag
@@ -111,12 +112,13 @@ public class Main {
 			
 			tempoAlgoritmo = System.currentTimeMillis() - tempoInizioAlgoritmo;
 			aspettaPer = oraDiRipresa - System.currentTimeMillis();
+			tempoPreScheduler = System.currentTimeMillis();
 			if (aspettaPer>0) {
 				LP.waitFor(aspettaPer);
 			} else {
 				System.out.println("lag detected!");
 			}
-			tempoKernel = System.currentTimeMillis() - tempoAlgoritmo;
+			tempoKernel = System.currentTimeMillis() - tempoPreScheduler - aspettaPer;
 			if(tempoAlgoritmo>1||tempoKernel>1) {
 				System.out.println("ritardo del Kernel: " + tempoKernel + " \t tempo algoritmo: "+ tempoAlgoritmo +"/"+TEMPO_BASE+"ms \t cpu usage: " +(int)((tempoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
 			}
