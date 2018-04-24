@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import supporto.PathSeparator;
+import supporto.OSdetector;
 import supporto.Utility;
 
 import LukePack.LP;
@@ -49,7 +49,7 @@ public class Mappa {
 		while(continua) {
 			Stanza nuovaStanza = new Stanza(this.codGenStanze);
 			try {
-			nuovaStanza.CaricaFile("stanze"+PathSeparator.get()+"stanza-"+codGenStanze+".txt");
+			nuovaStanza.CaricaFile("stanze"+OSdetector.getPathSeparator()+"stanza-"+codGenStanze+".txt");
 			stanze.put(codGenStanze, nuovaStanza);
 			codGenStanze++;
 			}catch (Exception e) {
@@ -61,11 +61,11 @@ public class Mappa {
 		
 		for(codGenStanze=0;codGenStanze<this.dimensione;codGenStanze++){
 			Stanza nuovaStanza = new Stanza(this.codGenStanze);
-			nuovaStanza.CaricaFile("stanze"+PathSeparator.get()+"stanza-"+codGenStanze+".txt");
+			nuovaStanza.CaricaFile("stanze"+OSdetector.getPathSeparator()+"stanza-"+codGenStanze+".txt");
 			stanze.put(codGenStanze, nuovaStanza);
 		}
 
-		String strutturaMappa = LP.readFile("mappe"+PathSeparator.get()+nomeMappa+".txt");
+		String strutturaMappa = LP.readFile("mappe"+OSdetector.getPathSeparator()+nomeMappa+".txt");
 		ArrayList<Character> listaCaratteri = new ArrayList<Character>();
 		listaCaratteri.addAll(Utility.stringaToArray(strutturaMappa));
 		boolean rigaInLettura = false;

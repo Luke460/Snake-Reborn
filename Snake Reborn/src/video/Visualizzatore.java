@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import game.Partita;
+import supporto.OSdetector;
 import supporto.Utility;
 import terrenoDiGioco.Casella;
 
@@ -21,7 +22,7 @@ public class Visualizzatore extends JPanel {
 	static final private long serialVersionUID = 0L;
 
 	static final public int VK_HEARTBEAT = VK_SHIFT; // meglio un tasto "innocuo"
-	
+
 	final private Partita partita;
 	int dimensioneCasella;
 	final private JFrame finestra;
@@ -34,7 +35,13 @@ public class Visualizzatore extends JPanel {
 		finestra.setBackground(Color.BLACK);
 		this.dimensioneCasella = calcolaDimensioneCasellaMassima();
 		// AGGIUNTE LE DIMENSIONI DEI BORDI DELLE FINESRE
-		finestra.setSize((int)(6+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (32+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
+
+		if(OSdetector.isWindows()) {
+			finestra.setSize((int)(15+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (37+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
+		} else {
+			finestra.setSize((int)(6+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (32+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
+		}
+		
 		finestra.setVisible(true);
 		//jframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		finestra.setLocationRelativeTo(null);
@@ -59,7 +66,7 @@ public class Visualizzatore extends JPanel {
 		riportaStatisticheSullaFinestra(partita.getPunteggioPlayer1());
 	}
 
-	
+
 	private void riportaStatisticheSullaFinestra(long punteggio) {
 		this.finestra.setTitle( " Avversari: " + (this.partita.getNumeroDiSerpenti()-1)+ 
 				"        Uccisioni: " + this.partita.getSerpenti().get(NOME_PLAYER_1).getNumeroUccisioni() +
@@ -67,7 +74,7 @@ public class Visualizzatore extends JPanel {
 				"        Punteggio: " + punteggio +
 				"        Tempo: " + (int)(this.partita.getSerpenti().get(NOME_PLAYER_1).getTempoSopravvissuto()/1000));
 	}
-	
+
 	private void disegnaStanza(Graphics g) {
 		for (Casella c : this.partita.getSerpentePlayer1().getCasellaDiTesta().getStanza().getCaselle().values()) {
 			disegnaCasella(g, c);
@@ -91,28 +98,28 @@ public class Visualizzatore extends JPanel {
 	}
 
 	private void disegnaCasellaNormale(Graphics g, int dimC, int gx, int gy) {
-		
+
 		g.fill3DRect(   gx,  gy,   dimC-1, dimC-1, true);
 		g.fillRoundRect(gx+2,gy+2, dimC-4, dimC-4, 2, 2 );
-		
+
 	}
-	
+
 	private void disegnaCasellaInRilievo(Graphics g, int dimC, int gx, int gy) {
-		
+
 		g.fill3DRect(   gx,  gy,   dimC-1, dimC-1, true);
 		g.fillRoundRect(gx+2,gy+2, dimC-4, dimC-4, 2, 2 );
 		g.fill3DRect(   gx+3,gy+3, dimC-7, dimC-7, true );
-		
+
 	}
-	
+
 	private void disegnaCasellaTesta(Graphics g, int dimC, int gx, int gy) {
-		
+
 		g.fill3DRect(   gx,  gy,   dimC-1, dimC-1, true);
 		g.fillRoundRect(gx+2,gy+2, dimC-4, dimC-4, 2, 2 );
 		Color nuovoColore = g.getColor().darker();
 		g.setColor(nuovoColore);
 		g.fill3DRect(   gx+2,gy+2, dimC-6, dimC-6, true );
-		
+
 	}
 
 	public Partita getPartita() {

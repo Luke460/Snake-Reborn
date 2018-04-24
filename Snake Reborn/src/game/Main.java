@@ -58,11 +58,18 @@ public class Main {
 		LP.waitFor(1000);
 		GestoreSuoni.playSpawnSound();
 		int contaCicli=0;
+		
+		//Thread.currentThread().setPriority(6);
+		//Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+		//System.out.println("Priority"+Thread.currentThread().getPriority());
+		long tempoInizioAlgoritmo = System.currentTimeMillis(); 
+		long oraDiRipresa = tempoInizioAlgoritmo;
 
 		while(true) {
 			// sistema anti-lag
-			long tempoInizioAlgoritmo = System.currentTimeMillis(); 
-
+			tempoInizioAlgoritmo = oraDiRipresa;
+			oraDiRipresa = tempoInizioAlgoritmo + TEMPO_BASE;
+ 
 			contaCicli++;
 
 			if((contaCicli%TEMPO_RIPOPOLAMENTO_CIBO)==0){
@@ -84,12 +91,25 @@ public class Main {
 			visualizzatore.repaint(); // lo metto dopo in modo che il giocatore ha
 			//100 ms per reagire
 
-			// sistema anti-lag
+			/* sistema anti-lag
 			long tempoFineAlgoritmo = System.currentTimeMillis();
 			long ritardoAlgoritmo = tempoFineAlgoritmo-tempoInizioAlgoritmo;
-			//if(ritardoAlgoritmo>1) System.out.println("ritardo compensato: "+ritardoAlgoritmo+"/"+TEMPO_BASE+"ms \t cpu usage: " + (int)((ritardoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
+			if(ritardoAlgoritmo>1) System.out.println("ritardo compensato: "+ritardoAlgoritmo+"/"+TEMPO_BASE+"ms \t cpu usage: " + (int)((ritardoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
+			
 			if(TEMPO_BASE-(ritardoAlgoritmo)>0){
+				// motivo del lag: il processo viene messo in pausa e alla fine del 
+				// waitfor ritorna ready, ma deve comunque essere schedulato!!!
 				LP.waitFor(TEMPO_BASE-(ritardoAlgoritmo));
+			} else {
+				System.out.println("lag detected!");
+			}
+			*/
+			
+			long aspettaPer = oraDiRipresa - System.currentTimeMillis();
+			if (aspettaPer>0) {
+				LP.waitFor(aspettaPer);
+			} else {
+				System.out.println("lag detected!");
 			}
 		}
 	}
