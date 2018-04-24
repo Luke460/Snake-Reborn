@@ -62,11 +62,15 @@ public class Main {
 		//Thread.currentThread().setPriority(6);
 		//Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 		//System.out.println("Priority"+Thread.currentThread().getPriority());
+		long aspettaPer;
+		long tempoAlgoritmo;
+		long tempoKernel;
 		long tempoInizioAlgoritmo = System.currentTimeMillis(); 
 		long oraDiRipresa = tempoInizioAlgoritmo;
 
 		while(true) {
 			// sistema anti-lag
+			// oraDiRipresa è relativa al ciclo precedente
 			tempoInizioAlgoritmo = oraDiRipresa;
 			oraDiRipresa = tempoInizioAlgoritmo + TEMPO_BASE;
  
@@ -105,11 +109,16 @@ public class Main {
 			}
 			*/
 			
-			long aspettaPer = oraDiRipresa - System.currentTimeMillis();
+			tempoAlgoritmo = System.currentTimeMillis() - tempoInizioAlgoritmo;
+			aspettaPer = oraDiRipresa - System.currentTimeMillis();
 			if (aspettaPer>0) {
 				LP.waitFor(aspettaPer);
 			} else {
 				System.out.println("lag detected!");
+			}
+			tempoKernel = System.currentTimeMillis() - tempoAlgoritmo;
+			if(tempoAlgoritmo>1||tempoKernel>1) {
+				System.out.println("ritardo del Kernel: " + tempoKernel + " \t tempo algoritmo: "+ tempoAlgoritmo +"/"+TEMPO_BASE+"ms \t cpu usage: " +(int)((tempoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
 			}
 		}
 	}
