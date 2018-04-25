@@ -57,6 +57,7 @@ public class Visualizzatore extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		//Thread.currentThread().setPriority(6);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella);
 		for (Casella c : this.partita.getSerpentePlayer1().getCasellaDiTesta().getStanza().getCaselle().values()) {

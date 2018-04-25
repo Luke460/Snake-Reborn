@@ -13,7 +13,6 @@ import java.awt.AWTException;
 import LukePack.LP;
 import audio.GestoreSuoni;
 import gestoreComandi.GestoreComandi;
-import gestoreComandi.LettoreComandi;
 import popolatori.PopolatoreCibo;
 import popolatori.PopolatoreSerpenti;
 import video.Visualizzatore;
@@ -68,17 +67,18 @@ public class Main {
 		//Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 		//System.out.println("Priority"+Thread.currentThread().getPriority());
 		long aspettaPer;
-		long tempoAlgoritmo;
-		long tempoKernel;
-		long tempoInizioAlgoritmo = System.currentTimeMillis(); 
-		long oraDiRipresa = tempoInizioAlgoritmo;
-		long tempoPreScheduler;
+		//long tempoAlgoritmo;
+		//long tempoKernel;
+		long oraInizioAlgoritmo = System.currentTimeMillis(); 
+		long oraProgrammataDiRipresa = oraInizioAlgoritmo;
+		//long oraPreScheduler;
+		long oraCorrente;
 
 		while(true) {
 			// sistema anti-lag
 			// oraDiRipresa è relativa al ciclo precedente
-			tempoInizioAlgoritmo = oraDiRipresa;
-			oraDiRipresa = tempoInizioAlgoritmo + TEMPO_BASE;
+			oraInizioAlgoritmo = oraProgrammataDiRipresa;
+			oraProgrammataDiRipresa = oraInizioAlgoritmo + TEMPO_BASE;
  
 			contaCicli++;
 
@@ -115,15 +115,16 @@ public class Main {
 			}
 			*/
 			
-			tempoAlgoritmo = System.currentTimeMillis() - tempoInizioAlgoritmo;
-			aspettaPer = oraDiRipresa - System.currentTimeMillis();
-			tempoPreScheduler = System.currentTimeMillis();
+			oraCorrente = System.currentTimeMillis();
+			aspettaPer = oraProgrammataDiRipresa - oraCorrente;
+			//tempoAlgoritmo = oraCorrente - oraInizioAlgoritmo;
+			//oraPreScheduler = oraCorrente;
 			if (aspettaPer>0) {
 				LP.waitFor(aspettaPer);
 			} else {
 				System.out.println("lag detected!");
 			}
-			tempoKernel = System.currentTimeMillis() - tempoPreScheduler - aspettaPer;
+			//tempoKernel = System.currentTimeMillis() - oraPreScheduler - aspettaPer;
 			//if(tempoAlgoritmo>1||tempoKernel>1) {
 			//	System.out.println("ritardo del Kernel: " + tempoKernel + " \t tempo algoritmo: "+ tempoAlgoritmo +"/"+TEMPO_BASE+"ms \t cpu usage: " +(int)((tempoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
 			//}
