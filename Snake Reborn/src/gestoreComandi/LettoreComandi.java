@@ -11,6 +11,7 @@ import static java.awt.event.KeyEvent.VK_W;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Queue;
 
 import javax.swing.JFrame;
 
@@ -23,7 +24,7 @@ public class LettoreComandi {
 	public JFrame finestra;
 
 
-	public static void initControlliDaTastiera(Visualizzatore visualizzatore) {
+	public static void initControlliDaTastiera(Visualizzatore visualizzatore, Queue<Character> sequenzaComandi) {
 
 		// Gestione eventi associati alla tastiera
 		visualizzatore.getFinestra().addKeyListener(new KeyListener() {
@@ -33,31 +34,38 @@ public class LettoreComandi {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case VK_ENTER:
-					GestoreComandi.resuscitaPlayer1(visualizzatore.getPartita());
+					//GestoreComandi.resuscitaPlayer1();
+					sequenzaComandi.add('i');
 					break;
 				case VK_LEFT:
-					GestoreComandi.turnLeftP1(visualizzatore.getPartita());
+					//GestoreComandi.turnLeftP1();
+					sequenzaComandi.add('l');
 					break;
 				case VK_RIGHT:
-					GestoreComandi.turnRightP1(visualizzatore.getPartita());
+					//GestoreComandi.turnRightP1();
+					sequenzaComandi.add('r');
 					break;
 				case VK_W:
-					GestoreComandi.goUpP1(visualizzatore.getPartita());
+					//GestoreComandi.goUpP1();
+					sequenzaComandi.add('w');
 					break;
 				case VK_S:
-					GestoreComandi.goDownP1(visualizzatore.getPartita());
+					//GestoreComandi.goDownP1();
+					sequenzaComandi.add('s');
 					break;
 				case VK_A:
-					GestoreComandi.goLeftP1(visualizzatore.getPartita());
+					//GestoreComandi.goLeftP1();
+					sequenzaComandi.add('a');
 					break;
 				case VK_D:
-					GestoreComandi.goRightP1(visualizzatore.getPartita());
+					//GestoreComandi.goRightP1();
+					sequenzaComandi.add('d');
 					break;
 				case VK_ESCAPE:
-					GestoreComandi.gameOver(visualizzatore.getPartita());
+					//GestoreComandi.gameOver();
+					sequenzaComandi.add('e');
 					break;
 				}
-				//repaint();
 			}
 			@Override
 			public void keyReleased(KeyEvent e) {}

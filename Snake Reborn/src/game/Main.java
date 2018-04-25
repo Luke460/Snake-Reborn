@@ -12,6 +12,7 @@ import java.awt.AWTException;
 
 import LukePack.LP;
 import audio.GestoreSuoni;
+import gestoreComandi.GestoreComandi;
 import gestoreComandi.LettoreComandi;
 import popolatori.PopolatoreCibo;
 import popolatori.PopolatoreSerpenti;
@@ -31,7 +32,11 @@ public class Main {
 	public static void avviaIlGioco() throws AWTException {
 		partita.ImpostaPartita();
 		visualizzatore = new Visualizzatore(partita);
-		LettoreComandi.initControlliDaTastiera(visualizzatore);
+		// lancia un thread che legge i comandi, 
+		// SuppressWarnings perchè il compilatore e' stupido
+		GestoreComandi gestoreComandi = new GestoreComandi(partita,visualizzatore);
+		partita.setGestoreComandi(gestoreComandi);
+		//LettoreComandi.initControlliDaTastiera(visualizzatore);
 		GestoreSuoni.inizzializzaSuoni();
 
 		GestoreSuoni.playMusicaInLoop();
@@ -119,9 +124,9 @@ public class Main {
 				System.out.println("lag detected!");
 			}
 			tempoKernel = System.currentTimeMillis() - tempoPreScheduler - aspettaPer;
-			if(tempoAlgoritmo>1||tempoKernel>1) {
-				System.out.println("ritardo del Kernel: " + tempoKernel + " \t tempo algoritmo: "+ tempoAlgoritmo +"/"+TEMPO_BASE+"ms \t cpu usage: " +(int)((tempoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
-			}
+			//if(tempoAlgoritmo>1||tempoKernel>1) {
+			//	System.out.println("ritardo del Kernel: " + tempoKernel + " \t tempo algoritmo: "+ tempoAlgoritmo +"/"+TEMPO_BASE+"ms \t cpu usage: " +(int)((tempoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
+			//}
 		}
 	}
 

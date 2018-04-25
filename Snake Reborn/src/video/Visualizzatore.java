@@ -57,14 +57,15 @@ public class Visualizzatore extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		//g.setColor(Color.black);
-		//g.fillRect(0, 0, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella);
+		g.setColor(Color.black);
+		g.fillRect(0, 0, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella);
 		for (Casella c : this.partita.getSerpentePlayer1().getCasellaDiTesta().getStanza().getCaselle().values()) {
 			if(!c.isVuota()) {
 				disegnaCasella(g, c);
-			} else {
-				svuotaCasella(g,c);
 			}
+			//else {
+			//	svuotaCasella(g,c);
+			//}
 		}
 		//disegnaStanza(g);
 		riportaStatisticheSullaFinestra(partita.getPunteggioPlayer1());
@@ -78,12 +79,13 @@ public class Visualizzatore extends JPanel {
 				"        Punteggio: " + punteggio +
 				"        Tempo: " + (int)(this.partita.getSerpenti().get(NOME_PLAYER_1).getTempoSopravvissuto()/1000));
 	}
-
+/*
 	private void disegnaStanza(Graphics g) {
 		for (Casella c : this.partita.getSerpentePlayer1().getCasellaDiTesta().getStanza().getCaselle().values()) {
 			disegnaCasella(g, c);
 		}
 	}
+*/
 
 	private void disegnaCasella(Graphics g, Casella casella) {
 		final int posX = casella.getPosizione().getX();
@@ -99,7 +101,7 @@ public class Visualizzatore extends JPanel {
 			disegnaCasellaNormale(g, dimensioneCasella, gx, gy);
 		}
 	}
-	
+/*	
 	private void svuotaCasella(Graphics g, Casella casella) {
 		final int posX = casella.getPosizione().getX();
 		final int posY = casella.getPosizione().getY();
@@ -107,7 +109,7 @@ public class Visualizzatore extends JPanel {
 		g.setColor(Color.black);
 		g.fillRect(gx, gy, dimensioneCasella, dimensioneCasella);
 	}
-
+*/
 	private void disegnaCasellaNormale(Graphics g, int dimC, int gx, int gy) {
 
 		g.fill3DRect(   gx,  gy,   dimC-1, dimC-1, true);

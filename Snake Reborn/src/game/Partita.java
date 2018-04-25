@@ -2,8 +2,10 @@ package game;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Queue;
 
 import audio.GestoreSuoni;
+import gestoreComandi.GestoreComandi;
 import gestorePunteggi.GestorePunteggi;
 import serpenti.Serpente;
 import serpenti.SerpenteBotEasy;
@@ -28,6 +30,7 @@ public class Partita {
 	private UserLocal userLocal;
 	private boolean ospite;
 	private Client client;
+	private GestoreComandi gestoreComandi;
 
 	public Partita(){
 		GestorePunteggi.inizializza(this);
@@ -64,7 +67,7 @@ public class Partita {
 		}
 	}
 
-	// metodi try: solo se si trova una stanza casuale che è anche libera
+	// metodi try: solo se si trova una stanza casuale che ï¿½ anche libera
 	public void inserisciBotVeloce(String classe){
 		Stanza stanza = this.mappa.getStanzaCasualeLibera_controlloSuStanzaSingolaCasuale();
 		if(stanza!=null){
@@ -82,6 +85,7 @@ public class Partita {
 	}
 
 	public void eseguiTurni() {
+		this.gestoreComandi.eseguiComando();
 		Iterator<Serpente> iteratore = this.getSerpenti().values().iterator();	
 		while(iteratore.hasNext()){
 			Serpente s = iteratore.next();
@@ -92,7 +96,7 @@ public class Partita {
 				iteratore.remove();
 			}
 		}
-		ilGiocatoreHaFattoLaMossa = false;
+		//ilGiocatoreHaFattoLaMossa = false;
 	}
 	
 	public Serpente getSerpentePlayer1(){
@@ -200,4 +204,9 @@ public class Partita {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+	
+	public void setGestoreComandi(GestoreComandi g) {
+		this.gestoreComandi = g;
+	}
+	
 }
