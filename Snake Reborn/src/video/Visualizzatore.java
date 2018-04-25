@@ -57,12 +57,16 @@ public class Visualizzatore extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella);
+		//g.setColor(Color.black);
+		//g.fillRect(0, 0, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella);
 		for (Casella c : this.partita.getSerpentePlayer1().getCasellaDiTesta().getStanza().getCaselle().values()) {
-			disegnaCasella(g, c);
+			if(!c.isVuota()) {
+				disegnaCasella(g, c);
+			} else {
+				svuotaCasella(g,c);
+			}
 		}
-		disegnaStanza(g);
+		//disegnaStanza(g);
 		riportaStatisticheSullaFinestra(partita.getPunteggioPlayer1());
 	}
 
@@ -86,15 +90,22 @@ public class Visualizzatore extends JPanel {
 		final int posY = casella.getPosizione().getY();
 		final Color colore = Pittore.getColore(casella.getStato());
 		g.setColor(colore);
-		int dimC = dimensioneCasella;
-		int gx = posX*dimC, gy = posY*dimC;
+		int gx = posX*dimensioneCasella, gy = posY*dimensioneCasella;
 		if(casella.getStato()==CARATTERE_CASELLA_PORTALE){
-			disegnaCasellaInRilievo(g, dimC, gx, gy);
+			disegnaCasellaInRilievo(g, dimensioneCasella, gx, gy);
 		} else if(casella.isTestaDiSerpente()){
-			disegnaCasellaTesta(g, dimC, gx, gy);
+			disegnaCasellaTesta(g, dimensioneCasella, gx, gy);
 		} else {
-			disegnaCasellaNormale(g, dimC, gx, gy);
+			disegnaCasellaNormale(g, dimensioneCasella, gx, gy);
 		}
+	}
+	
+	private void svuotaCasella(Graphics g, Casella casella) {
+		final int posX = casella.getPosizione().getX();
+		final int posY = casella.getPosizione().getY();
+		int gx = posX*dimensioneCasella, gy = posY*dimensioneCasella;
+		g.setColor(Color.black);
+		g.fillRect(gx, gy, dimensioneCasella, dimensioneCasella);
 	}
 
 	private void disegnaCasellaNormale(Graphics g, int dimC, int gx, int gy) {
