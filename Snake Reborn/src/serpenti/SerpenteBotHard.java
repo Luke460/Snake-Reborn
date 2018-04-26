@@ -27,7 +27,8 @@ public class SerpenteBotHard extends Serpente {
 		direzioneAlternativaSX.ruotaSX();
 
 		// se davanti c'e' un ostacolo... (serve per evitare cappi)
-		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).isMortale()){
+		if(this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).isMortale()||
+				this.getCasellaDiTesta().getCasellaAdiacente(direzioneDritta).isPozzo(direzioneDritta)){
 			//...tento di andare nella direzione opposta all'ultima presa
 			if(this.ultimaSterzata=='d'){
 				if(!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaSX).isMortale()){
@@ -72,7 +73,7 @@ public class SerpenteBotHard extends Serpente {
 			return;
 		}
 		
-		// se davanti di n caselle c'è cibo vado dritto
+		// se davanti di n caselle c'ï¿½ cibo vado dritto
 		Casella PrimaCasella = this.getCasellaDiTesta();
 		int numeroDiCaselleDaControllareDritto = 40;
 		int numeroDiCaselleDaControllareLaterale = 40;
@@ -99,7 +100,7 @@ public class SerpenteBotHard extends Serpente {
 			super.Sposta(direzioneDritta);
 			return;
 		}
-		// priorità dx
+		// prioritï¿½ dx
 		if(Utility.veroAl(50)){
 			if(!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).isMortale()){
 				super.Sposta(direzioneAlternativaDX);

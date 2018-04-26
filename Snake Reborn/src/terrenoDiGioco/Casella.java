@@ -139,4 +139,11 @@ public class Casella  {
 			return this.getSerpente().isTesta(this);
 		} else return false;
 	}
+
+	public boolean isPozzo(Direzione direzione) {
+		if(this.getCasellaAdiacente(direzione).isMortale() &&
+				this.getCasellaAdiacente(direzione.getDirezioneDX()).isMortale() &&
+				this.getCasellaAdiacente(direzione.getInversa()).isMortale()) return true;
+		return false;
+	}
 }
