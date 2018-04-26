@@ -44,13 +44,6 @@ public class Main {
 
 	public static void avviaClient(Partita partita) {
 		new VisualizzatoreClient(partita);
-		// l'utente inserisce i dati e clicca su Accedi
-		// String errNome = null;
-		// String errPassword = null;
-		// boolean tuttoOk;
-		// tuttoOk = ClasseEsterna.metodoHttp(nomeUtente, password, errNome, errPassword);
-		// la classe esterna fornisce metodi per leggere il record del profilo ed eventualmente
-		// inviare il nuovo
 	}
 
 
@@ -120,6 +113,11 @@ public class Main {
 			//tempoAlgoritmo = oraCorrente - oraInizioAlgoritmo;
 			//oraPreScheduler = oraCorrente;
 			if (aspettaPer>0) {
+				// doppio repaint per migliorare la fluidità 
+				// (altrimenti il kernel mi congela il processo tacci sua)
+				LP.waitFor(aspettaPer/2);
+				visualizzatore.repaint();
+				aspettaPer = oraProgrammataDiRipresa - oraCorrente;
 				LP.waitFor(aspettaPer);
 			} else {
 				System.out.println("lag detected!");
