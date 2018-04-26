@@ -141,6 +141,7 @@ public class Casella  {
 	}
 
 	public boolean isPozzo(Direzione direzione) {
+		if(this.isMortale()) return false;
 		if(this.getCasellaAdiacente(direzione).isMortale() &&
 				this.getCasellaAdiacente(direzione.getDirezioneDX()).isMortale() &&
 				this.getCasellaAdiacente(direzione.getInversa()).isMortale()) return true;
