@@ -56,11 +56,9 @@ public class VisualizzatoreClient extends JFrame{
 	Partita partita;
 	Client client;
 
-	public VisualizzatoreClient(Partita partita){
+	public VisualizzatoreClient(){
 		super("Snake Reborn");
-		this.partita = partita;
 		client = new Client();
-		partita.setClient(client);
 		creaPannelli();
 		sistemaPannelli();
 		preimpostaPannelli();
@@ -73,18 +71,13 @@ public class VisualizzatoreClient extends JFrame{
 
 		regolaFinestra();
 
+
+	}
+	
+	public void rileggi(Partita partita) {
+		this.partita = partita;
+		partita.setClient(client);
 		this.premuto = false;
-		while(!premuto ){ // viene "sbloccato dal Listener" (busy waiting)
-			LP.waitFor(250); // 4 volte al secondo
-		}
-
-		leggiImpostazioni();
-
-		try {
-			Main.avviaIlGioco();
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void regolaFinestra() {
@@ -102,7 +95,7 @@ public class VisualizzatoreClient extends JFrame{
 		accedi.addActionListener(listener);
 	}
 
-	private void leggiImpostazioni() {
+	public void leggiImpostazioni() {
 		GestoreSuoni.setEffettiAbilitati(opzEffetti.isSelected());
 		GestoreSuoni.setMusicaAbilitata(opzMusica.isSelected());
 		partita.setLivello(selettoreLivello.getSelectedIndex()+1);
@@ -197,11 +190,7 @@ public class VisualizzatoreClient extends JFrame{
 	public String getPassword() {
 		return this.password;
 	}
-
-	public void chiudiFinestra() {
-
-	}
-
+	
 	public boolean isPremuto() {
 		return premuto;
 	}

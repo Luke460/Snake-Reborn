@@ -8,8 +8,8 @@ import terrenoDiGioco.Stanza;
 
 public class SerpenteBotEasy extends Serpente {
 
-	public SerpenteBotEasy(String nome, Stanza stanza) {
-		super(nome, stanza);
+	public SerpenteBotEasy(String nome, Stanza stanza, int vitaIniziale) {
+		super(nome, stanza, vitaIniziale);
 		for(Casella c:this.getCaselle()){
 			c.setStato(CARATTERE_CASELLA_BOT_EASY);		
 		}
@@ -54,7 +54,7 @@ public class SerpenteBotEasy extends Serpente {
 			return;
 		}
 		
-		// priorità dx
+		// prioritï¿½ dx
 		if(Utility.veroAl(50)){
 			
 			if(!this.getCasellaDiTesta().getCasellaAdiacente(direzioneAlternativaDX).isMortale()){

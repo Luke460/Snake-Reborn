@@ -74,4 +74,8 @@ Carica le melodie in memoria.
 		this.clip.setFramePosition(0); // Riavvolgi il suono.
 		this.clip.loop(clip.LOOP_CONTINUOUSLY);     // Esegui il suono.
 	}
+	
+	public void fermaClip() {
+		this.clip.stop();
+	}
 }

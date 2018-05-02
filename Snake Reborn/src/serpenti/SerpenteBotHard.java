@@ -10,8 +10,8 @@ public class SerpenteBotHard extends Serpente {
 
 	private char ultimaSterzata;
 
-	public SerpenteBotHard(String nome, Stanza stanza) {
-		super(nome, stanza);
+	public SerpenteBotHard(String nome, Stanza stanza, int vitaIniziale) {
+		super(nome, stanza, vitaIniziale);
 		ultimaSterzata = '0';
 		for(Casella c:this.getCaselle()){
 			c.setStato(CARATTERE_CASELLA_BOT_HARD);		

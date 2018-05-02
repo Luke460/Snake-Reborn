@@ -24,13 +24,28 @@ public class Main {
 	private static Visualizzatore visualizzatore;
 
 	public static void main(String[] args){
-		partita = new Partita();
-		avviaClient(partita);
+		VisualizzatoreClient client = new VisualizzatoreClient();
+		visualizzatore = new Visualizzatore();
+		while(true) {
+			partita = new Partita();
+			client.rileggi(partita);
+			visualizzatore.setPartita(partita);
+			while(!client.isPremuto()){ // viene "sbloccato dal Listener" (busy waiting)
+				LP.waitFor(250); // 4 volte al secondo
+			}
+			try {
+				client.leggiImpostazioni();
+				visualizzatore.getFinestra().setVisible(true);
+				avviaIlGioco();
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+			visualizzatore.getFinestra().setVisible(false);
+		}
 	}
 
 	public static void avviaIlGioco() throws AWTException {
 		partita.ImpostaPartita();
-		visualizzatore = new Visualizzatore(partita);
 		// lancia un thread che legge i comandi, 
 		// SuppressWarnings perchè il compilatore e' stupido
 		GestoreComandi gestoreComandi = new GestoreComandi(partita,visualizzatore);
@@ -40,13 +55,8 @@ public class Main {
 
 		GestoreSuoni.playMusicaInLoop();
 		cominciaIlGioco(partita);
+		GestoreSuoni.silenziaMusica();
 	}
-
-	public static void avviaClient(Partita partita) {
-		new VisualizzatoreClient(partita);
-	}
-
-
 
 	private static void cominciaIlGioco(Partita partita) throws AWTException {
 		PopolatoreSerpenti.creaPopoloIniziale(partita);
@@ -55,7 +65,7 @@ public class Main {
 		LP.waitFor(1000);
 		GestoreSuoni.playSpawnSound();
 		int contaCicli=0;
-		
+
 		//Thread.currentThread().setPriority(6);
 		//Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 		//System.out.println("Priority"+Thread.currentThread().getPriority());
@@ -67,18 +77,18 @@ public class Main {
 		//long oraPreScheduler;
 		long oraCorrente;
 
-		while(true) {
+		while(partita.isInGame()) {
 			// sistema anti-lag
 			// oraDiRipresa è relativa al ciclo precedente
 			oraInizioAlgoritmo = oraProgrammataDiRipresa;
 			oraProgrammataDiRipresa = oraInizioAlgoritmo + TEMPO_BASE;
- 
+
 			contaCicli++;
 
 			if((contaCicli%TEMPO_RIPOPOLAMENTO_CIBO)==0){
 				PopolatoreCibo.aggiungiCiboRandom(partita.getMappa());
 			}
-			
+
 			if(partita.getFattorePopolazione()==1){
 				if((contaCicli%(TEMPO_RIPOPOLAMENTO_SERPENTI_BASSO)==0) && partita.getNumeroDiSerpenti()<=LIMITE_SERPENTI_BASSO){
 					PopolatoreSerpenti.provaAdInserireUnSerpente(partita);
@@ -98,7 +108,7 @@ public class Main {
 			long tempoFineAlgoritmo = System.currentTimeMillis();
 			long ritardoAlgoritmo = tempoFineAlgoritmo-tempoInizioAlgoritmo;
 			if(ritardoAlgoritmo>1) System.out.println("ritardo compensato: "+ritardoAlgoritmo+"/"+TEMPO_BASE+"ms \t cpu usage: " + (int)((ritardoAlgoritmo*1.0/TEMPO_BASE*1.0)*100)+"%");
-			
+
 			if(TEMPO_BASE-(ritardoAlgoritmo)>0){
 				// motivo del lag: il processo viene messo in pausa e alla fine del 
 				// waitfor ritorna ready, ma deve comunque essere schedulato!!!
@@ -106,8 +116,8 @@ public class Main {
 			} else {
 				System.out.println("lag detected!");
 			}
-			*/
-			
+			 */
+
 			oraCorrente = System.currentTimeMillis();
 			aspettaPer = oraProgrammataDiRipresa - oraCorrente;
 			//tempoAlgoritmo = oraCorrente - oraInizioAlgoritmo;

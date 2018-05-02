@@ -9,8 +9,8 @@ import terrenoDiGioco.Stanza;
 
 public class SerpenteGiocatore extends Serpente {
 
-	public SerpenteGiocatore(String nome, Stanza stanza) {
-		super(nome, stanza);
+	public SerpenteGiocatore(String nome, Stanza stanza, int vitaIniziale) {
+		super(nome, stanza, vitaIniziale);
 		for(Casella c:this.getCaselle()){
 			c.setStato(CARATTERE_CASELLA_PLAYER1);		
 		}

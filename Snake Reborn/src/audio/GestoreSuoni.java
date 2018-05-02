@@ -58,4 +58,9 @@ public class GestoreSuoni {
 		musicaAbilitata = b;
 	}
 
+	public static void silenziaMusica() {
+		suonoMusic.fermaClip();
+		
+	}
+
 }

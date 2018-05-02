@@ -23,12 +23,11 @@ public class Visualizzatore extends JPanel {
 
 	static final public int VK_HEARTBEAT = VK_SHIFT; // meglio un tasto "innocuo"
 
-	final private Partita partita;
+	private Partita partita;
 	int dimensioneCasella;
 	final private JFrame finestra;
 
-	public Visualizzatore(final Partita partita) {
-		this.partita = partita;
+	public Visualizzatore() {
 		this.finestra = new JFrame("Snake Reborn");		
 		finestra.add(this);
 		finestra.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -42,10 +41,14 @@ public class Visualizzatore extends JPanel {
 			finestra.setSize((int)(6+(DIMENSIONE_STANZA_DEFAULT)*this.dimensioneCasella), (int) (32+(DIMENSIONE_STANZA_DEFAULT)*dimensioneCasella));
 		}
 		
-		finestra.setVisible(true);
+		//finestra.setVisible(true);
 		//jframe.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		finestra.setLocationRelativeTo(null);
 
+	}
+	
+	public void setPartita(Partita partita) {
+		this.partita = partita;
 	}
 
 	private int calcolaDimensioneCasellaMassima() {

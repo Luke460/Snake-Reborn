@@ -2,7 +2,6 @@ package game;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Queue;
 
 import audio.GestoreSuoni;
 import gestoreComandi.GestoreComandi;
@@ -16,6 +15,7 @@ import server.client.Client;
 import terrenoDiGioco.Mappa;
 import terrenoDiGioco.Stanza;
 import static supporto.Costanti.*;
+import supporto.Utility;
 
 public class Partita {
 
@@ -31,6 +31,7 @@ public class Partita {
 	private boolean ospite;
 	private Client client;
 	private GestoreComandi gestoreComandi;
+	private boolean inGame;
 
 	public Partita(){
 		GestorePunteggi.inizializza(this);
@@ -38,7 +39,7 @@ public class Partita {
 		this.serpenti = new HashMap<String,Serpente>();
 		this.mappa = new Mappa("mappa-1");
 		this.numerettoPerSerpentiBot = 0;
-		// this.mappa.riempi();
+		this.inGame = true;
 	}
 
 	public void ImpostaPartita() {
@@ -46,7 +47,7 @@ public class Partita {
 		if(!ospite)this.vecchioRecord = GestorePunteggi.getRecord();
 		Stanza stanzaCasuale = this.mappa.getStanzaCasualeLibera_controlloSuTutteLeStanze();
 		this.nomePlayer1 = NOME_PLAYER_1;
-		Serpente serpentePlayer1 = new SerpenteGiocatore(this.nomePlayer1, stanzaCasuale);
+		Serpente serpentePlayer1 = new SerpenteGiocatore(this.nomePlayer1, stanzaCasuale, VITA_SERPENTE_DEFAULT);
 		this.serpenti.put(this.nomePlayer1, serpentePlayer1);
 
 	}
@@ -56,11 +57,11 @@ public class Partita {
 		if(stanza!=null){
 			Serpente bot = null;
 			if(classe.equals(SerpenteBotEasy.class.getSimpleName())){
-				bot = new SerpenteBotEasy("bot"+numerettoPerSerpentiBot, stanza);
+				bot = new SerpenteBotEasy("bot"+numerettoPerSerpentiBot, stanza,VITA_SERPENTE_DEFAULT);
 			} else if(classe.equals(SerpenteBotMedium.class.getSimpleName())){
-				bot = new SerpenteBotMedium("bot"+numerettoPerSerpentiBot, stanza);
+				bot = new SerpenteBotMedium("bot"+numerettoPerSerpentiBot, stanza, VITA_SERPENTE_DEFAULT);
 			} else if(classe.equals(SerpenteBotHard.class.getSimpleName())){
-				bot = new SerpenteBotHard("bot"+numerettoPerSerpentiBot, stanza);
+				bot = new SerpenteBotHard("bot"+numerettoPerSerpentiBot, stanza, VITA_SERPENTE_DEFAULT);
 			}
 			this.serpenti.put("bot"+numerettoPerSerpentiBot, bot);
 			numerettoPerSerpentiBot++;
@@ -73,11 +74,11 @@ public class Partita {
 		if(stanza!=null){
 			Serpente bot = null;
 			if(classe.equals(SerpenteBotEasy.class.getSimpleName())){
-				bot = new SerpenteBotEasy("bot"+numerettoPerSerpentiBot, stanza);
+				bot = new SerpenteBotEasy("bot"+numerettoPerSerpentiBot, stanza,VITA_SERPENTE_DEFAULT);
 			} else if(classe.equals(SerpenteBotMedium.class.getSimpleName())){
-				bot = new SerpenteBotMedium("bot"+numerettoPerSerpentiBot, stanza);
+				bot = new SerpenteBotMedium("bot"+numerettoPerSerpentiBot, stanza, VITA_SERPENTE_DEFAULT);
 			} else if(classe.equals(SerpenteBotHard.class.getSimpleName())){
-				bot = new SerpenteBotHard("bot"+numerettoPerSerpentiBot, stanza);
+				bot = new SerpenteBotHard("bot"+numerettoPerSerpentiBot, stanza, VITA_SERPENTE_DEFAULT);
 			}
 			this.serpenti.put("bot"+numerettoPerSerpentiBot, bot);
 			numerettoPerSerpentiBot++;
@@ -112,7 +113,7 @@ public class Partita {
 	}
 
 	public void gameOver() {
-		System.exit(-1);		
+		this.inGame = false;
 	}
 
 	public Mappa getMappa() {
@@ -127,13 +128,15 @@ public class Partita {
 		Serpente p1 = this.serpenti.get(NOME_PLAYER_1);
 		if(p1.isMorto()){
 			GestoreSuoni.playSpawnSound();
+			int vecchiaVita = p1.getHP();
+			int vitaResurrezione = Utility.massimoTra(3,(int)(vecchiaVita/2.0));
 			Stanza stanzaP1 = p1.getStanza();
 			Stanza stanzaAlternativa = this.mappa.getStanzaCasualeLibera_controlloSuTutteLeStanze();
 			if(stanzaAlternativa!=null){
 				stanzaP1 = stanzaAlternativa;
 			}
 			this.serpenti.remove(NOME_PLAYER_1);
-			Serpente serpenteGiocatore1 = new SerpenteGiocatore(NOME_PLAYER_1, stanzaP1);
+			Serpente serpenteGiocatore1 = new SerpenteGiocatore(NOME_PLAYER_1, stanzaP1, vitaResurrezione);
 			this.serpenti.put(NOME_PLAYER_1, serpenteGiocatore1);
 		}
 	}
@@ -207,6 +210,14 @@ public class Partita {
 	
 	public void setGestoreComandi(GestoreComandi g) {
 		this.gestoreComandi = g;
+	}
+
+	public boolean isInGame() {
+		return inGame;
+	}
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
 	}
 	
 }

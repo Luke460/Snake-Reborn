@@ -24,7 +24,7 @@ public abstract class Serpente {
 	private long istanteDiNascita;
 	private long tempoSopravvivenza;
 
-	public Serpente(String nome, Stanza stanza) {
+	public Serpente(String nome, Stanza stanza, int vitaIniziale) {
 		this.nome=nome;
 		this.isVivo=true;
 		this.ciboPreso=0;
@@ -40,16 +40,17 @@ public abstract class Serpente {
 		this.setCaselle(new LinkedList<Casella>());
 		Casella primaCasella = stanza.getCaselle().get(posizionePrimaCasella);
 		this.setCasellaDiTesta(primaCasella);
+		//lo stato verrà sovrascritto dai creatori specializzati
 		primaCasella.setStato(CARATTERE_CASELLA_PLAYER1);
 		primaCasella.setSerpente(this);
-		int vitaCasella = VITA_SERPENTE_DEFAULT;
+		int vitaCasella = vitaIniziale;
 		primaCasella.setVita(vitaCasella);
 		this.getCaselle().add(primaCasella);
 
 		// creo le altre caselle del serpente
 
 		Casella casellaPrecedente = primaCasella;
-		for(int i=0; i<VITA_SERPENTE_DEFAULT-1; i++){
+		for(int i=0; i<vitaIniziale-1; i++){
 			Casella casella = stanza.getCasellaAdiacente(direzioneCreazioneCaselle, casellaPrecedente);
 			casella.setStato(CARATTERE_CASELLA_PLAYER1);
 			casella.setSerpente(this);
