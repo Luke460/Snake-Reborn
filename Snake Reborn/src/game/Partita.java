@@ -128,8 +128,8 @@ public class Partita {
 		Serpente p1 = this.serpenti.get(NOME_PLAYER_1);
 		if(p1.isMorto()){
 			GestoreSuoni.playSpawnSound();
-			int vecchiaVita = p1.getHP();
-			int vitaResurrezione = Utility.massimoTra(3,(int)(vecchiaVita/2.0));
+			int vecchiaVita = p1.getHpPreMorte();
+			int vitaResurrezione = Utility.massimoTra(VITA_SERPENTE_DEFAULT,(int)(vecchiaVita/2.0));
 			Stanza stanzaP1 = p1.getStanza();
 			Stanza stanzaAlternativa = this.mappa.getStanzaCasualeLibera_controlloSuTutteLeStanze();
 			if(stanzaAlternativa!=null){

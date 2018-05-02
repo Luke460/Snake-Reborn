@@ -37,9 +37,11 @@ public class SerpenteGiocatore extends Serpente {
 		super.incrementaVitaSerpente(qta);
 	}
 	
+	@Override
 	public void muori(){
 		GestoreSuoni.playExplodeSound();
 		GestorePunteggi.inviaPunteggio();
+		super.setHpPreMorte(this.getCasellaDiTesta().getVita());
 		super.rilasciaCibo();
 		super.getCaselle().clear();
 		super.SetIsVivo(false);

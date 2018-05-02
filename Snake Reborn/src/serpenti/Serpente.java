@@ -23,8 +23,10 @@ public abstract class Serpente {
 	private int numeroUccisioni;
 	private long istanteDiNascita;
 	private long tempoSopravvivenza;
+	private int hpPreMorte;
 
 	public Serpente(String nome, Stanza stanza, int vitaIniziale) {
+		this.hpPreMorte = 0;
 		this.nome=nome;
 		this.isVivo=true;
 		this.ciboPreso=0;
@@ -142,6 +144,14 @@ public abstract class Serpente {
 		}
 	}
 
+	public int getHpPreMorte() {
+		return hpPreMorte;
+	}
+
+	public void setHpPreMorte(int hpPreMorte) {
+		this.hpPreMorte = hpPreMorte;
+	}
+
 	public void setCasellaDiTesta(Casella nuovaCasella) {
 		this.casellaDiTesta = nuovaCasella;
 	}
@@ -150,6 +160,7 @@ public abstract class Serpente {
 		controllaUccisione();
 		rilasciaCibo();
 		this.isVivo = false;
+		hpPreMorte = this.getCasellaDiTesta().getVita();
 	}
 
 	private void controllaUccisione() {
