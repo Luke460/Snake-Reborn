@@ -63,6 +63,7 @@ public class Visualizzatore extends JPanel {
 		//Thread.currentThread().setPriority(6);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella, DIMENSIONE_STANZA_DEFAULT*dimensioneCasella);
+		//g.drawString
 		for (Casella c : this.partita.getSerpentePlayer1().getCasellaDiTesta().getStanza().getCaselle().values()) {
 			if(!c.isVuota()) {
 				disegnaCasella(g, c);
