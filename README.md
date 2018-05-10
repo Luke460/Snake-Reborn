@@ -1,6 +1,6 @@
 
 ---
-* ## [Download page](https://github.com/Luke460/Snake-Reborn/releases)
+* ## [Download game](https://github.com/Luke460/Snake-Reborn/releases)
 ---
 
 # *Snake Reborn* 
