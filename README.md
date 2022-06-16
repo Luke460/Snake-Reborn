@@ -9,7 +9,7 @@
 
 ---
 
-![alt text](https://github.com/Luke460/Snake-Reborn/blob/master/demo.giff)
+![alt text](https://github.com/Luke460/Snake-Reborn/blob/master/demo.gif)
 
 ---
 
