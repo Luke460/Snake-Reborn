@@ -1,5 +1,8 @@
 
-# *Snake Reborn* 
+# *Snake Reborn* - (old repository)
+(A new [Repository](https://github.com/Luke460/Snake-Reborn-2) is available)
+
+---
 
 ![alt text](https://github.com/Luke460/Snake-Reborn/blob/master/Snake_Reborn_Icon.png)
 
