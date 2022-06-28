@@ -1,5 +1,8 @@
 
 # *Snake Reborn* - (old repository)
+
+**OLD REPOSITORY!!!**
+
 (A new [Repository](https://github.com/Luke460/Snake-Reborn-2) is available)
 
 ---
